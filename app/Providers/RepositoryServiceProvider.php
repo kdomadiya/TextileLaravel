@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Schema;
 use Laravel\Cashier\Cashier;
 use App\Interfaces\UserRoleRepositoryInterface;
 use App\Repositories\UserRoleRepository;
+use App\Interfaces\GroupRepositoryInterface;
+use App\Repositories\GroupRepository;
 class RepositoryServiceProvider extends ServiceProvider
 {
     /**
@@ -16,6 +18,7 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(UserRoleRepositoryInterface::class, UserRoleRepository::class);
+        $this->app->bind(GroupRepositoryInterface::class, GroupRepository::class);
     }
     /**
      * Bootstrap any application services.

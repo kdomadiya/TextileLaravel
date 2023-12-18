@@ -34,38 +34,62 @@ class UserRoleController extends Controller
 
     public function store(UserRoleCreateRequest $request)
     {
-        dd("hello");
         $data = $request->only($this->field);
-        $data['password'] = bcrypt($data['password']);
-        $user = $this->userRepository->create($data);
-        if (!$user) {
-            return response()->json(['error' => 'User not found'], Response::HTTP_NOT_FOUND);
+        // $data['password'] = bcrypt($data['password']);
+        $userRole = $this->userRepository->create($data);
+        if (!$userRole) {
+            return response()->json(['error' => 'User Role not found'], Response::HTTP_NOT_FOUND);
         }
         return response()->json(['data' => $user], Response::HTTP_CREATED);
     }
-
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Country  $country
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $userRole = $this->userRoleRepository->getById($id);
+        if (!$userRole) {
+            return response()->json(['error' => 'User Role not found'], Response::HTTP_NOT_FOUND);
+        }
+        return response()->json(['data' => $userRole], Response::HTTP_OK);
+    }
     public function edit($id)
     {
         $userRole = $this->userRoleRepository->find($id);
         return view('user.role.edit', compact('userRole'));
     }
-
-    public function update(Request $request, $id)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\CompanyUpdateRequest  $request
+     * @param  \App\Models\Company  $country
+     * @return \Illuminate\Http\Response
+     */
+    public function update(CompanyUpdateRequest $request, $id)
     {
-        $request->validate([
-            'title' => 'required',
-            'content' => 'required',
-        ]);
-
-        $this->userRoleRepository->update($id, $request->all());
-
-        return redirect()->route('user.role.index')->with('success', 'Post updated successfully');
+        $userRole = $this->userRoleRepository->getById($id);
+        if (!$userRole) {
+            return response()->json(['error' => 'User Role not found'], Response::HTTP_NOT_FOUND);
+        }
+        $userRole = $request->only($this->field);
+        return response()->json(['data' => $this->userRoleRepository->update($userRole, $id)], Response::HTTP_OK);
     }
-
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Company  $company
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
-        $this->userRoleRepository->delete($id);
-
-        return redirect()->route('user.role.index')->with('success', 'Post deleted successfully');
+        // $company = $request->only($this->field);
+        $userRole = $this->userRoleRepository->getById($id);
+        if (!$userRole) {
+            return response()->json(['error' => 'User Role not found'], Response::HTTP_NOT_FOUND);
+        }
+        return response()->json(['data' => $this->userRoleRepository->delete($id)], Response::HTTP_NO_CONTENT);
     }
 }
