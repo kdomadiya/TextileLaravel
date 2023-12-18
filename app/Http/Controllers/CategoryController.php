@@ -7,7 +7,7 @@ use App\Http\Requests\CategoryCreateRequest;
 use App\Http\Requests\CategoryUpdateRequest;
 use App\Repository\CategoryRepository;
 use App\Models\Category;
-use App\Interfaces\CategoryInterface;
+use App\Interfaces\CategoryRepositoryInterface;
 
 class CategoryController extends Controller
 {

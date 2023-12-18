@@ -7,7 +7,7 @@ use App\Http\Requests\GroupCreateRequest;
 use App\Http\Requests\GroupUpdateRequest;
 use App\Repository\GroupRepository;
 use App\Models\Group;
-use App\Interfaces\GroupInterface;
+use App\Interfaces\GroupRepositoryInterface;
 
 class GroupController extends Controller
 {

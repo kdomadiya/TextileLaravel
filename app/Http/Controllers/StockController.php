@@ -7,12 +7,12 @@ use App\Http\Requests\StockCreateRequest;
 use App\Http\Requests\StockUpdateRequest;
 use App\Repository\StockRepository;
 use App\Models\Stock;
-use App\Interfaces\StockInterface;
+use App\Interfaces\StockRepositoryInterface;
 
 class StockController extends Controller
 {
     protected StockRepository $stockRepository;
-    private $field = ['id', 'category_id', 'name','amount','opening_stock','description','batch_number','expiry_date'];
+    private $field = ['id', 'product_id','amount','date','particular','type'];
 
     public function __construct(StockRepository $stockRepository)
     {
@@ -65,11 +65,11 @@ class StockController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\ProductUpdateRequest  $request
-     * @param  \App\Models\Product  $product
+     * @param  \App\Http\Requests\StockUpdateRequest  $request
+     * @param  \App\Models\Stock  $stock
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductUpdateRequest $request, $id)
+    public function update(StockUpdateRequest $request, $id)
     {
         $stock = $this->stockRepository->getById($id);
         if (!$stock) {

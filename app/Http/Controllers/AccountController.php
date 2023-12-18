@@ -7,7 +7,7 @@ use App\Http\Requests\AccountCreateRequest;
 use App\Http\Requests\AccountUpdateRequest;
 use App\Repository\AccountRepository;
 use App\Models\Account;
-use App\Interfaces\AccountInterface;
+use App\Interfaces\AccountRepositoryInterface;
 
 class AccountController extends Controller
 {

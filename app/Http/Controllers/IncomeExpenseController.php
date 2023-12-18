@@ -7,7 +7,7 @@ use App\Http\Requests\IncomeExpenseCreateRequest;
 use App\Http\Requests\IncomeExpenseUpdateRequest;
 use App\Repository\IncomeExpenseRepository;
 use App\Models\IncomeExpense;
-use App\Interfaces\IncomeExpenseInterface;
+use App\Interfaces\IncomeExpenseRepositoryInterface;
 
 class IncomeExpenseController extends Controller
 {

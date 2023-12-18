@@ -7,7 +7,7 @@ use App\Http\Requests\UserRoleCreateRequest;
 use App\Http\Requests\UserRoleUpdateRequest;
 use App\Repository\UserRoleRepository;
 use App\Models\UserRole;
-use App\Interfaces\CompanyRepositoryInterface;
+use App\Interfaces\UserRoleRepositoryInterface;
 class UserRoleController extends Controller
 {
     protected UserRoleRepository $userRoleRepository;

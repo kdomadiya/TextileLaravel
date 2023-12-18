@@ -7,7 +7,7 @@ use App\Http\Requests\ProductCreateRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Repository\ProductRepository;
 use App\Models\Product;
-use App\Interfaces\ProductInterface;
+use App\Interfaces\ProductRepositoryInterface;
 
 class ProductController extends Controller
 {
@@ -46,7 +46,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -57,6 +57,7 @@ class ProductController extends Controller
         }
         return response()->json(['data' => $product], Response::HTTP_OK);
     }
+    
     public function edit($id)
     {
         $product = $this->productRepository->find($id);
