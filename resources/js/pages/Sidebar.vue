@@ -42,7 +42,88 @@
           <ul>
           <!-- Dashboards -->
           <li class="menu-item">
-            <router-link to="/group">Group</router-link>
+            <router-link class="menu-link menu-toggle" to="/group">
+              <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
+                <div data-i18n="Group">Group</div>
+              </router-link>
+            <!-- <router-link to="/account">Account</router-link> -->
+          </li>
+          <li class="menu-item">
+            <router-link class="menu-link menu-toggle" to="/account">
+              <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
+                <div data-i18n="Account">Account</div>
+              </router-link>
+            <!-- <router-link to="/account">Account</router-link> -->
+          </li>
+          <li class="menu-item">
+            <router-link class="menu-link menu-toggle" to="/category">
+              <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
+                <div data-i18n="Layouts">Category</div>
+              </router-link>
+            <!-- <router-link to="/account">Account</router-link> -->
+          </li>
+          <li class="menu-item">
+            <router-link class="menu-link menu-toggle" to="/income-expense">
+              <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
+                <div data-i18n="Layouts">Income Expense</div>
+              </router-link>
+            <!-- <router-link to="/account">Account</router-link> -->
+          </li>
+          <li class="menu-item">
+            <router-link class="menu-link menu-toggle" to="/order">
+              <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
+                <div data-i18n="Layouts">Order</div>
+              </router-link>
+            <!-- <router-link to="/account">Account</router-link> -->
+          </li>
+          <li class="menu-item">
+            <router-link class="menu-link menu-toggle" to="/orderItem">
+              <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
+                <div data-i18n="Layouts">Order Item</div>
+              </router-link>
+            <!-- <router-link to="/account">Account</router-link> -->
+          </li>
+          <li class="menu-item">
+            <router-link class="menu-link menu-toggle" to="/product">
+              <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
+                <div data-i18n="Layouts">Product</div>
+              </router-link>
+            <!-- <router-link to="/account">Account</router-link> -->
+          </li>
+          <li class="menu-item">
+            <router-link class="menu-link menu-toggle" to="/stock">
+              <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
+                <div data-i18n="Layouts">Stock</div>
+              </router-link>
+            <!-- <router-link to="/account">Account</router-link> -->
+          </li>
+          <li class="menu-item">
+            <router-link class="menu-link menu-toggle" to="/store">
+              <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
+                <div data-i18n="Layouts">Store</div>
+              </router-link>
+            <!-- <router-link to="/account">Account</router-link> -->
+          </li>
+          <li class="menu-item">
+            <router-link class="menu-link menu-toggle" to="/store-order">
+              <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
+                <div data-i18n="Layouts">Store Order</div>
+              </router-link>
+            <!-- <router-link to="/account">Account</router-link> -->
+          </li>
+          <li class="menu-item">
+            <router-link class="menu-link menu-toggle" to="/user">
+              <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
+                <div data-i18n="Layouts">User</div>
+              </router-link>
+            <!-- <router-link to="/account">Account</router-link> -->
+          </li>
+          <li class="menu-item">
+            <router-link class="menu-link menu-toggle" to="/user-role">
+              <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
+                <div data-i18n="Layouts">User Role</div>
+              </router-link>
+            <!-- <router-link to="/account">Account</router-link> -->
           </li>
           </ul>
         </aside>
