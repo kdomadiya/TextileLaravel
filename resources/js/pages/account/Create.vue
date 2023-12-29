@@ -596,15 +596,15 @@ export default {
     methods: {
         create() {
             // console.warn(this.menu)
-            axios.post('http://127.0.0.1:8000/api/group', this.group).then(response => {
-                this.$router.push({ name: "group.index" })
+            axios.post('http://127.0.0.1:8000/api/account', this.group).then(response => {
+                this.$router.push({ name: "account.index" })
             }).catch(error => {
                 console.log(error)
             })
         },
         getgroups() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/group').then(response => {
+            axios.get('http://127.0.0.1:8000/api/account').then(response => {
                 this.groups = response.data.data
                 console.log(this.groups)
             }).catch(error => {

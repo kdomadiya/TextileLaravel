@@ -595,7 +595,7 @@ export default {
     },
    methods:{
            showGroup(){
-                   axios.get(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`).then(response=>{
+                   axios.get(`http://127.0.0.1:8000/api/account/${this.$route.params.id}`).then(response=>{
                       const {p_id,name,status} = response.data.data
                       this.group.p_id = p_id
                       this.group.name = name
@@ -605,37 +605,21 @@ export default {
                   })
               },
                update(){
-                  axios.post(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`,this.group).then(response=>{
-                      this.$router.push({name:"group.index"})
+                  axios.post(`http://127.0.0.1:8000/api/account/${this.$route.params.id}`,this.group).then(response=>{
+                      this.$router.push({name:"account.index"})
                   }).catch(error=>{
                       console.log(error)
                   })
               },
-                handleSubmit(e) {
-                this.submitted = true;
-                this.$v.$touch();
-                if (this.$v.$invalid) {
-                    Swal.fire({
-                      position: 'top-end',
-                      icon: 'error',
-                      title: 'Oops....<br> Something went wrong!',
-                      showConfirmButton: false,
-                      timer: 2000,
-                    })
-                  return;
-                  }
-                  Swal.fire({
-                      position: 'top-end',
-                      icon: 'success',
-                      title: 'Your work has been updated',
-                      showConfirmButton: false,
-                      timer: 1500,
-                    })
-                  this.update()
-            },
+            //     handleSubmit(e) {
+            //     this.submitted = true;
+            //     this.$v.$touch();
+                
+            //       this.update()
+            // },
             getGroupfetch() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/group').then(response => {
+            axios.get('http://127.0.0.1:8000/api/account').then(response => {
                 this.groups = response.data.data
                 console.log(this.groups)
             }).catch(error => {
