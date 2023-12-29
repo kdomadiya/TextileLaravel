@@ -1,5 +1,4 @@
 <template>
-   
 <!-- BEGIN: Main Menu-->
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
@@ -43,11 +42,10 @@
           <ul>
           <!-- Dashboards -->
           <li class="menu-item">
-            <a href="{{ route('admin.user.list.index') }}" class="menu-link">
-              <div data-i18n="Manage Reviews">User</div>
-            </a>
+            <router-link to="/group">Group</router-link>
           </li>
           </ul>
         </aside>
+        
 <!-- END: Main Menu-->
 </template>

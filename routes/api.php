@@ -18,3 +18,4 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+Route::resource('/group','App\Http\Controllers\GroupController', ['names' => 'group']);

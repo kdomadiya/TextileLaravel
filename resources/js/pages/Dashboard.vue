@@ -1176,6 +1176,7 @@
                 <!--/ Projects table -->
               </div>
             </div>
+            <router-view></router-view>
             <Footer></Footer>
             <div class="content-backdrop fade"></div>
           </div>

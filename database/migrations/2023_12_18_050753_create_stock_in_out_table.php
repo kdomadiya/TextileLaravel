@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('amount');
             $table->date('date')->nullable();
             $table->string('particular');
-            $table->boolean('type')->default('Buy');
+            $table->boolean('type')->default('1');
             $table->timestamps();
         });
     }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('store_id')->references('id')->on('store');
             $table->unsignedBigInteger('order_id')->nullable();
             $table->foreign('order_id')->references('id')->on('order');
-            $table->boolean('status')->default('Buy');
+            $table->boolean('status')->default('1');
             $table->string('data_synced');
             $table->timestamps();
         });

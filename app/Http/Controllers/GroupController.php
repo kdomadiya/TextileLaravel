@@ -22,6 +22,7 @@ class GroupController extends Controller
     public function index(Request $request)
     {
         $data = $this->groupRepository->get($request->limit, $request->page, $request->search, $request->order_by, $request->order, $request->columns);
+        // dd($data);
         if (!$data) {
             return response()->json(['error' => 'Records not found'], Response::HTTP_NOT_FOUND);
         }
@@ -33,8 +34,9 @@ class GroupController extends Controller
         return view('user.role.create');
     }
 
-    public function store(UserRoleCreateRequest $request)
+    public function store(GroupCreateRequest $request)
     {
+        // dd($request);
         $data = $request->only($this->field);
         // $data['password'] = bcrypt($data['password']);
         $group = $this->groupRepository->create($data);
@@ -51,6 +53,7 @@ class GroupController extends Controller
      */
     public function show($id)
     {
+        // dd($id);
         $group = $this->groupRepository->getById($id);
         if (!$group) {
             return response()->json(['error' => 'User Role not found'], Response::HTTP_NOT_FOUND);
@@ -65,11 +68,11 @@ class GroupController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\CompanyUpdateRequest  $request
-     * @param  \App\Models\Company  $country
+     * @param  \App\Http\Requests\GroupUpdateRequest  $request
+     * @param  \App\Models\Group  $group
      * @return \Illuminate\Http\Response
      */
-    public function update(CompanyUpdateRequest $request, $id)
+    public function update(GroupUpdateRequest $request, $id)
     {
         $group = $this->groupRepository->getById($id);
         if (!$group) {
@@ -88,6 +91,7 @@ class GroupController extends Controller
     {
         // $company = $request->only($this->field);
         $group = $this->groupRepository->getById($id);
+        // dd($group);
         if (!$group) {
             return response()->json(['error' => 'Group not found'], Response::HTTP_NOT_FOUND);
         }

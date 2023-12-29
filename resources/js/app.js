@@ -8,6 +8,9 @@ import './bootstrap';
 import { createApp } from 'vue';
 import router  from './router';
 import App from './App.vue'
+import VueAxios from 'vue-axios'
+import axios from 'axios'
+
 // import VueRouter from 'vue-router';
 
 /**
@@ -17,7 +20,7 @@ import App from './App.vue'
  */
 
 const app = createApp(App);
-app.use(router);
+app.use(router,VueAxios, axios);
 // import ExampleComponent from './components/ExampleComponent.vue';
 // app.component('example-component', ExampleComponent);
 
@@ -40,3 +43,4 @@ app.use(router);
  */
 
 app.mount('#app');
+axios.defaults.baseURL = 'http://localhost:8000/';
