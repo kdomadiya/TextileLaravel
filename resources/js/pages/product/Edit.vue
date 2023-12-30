@@ -526,27 +526,45 @@
                                     <div class="card-body">
                                         <form @submit.prevent="update">
                                             <div class="mb-3">
-                                                <label class="form-label" for="basic-default-fullname">Parents</label>
+                                                <label class="form-label" for="basic-default-fullname">Category</label>
                                                 <!-- <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe"> -->
                                                 <select class="form-control select2" name="p_id"
-                                                aria-label="Default select example" v-model="group.p_id">
-                                                <option>Open this select Country</option>
-                                                <option v-for="group in groups" :value="group.id">
-                                                    {{ group.name }}
-                                                </option>
-                                            </select>
+                                                    aria-label="Default select example" v-model="product.category_id">
+                                                    <option selected>Open this select BlogCategory</option>
+                                                    <option v-for="category in categories" :value="category.id">
+                                                        {{ category.name }}
+                                                    </option>
+                                                </select>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label" for="basic-default-company">Name</label>
-                                                <input v-model="group.name" type="text" class="form-control" id="title"
+                                                <input v-model="product.name" type="text" class="form-control" id="name"
                                                     name="name" placeholder="Enter Group Name">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="status" class="form-label">Status</label>
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" v-model="group.status" value="1" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                                                <label class="form-check-label" for="flexSwitchCheckChecked" checked>On/Off</label>
+                                                <label class="form-label" for="amount">Amount</label>
+                                                <input v-model="product.amount" type="text" class="form-control" id="amount"
+                                                    name="amount" placeholder="Enter Group Name">
                                             </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="opening_stock">Opening Stock</label>
+                                                <input v-model="product.opening_stock" type="text" class="form-control" id="opening_stock"
+                                                    name="opening_stock" placeholder="Enter Group Name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="description">Description</label>
+                                                <input v-model="product.description" type="text" class="form-control" id="description"
+                                                    name="description" placeholder="Enter Group Name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="batch_number">Batch Number</label>
+                                                <input v-model="product.batch_number" type="text" class="form-control" id="batch_number"
+                                                    name="batch_number" placeholder="Enter Group Name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="expiry_date">Expiry Date</label>
+                                                <input v-model="product.expiry_date" type="date" class="form-control" id="expiry_date"
+                                                    name="expiry_date" placeholder="Enter Group Name">
                                             </div>
                                                 <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
                                         </form>
@@ -579,14 +597,18 @@ export default {
     components: { Sidebar, Footer },
   data() {
     return {
-        group:{
-          p_id: null,
-          name: null,
-          status: null,
-          _method:"PUT"
-          },
+        product: {
+                category_id: null,
+                name: null,
+                amount: null,
+                opening_stock: null,
+                description: null,
+                batch_number: null,
+                expiry_date: null,
+                _method:"PUT"
+            },
             submitted: false,
-            groups: null
+            categories: null
        }
     }, 
         mounted() {
@@ -595,49 +617,52 @@ export default {
     },
    methods:{
            showGroup(){
-                   axios.get(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`).then(response=>{
-                      const {p_id,name,status} = response.data.data
-                      this.group.p_id = p_id
-                      this.group.name = name
-                      this.group.status = status
+                   axios.get(`http://127.0.0.1:8000/api/products/${this.$route.params.id}`).then(response=>{
+                      const {category_id,name,amount,opening_stock,description,batch_number,expiry_date} = response.data.data
+                      this.product.category_id = category_id
+                      this.product.name = name
+                      this.product.amount = amount
+                      this.product.opening_stock = opening_stock
+                      this.product.description = description
+                      this.product.batch_number = batch_number
+                      this.product.expiry_date = expiry_date
                   }).catch(error=>{
                       console.log(error)
                   })
               },
                update(){
-                  axios.post(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`,this.group).then(response=>{
-                      this.$router.push({name:"group.index"})
+                  axios.post(`http://127.0.0.1:8000/api/products/${this.$route.params.id}`,this.product).then(response=>{
+                      this.$router.push({name:"product.index"})
                   }).catch(error=>{
                       console.log(error)
                   })
               },
-                handleSubmit(e) {
-                this.submitted = true;
-                this.$v.$touch();
-                if (this.$v.$invalid) {
-                    Swal.fire({
-                      position: 'top-end',
-                      icon: 'error',
-                      title: 'Oops....<br> Something went wrong!',
-                      showConfirmButton: false,
-                      timer: 2000,
-                    })
-                  return;
-                  }
-                  Swal.fire({
-                      position: 'top-end',
-                      icon: 'success',
-                      title: 'Your work has been updated',
-                      showConfirmButton: false,
-                      timer: 1500,
-                    })
-                  this.update()
-            },
+            //     handleSubmit(e) {
+            //     this.submitted = true;
+            //     this.$v.$touch();
+            //     if (this.$v.$invalid) {
+            //         Swal.fire({
+            //           position: 'top-end',
+            //           icon: 'error',
+            //           title: 'Oops....<br> Something went wrong!',
+            //           showConfirmButton: false,
+            //           timer: 2000,
+            //         })
+            //       return;
+            //       }
+            //       Swal.fire({
+            //           position: 'top-end',
+            //           icon: 'success',
+            //           title: 'Your work has been updated',
+            //           showConfirmButton: false,
+            //           timer: 1500,
+            //         })
+            //       this.update()
+            // },
             getGroupfetch() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/group').then(response => {
-                this.groups = response.data.data
-                console.log(this.groups)
+            axios.get('http://127.0.0.1:8000/api/category').then(response => {
+                this.categories = response.data.data
             }).catch(error => {
                 console.log(error)
             })

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('amount');
             $table->unsignedBigInteger('opening_stock');
-            $table->unsignedBigInteger('description');
+            $table->text('description');
             $table->unsignedBigInteger('batch_number');
             $table->date('expiry_date')->nullable();
             $table->timestamps();

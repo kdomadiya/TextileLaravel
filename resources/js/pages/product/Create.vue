@@ -526,29 +526,47 @@
                                     <div class="card-body">
                                         <form @submit.prevent="create">
                                             <div class="mb-3">
-                                                <label class="form-label" for="basic-default-fullname">Parents</label>
+                                                <label class="form-label" for="basic-default-fullname">Category</label>
                                                 <!-- <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe"> -->
                                                 <select class="form-control select2" name="p_id"
-                                                    aria-label="Default select example" v-model="group.p_id">
+                                                    aria-label="Default select example" v-model="product.category_id">
                                                     <option selected>Open this select BlogCategory</option>
-                                                    <option v-for="group in groups" :value="group.id">
-                                                        {{ group.name }}
+                                                    <option v-for="category in categories" :value="category.id">
+                                                        {{ category.name }}
                                                     </option>
                                                 </select>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label" for="basic-default-company">Name</label>
-                                                <input v-model="group.name" type="text" class="form-control" id="title"
+                                                <input v-model="product.name" type="text" class="form-control" id="name"
                                                     name="name" placeholder="Enter Group Name">
                                             </div>
                                             <div class="mb-3">
-                    <label for="status" class="form-label">Status</label>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" v-model="group.status" value="A" type="checkbox" name="status" role="switch" id="flexSwitchCheckChecked" checked>
-                    <label class="form-check-label" for="flexSwitchCheckChecked">On/Off</label>
-                  </div>
-                  </div>
-                    <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
+                                                <label class="form-label" for="amount">Amount</label>
+                                                <input v-model="product.amount" type="text" class="form-control" id="amount"
+                                                    name="amount" placeholder="Enter Group Name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="opening_stock">Opening Stock</label>
+                                                <input v-model="product.opening_stock" type="text" class="form-control" id="opening_stock"
+                                                    name="opening_stock" placeholder="Enter Group Name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="description">Description</label>
+                                                <input v-model="product.description" type="text" class="form-control" id="description"
+                                                    name="description" placeholder="Enter Group Name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="batch_number">Batch Number</label>
+                                                <input v-model="product.batch_number" type="text" class="form-control" id="batch_number"
+                                                    name="batch_number" placeholder="Enter Group Name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="expiry_date">Expiry Date</label>
+                                                <input v-model="product.expiry_date" type="date" class="form-control" id="expiry_date"
+                                                    name="expiry_date" placeholder="Enter Group Name">
+                                            </div>
+                                                <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
                                         </form>
                                     </div>
                                 </div>
@@ -580,12 +598,16 @@ export default {
     components: { Sidebar, Footer },
     data() {
         return {
-            group: {
-                p_id: null,
+            product: {
+                category_id: null,
                 name: null,
-                status: null,
+                amount: null,
+                opening_stock: null,
+                description: null,
+                batch_number: null,
+                expiry_date: null,
             },
-            groups: null,
+            categories: null,
             submitted: false
         }
     },
@@ -596,16 +618,16 @@ export default {
     methods: {
         create() {
             // console.warn(this.menu)
-            axios.post('http://127.0.0.1:8000/api/group', this.group).then(response => {
-                this.$router.push({ name: "group.index" })
+            axios.post('http://127.0.0.1:8000/api/products', this.product).then(response => {
+                this.$router.push({ name: "product.index" })
             }).catch(error => {
                 console.log(error)
             })
         },
         getgroups() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/group').then(response => {
-                this.groups = response.data.data
+            axios.get('http://127.0.0.1:8000/api/category').then(response => {
+                this.categories = response.data.data
                 console.log(this.groups)
             }).catch(error => {
                 console.log(error)
