@@ -526,26 +526,36 @@
                                     <div class="card-body">
                                         <form @submit.prevent="update">
                                             <div class="mb-3">
-                                                <label class="form-label" for="basic-default-fullname">Parents</label>
+                                                <label class="form-label" for="basic-default-fullname">Account</label>
                                                 <!-- <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe"> -->
-                                                <select class="form-control select2" name="p_id"
-                                                aria-label="Default select example" v-model="group.p_id">
-                                                <option>Open this select Country</option>
-                                                <option v-for="group in groups" :value="group.id">
-                                                    {{ group.name }}
-                                                </option>
-                                            </select>
+                                            <select class="form-control select2" name="account_id"
+                                                    aria-label="Default select example" v-model="income.account_id">
+                                                    <option selected>Open this select account</option>
+                                                    <option v-for="account in accounts" :value="income.id">
+                                                        {{ account.name }}
+                                                    </option>
+                                                </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label" for="basic-default-company">Name</label>
-                                                <input v-model="group.name" type="text" class="form-control" id="title"
-                                                    name="name" placeholder="Enter Group Name">
+                                                <label class="form-label" for="amount">Amount</label>
+                                                <input v-model="income.amount" type="text" class="form-control" id="amount"
+                                                    name="amount" placeholder="Enter Amount">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="status" class="form-label">Status</label>
+                                                <label class="form-label" for="amount">Date</label>
+                                                <input v-model="income.date" type="date" class="form-control" id="date"
+                                                    name="date" placeholder="Enter Date">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="particular">Particular</label>
+                                                <input v-model="income.particular" type="text" class="form-control" id="particular"
+                                                    name="date" placeholder="Enter Particular">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="status" class="form-label">type</label>
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input" v-model="group.status" value="1" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                                                <label class="form-check-label" for="flexSwitchCheckChecked" checked>On/Off</label>
+                                                <input class="form-check-input" v-model="income.type" value="1" type="checkbox" role="switch" id="type" checked>
+                                                <label class="form-check-label" for="flexSwitchCheckChecked" checked>Income/Expense</label>
                                             </div>
                                             </div>
                                                 <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
@@ -579,14 +589,16 @@ export default {
     components: { Sidebar, Footer },
   data() {
     return {
-        group:{
-          p_id: null,
-          name: null,
-          status: null,
-          _method:"PUT"
-          },
+          income: {
+                account_id: null,
+                amount: null,
+                date: null,
+                particular: null,
+                type: null,
+                _method:"PUT"
+            },
             submitted: false,
-            groups: null
+            accounts: null,
        }
     }, 
         mounted() {
@@ -595,49 +607,51 @@ export default {
     },
    methods:{
            showGroup(){
-                   axios.get(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`).then(response=>{
-                      const {p_id,name,status} = response.data.data
-                      this.group.p_id = p_id
-                      this.group.name = name
-                      this.group.status = status
+                   axios.get(`http://127.0.0.1:8000/api/income-expense/role/${this.$route.params.id}`).then(response=>{
+                      
+                      const {account_id,amount,date,particular,type} = response.data.data
+                      this.income.account_id = account_id
+                      this.income.amount = amount
+                      this.income.date = date
+                      this.income.particular = particular
+                      this.income.type = type
                   }).catch(error=>{
                       console.log(error)
                   })
               },
                update(){
-                  axios.post(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`,this.group).then(response=>{
-                      this.$router.push({name:"group.index"})
+                  axios.post(`http://127.0.0.1:8000/api/income-expense/role/${this.$route.params.id}`,this.income).then(response=>{
+                      this.$router.push({name:"incomeExpense.index"})
                   }).catch(error=>{
                       console.log(error)
                   })
               },
-                handleSubmit(e) {
-                this.submitted = true;
-                this.$v.$touch();
-                if (this.$v.$invalid) {
-                    Swal.fire({
-                      position: 'top-end',
-                      icon: 'error',
-                      title: 'Oops....<br> Something went wrong!',
-                      showConfirmButton: false,
-                      timer: 2000,
-                    })
-                  return;
-                  }
-                  Swal.fire({
-                      position: 'top-end',
-                      icon: 'success',
-                      title: 'Your work has been updated',
-                      showConfirmButton: false,
-                      timer: 1500,
-                    })
-                  this.update()
-            },
+            //     handleSubmit(e) {
+            //     this.submitted = true;
+            //     this.$v.$touch();
+            //     if (this.$v.$invalid) {
+            //         Swal.fire({
+            //           position: 'top-end',
+            //           icon: 'error',
+            //           title: 'Oops....<br> Something went wrong!',
+            //           showConfirmButton: false,
+            //           timer: 2000,
+            //         })
+            //       return;
+            //       }
+            //       Swal.fire({
+            //           position: 'top-end',
+            //           icon: 'success',
+            //           title: 'Your work has been updated',
+            //           showConfirmButton: false,
+            //           timer: 1500,
+            //         })
+            //       this.update()
+            // },
             getGroupfetch() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/group').then(response => {
-                this.groups = response.data.data
-                console.log(this.groups)
+            axios.get('http://127.0.0.1:8000/api/account').then(response => {
+                this.accounts = response.data.data
             }).catch(error => {
                 console.log(error)
             })

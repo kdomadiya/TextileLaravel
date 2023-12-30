@@ -12,7 +12,7 @@ use App\Interfaces\IncomeExpenseRepositoryInterface;
 class IncomeExpenseController extends Controller
 {
     protected IncomeExpenseRepository $incomeExpenseRepository;
-    private $field = ['id', 'group_id', 'name','alias','opening_balance','firstname','lastname','pancard','gst_number','mobile','email','address','status'];
+    private $field = ['id', 'account_id', 'amount','date','particular','type'];
 
     public function __construct(IncomeExpenseRepository $incomeExpenseRepository)
     {
@@ -36,7 +36,6 @@ class IncomeExpenseController extends Controller
     public function store(IncomeExpenseCreateRequest $request)
     {
         $data = $request->only($this->field);
-        // $data['password'] = bcrypt($data['password']);
         $incomeExpense = $this->incomeExpenseRepository->create($data);
         if (!$incomeExpense) {
             return response()->json(['error' => 'Income Expense not found'], Response::HTTP_NOT_FOUND);

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class IncomeExpense extends Model
 {
     use HasFactory;
+    protected $table = 'income_expense';
     protected $fillable = [
         'id',
         'account_id',

@@ -513,7 +513,7 @@
             <div class="content-wrapper">
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Show</span> Groups</h4>
+                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Show</span> Income Expense</h4>
                         <!-- Basic Layout -->
                         <div class="row">
                             <div class="col-xl">
@@ -526,22 +526,30 @@
                                             <table>
                                                 <tr>
                                                     <th>Id</th>
-                                                    <th>{{  datas.id }}</th>
+                                                    <th>{{ datas.id }}</th>
                                                 </tr>
                                                 <tr>
-                                                    <th>Parent</th>
-                                                    <th>{{ datas.p_id}}</th>
+                                                    <th>Account</th>
+                                                    <th>{{ datas.account_id}}</th>
                                                 </tr>
                                                 <tr>
-                                                    <th>Name</th>
-                                                    <th>{{ datas.name}}</th>
+                                                    <th>Amount</th>
+                                                    <th>{{ datas.amount}}</th>
                                                 </tr>
                                                 <tr>
-                                                    <th>Status</th>
-                                                    <th> <span><strong>Status</strong>: <span v-if="datas.status === 1">Active</span><span v-else>Deactive</span></span></th>
+                                                    <th>Date</th>
+                                                    <th>{{ datas.date}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Particular</th>
+                                                    <th>{{ datas.particular}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Type(Income/Expense)</th>
+                                                    <th><span><span v-if="datas.type === 1">Income</span><span v-else>Expense</span></span></th>
                                                 </tr>
                                             </table>
-                                            <router-link :to="{ name: 'group.index' }" class="btn btn-secondary float-right">Back</router-link>
+                                            <router-link :to="{ name: 'incomeExpense.index' }" class="btn btn-secondary float-right">Back</router-link>
                                     </div>
                                 </div>
                             </div>
@@ -579,7 +587,7 @@ export default {
     },
     methods: {
         getgroup() {
-            axios.get(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`).then(response => {
+            axios.get(`http://127.0.0.1:8000/api/income-expense/role/${this.$route.params.id}`).then(response => {
                 this.datas = response.data.data
                 console.log(this.datas);
             }).catch(error => {
