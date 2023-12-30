@@ -529,19 +529,55 @@
                                                     <th>{{  datas.id }}</th>
                                                 </tr>
                                                 <tr>
-                                                    <th>Parent</th>
-                                                    <th>{{ datas.p_id}}</th>
+                                                    <th>Group</th>
+                                                    <th>{{ datas.group_id}}</th>
                                                 </tr>
                                                 <tr>
                                                     <th>Name</th>
                                                     <th>{{ datas.name}}</th>
                                                 </tr>
                                                 <tr>
+                                                    <th>Alias</th>
+                                                    <th>{{ datas.alias}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Opening Balance</th>
+                                                    <th>{{ datas.opening_balance}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>First Name</th>
+                                                    <th>{{ datas.firstname}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Last Name</th>
+                                                    <th>{{ datas.lastname}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Pan Card</th>
+                                                    <th>{{ datas.pancard}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Gst Number</th>
+                                                    <th>{{ datas.gst_number}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Mobile</th>
+                                                    <th>{{ datas.mobile}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Email</th>
+                                                    <th>{{ datas.email}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Address</th>
+                                                    <th>{{ datas.address}}</th>
+                                                </tr>
+                                                <tr>
                                                     <th>Status</th>
                                                     <th> <span><strong>Status</strong>: <span v-if="datas.status === 1">Active</span><span v-else>Deactive</span></span></th>
                                                 </tr>
                                             </table>
-                                            <router-link :to="{ name: 'group.index' }" class="btn btn-secondary float-right">Back</router-link>
+                                            <router-link :to="{ name: 'account.index' }" class="btn btn-secondary float-right">Back</router-link>
                                     </div>
                                 </div>
                             </div>

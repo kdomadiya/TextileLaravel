@@ -514,7 +514,7 @@
                 <div class="content-wrapper">
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Edit </span>Groups</h4>
+                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Edit </span>Account</h4>
                         <!-- Basic Layout -->
                         <div class="row">
                             <div class="col-xl">
@@ -527,26 +527,70 @@
                                         <form @submit.prevent="update">
                                             <div class="mb-3">
                                                 <label class="form-label" for="basic-default-fullname">Parents</label>
-                                                <!-- <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe"> -->
-                                                <select class="form-control select2" name="p_id"
-                                                aria-label="Default select example" v-model="group.p_id">
-                                                <option>Open this select Country</option>
+                                                <select class="form-control select2" name="group_id"
+                                                aria-label="Default select example" v-model="account.group_id">
+                                                <option>Open this select Group</option>
                                                 <option v-for="group in groups" :value="group.id">
                                                     {{ group.name }}
                                                 </option>
                                             </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label" for="basic-default-company">Name</label>
-                                                <input v-model="group.name" type="text" class="form-control" id="title"
-                                                    name="name" placeholder="Enter Group Name">
+                                                <label class="form-label" for="name">Name</label>
+                                                <input v-model="account.name" type="text" class="form-control" id="name"
+                                                    name="name" placeholder="Enter A Name">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="status" class="form-label">Status</label>
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" v-model="group.status" value="1" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                                                <label class="form-check-label" for="flexSwitchCheckChecked" checked>On/Off</label>
+                                                <label class="form-label" for="alias">Alias</label>
+                                                <input v-model="account.alias" type="text" class="form-control" id="alias"
+                                                    name="alias" placeholder="Enter Account Alias">
                                             </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="opening_balance">Opening Balance</label>
+                                                <input v-model="account.opening_balance" type="text" class="form-control" id="opening_balance"
+                                                    name="opening_balance" placeholder="Enter Group Name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="firstname">First Name</label>
+                                                <input v-model="account.firstname" type="text" class="form-control" id="firstname"
+                                                    name="firstname" placeholder="Enter First Name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="firstname">Last Name</label>
+                                                <input v-model="account.lastname" type="text" class="form-control" id="lastname"
+                                                    name="lastname" placeholder="Enter Last Name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="firstname">Pancard</label>
+                                                <input v-model="account.pancard" type="text" class="form-control" id="pancard"
+                                                    name="pancard" placeholder="Enter Pan Card">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="firstname">GST Number</label>
+                                                <input v-model="account.gst_number" type="text" class="form-control" id="gst_number"
+                                                    name="gst_number" placeholder="Enter GST Number">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="mobile">Mobile</label>
+                                                <input v-model="account.mobile" type="phone" class="form-control" id="mobile"
+                                                    name="mobile" placeholder="Enter Phone Number">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="mobile">Email</label>
+                                                <input v-model="account.email" type="email" class="form-control" id="email"
+                                                    name="email" placeholder="Enter Email">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="mobile">Address</label>
+                                                <input v-model="account.address" type="text" class="form-control" id="address"
+                                                    name="email" placeholder="Enter Phone Number">
+                                            </div>
+                                            <div class="mb-3">
+                                            <label for="status" class="form-label">Status</label>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" v-model="account.status" value="A" type="checkbox" name="status" role="switch" id="flexSwitchCheckChecked" checked>
+                                                    <label class="form-check-label" for="flexSwitchCheckChecked">On/Off</label>
+                                                </div>
                                             </div>
                                                 <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
                                         </form>
@@ -579,12 +623,22 @@ export default {
     components: { Sidebar, Footer },
   data() {
     return {
-        group:{
-          p_id: null,
-          name: null,
-          status: null,
-          _method:"PUT"
-          },
+            account: {
+                id: null,
+                group_id: null,
+                name: null,
+                alias: null,
+                opening_balance: null,
+                firstname: null,
+                lastname: null,
+                pancard: null,
+                gst_number: null,
+                mobile: null,
+                email: null,
+                address: null,
+                status: null,
+                _method:"PUT"
+            },
             submitted: false,
             groups: null
        }
@@ -596,16 +650,26 @@ export default {
    methods:{
            showGroup(){
                    axios.get(`http://127.0.0.1:8000/api/account/${this.$route.params.id}`).then(response=>{
-                      const {p_id,name,status} = response.data.data
-                      this.group.p_id = p_id
-                      this.group.name = name
-                      this.group.status = status
+                      const {id,group_id,name, alias,opening_balance,firstname,lastname,pancard,gst_number,mobile,email,address,status} = response.data.data
+                      this.account.id = id
+                      this.account.group_id = group_id
+                      this.account.alias = alias
+                      this.account.name = name
+                      this.account.opening_balance = opening_balance
+                      this.account.firstname = firstname
+                      this.account.lastname = lastname
+                      this.account.pancard = pancard
+                      this.account.gst_number = gst_number
+                      this.account.mobile = mobile
+                      this.account.email = email
+                      this.account.address = address
+                      this.account.status = status
                   }).catch(error=>{
                       console.log(error)
                   })
               },
                update(){
-                  axios.post(`http://127.0.0.1:8000/api/account/${this.$route.params.id}`,this.group).then(response=>{
+                  axios.post(`http://127.0.0.1:8000/api/account/${this.$route.params.id}`,this.account).then(response=>{
                       this.$router.push({name:"account.index"})
                   }).catch(error=>{
                       console.log(error)
@@ -619,7 +683,7 @@ export default {
             // },
             getGroupfetch() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/account').then(response => {
+            axios.get('http://127.0.0.1:8000/api/group').then(response => {
                 this.groups = response.data.data
                 console.log(this.groups)
             }).catch(error => {

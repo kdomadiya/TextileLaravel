@@ -519,11 +519,11 @@
                             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                                 <div class="card-header flex-column flex-md-row">
                                     <div class="head-label text-center">
-                                        <h5 class="card-title mb-0">Group</h5>
+                                        <h5 class="card-title mb-0">Account</h5>
                                     </div>
                                     <div class="dt-action-buttons text-end pt-3 pt-md-0">
                                         <div class="dt-buttons"> 
-                                            <router-link to='/group/create'  class="dt-button create-new btn btn-primary waves-effect waves-light">
+                                            <router-link to='/account/create'  class="dt-button create-new btn btn-primary waves-effect waves-light">
                                                 <span><i
                                                         class="ti ti-plus me-sm-1"></i> 
                                                         <span
@@ -571,14 +571,35 @@
                                                 aria-sort="ascending">ID</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                                 rowspan="1" colspan="1" style="width: 148px;"
-                                                aria-label="Email: activate to sort column ascending">Parent ID</th>
+                                                aria-label="Email: activate to sort column ascending">Group Id</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                                 rowspan="1" colspan="1" style="width: 130px;"
-                                                aria-label="Date: activate to sort column ascending">NAME</th>
+                                                aria-label="Date: activate to sort column ascending">Name</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                                 rowspan="1" colspan="1" style="width: 174px;"
-                                                aria-label="Salary: activate to sort column ascending">STATUS</th>
-                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 178px;"
+                                                aria-label="Salary: activate to sort column ascending">Alias</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                                rowspan="1" colspan="1" style="width: 174px;"
+                                                aria-label="Salary: activate to sort column ascending">Opening Balance</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                                rowspan="1" colspan="1" style="width: 174px;"
+                                                aria-label="Salary: activate to sort column ascending">First Name</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                                rowspan="1" colspan="1" style="width: 174px;"
+                                                aria-label="Salary: activate to sort column ascending">Last Name</th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                                rowspan="1" colspan="1" style="width: 174px;"
+                                                aria-label="Salary: activate to sort column ascending">Pan Card
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                                rowspan="1" colspan="1" style="width: 174px;"
+                                                aria-label="Salary: activate to sort column ascending">GST Number
+                                            </th>
+                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                                rowspan="1" colspan="1" style="width: 174px;"
+                                                aria-label="Salary: activate to sort column ascending">Status
+                                            </th>
+                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 178px;"
                                                 aria-label="Actions">Actions</th>
                                         </tr>
                                     </thead>
@@ -586,13 +607,19 @@
                         <tr v-for="data in datas" ::key="data.id">
                             <td></td>
                             <td>{{ data.id }}</td>
-                            <td>{{ data.p_id }}</td>
+                            <td>{{ data.group_id }}</td>
                             <td>{{ data.name }}</td>
+                            <td>{{ data.alias }}</td>
+                            <td>{{ data.opening_balance }}</td>
+                            <td>{{ data.firstname }}</td>
+                            <td>{{ data.lastname }}</td>
+                            <td>{{ data.pancard }}</td>
+                            <td>{{ data.gst_number }}</td>
                             <td v-if="data.status === 1">Active</td><td v-else>Deactive</td>
                             <td>
-                                <router-link :to='{name:"group.edit",params:{id:data.id}}' class="btn btn-success"><i class="fa-regular fa-pen-to-square"></i></router-link>
-                                <router-link :to='{name:"group.show",params:{id:data.id}}' class="btn btn-primary"><i class="fa-regular fa-eye"></i></router-link>
-                                <button type="button" @click="deletebanner(data.id)" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                                <router-link :to='{name:"account.edit",params:{id:data.id}}' class="btn btn-success"><i class="fa-regular fa-pen-to-square"></i></router-link>
+                                <router-link :to='{name:"account.show",params:{id:data.id}}' class="btn btn-primary"><i class="fa-regular fa-eye"></i></router-link>
+                                <button type="button" @click="deleteAccount(data.id)" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
                             </td>
                         </tr>
                                     </tbody>
@@ -651,23 +678,21 @@ export default {
         };
     },
     mounted() {
-        this.getgroup()
-        // this.deletebanner()
+        this.getaccount()
+        // this.deleteAccount()
     },
     methods: {
-        async getgroup() {
+        getaccount() {
             axios.get('http://127.0.0.1:8000/api/account').then(response => {
-                // console.log('hrllo');
                 this.datas = response.data.data
-                console.log(this.datas);
             }).catch(error => {
                 console.log(error)
                 this.datas = []
             })
         },
-        deletebanner(id) {
+        deleteAccount(id) {
             axios.delete(`http://127.0.0.1:8000/api/account/${id}`).then(response => {
-                    this.getgroup()
+                    this.getaccount()
                 }).catch(error => {
                     console.log(error)
                 })

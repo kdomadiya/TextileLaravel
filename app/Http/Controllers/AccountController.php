@@ -12,7 +12,7 @@ use App\Interfaces\AccountRepositoryInterface;
 class AccountController extends Controller
 {
     protected AccountRepository $accountRepository;
-    private $field = ['id', 'account_id', 'amount','date','particular','type(income/expense)'];
+    private $field = ['id','group_id','name', 'alias','opening_balance','firstname','lastname','pancard','gst_number','mobile','email','address','status'];
 
     public function __construct(AccountRepository $accountRepository)
     {
@@ -21,10 +21,12 @@ class AccountController extends Controller
 
     public function index(Request $request)
     {
+        // dd("hello");
         $data = $this->accountRepository->get($request->limit, $request->page, $request->search, $request->order_by, $request->order, $request->columns);
         if (!$data) {
             return response()->json(['error' => 'Records not found'], Response::HTTP_NOT_FOUND);
         }
+        // dd($data);
         return response()->json(['data' => $data], Response::HTTP_OK);
     }
 
