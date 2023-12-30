@@ -514,7 +514,7 @@
                 <div class="content-wrapper">
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Create</span>Groups</h4>
+                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Create</span> Account</h4>
                         <!-- Basic Layout -->
                         <div class="row">
                             <div class="col-xl">
@@ -526,30 +526,30 @@
                                     <div class="card-body">
                                         <form @submit.prevent="create">
                                             <div class="mb-3">
-                                                <label class="form-label" for="basic-default-fullname">Parents</label>
+                                                <label class="form-label" for="category_id">Category</label>
                                                 <!-- <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe"> -->
-                                                <select class="form-control select2" name="p_id"
-                                                    aria-label="Default select example" v-model="group.p_id">
-                                                    <option selected>Open this select BlogCategory</option>
-                                                    <option v-for="group in groups" :value="group.id">
-                                                        {{ group.name }}
+                                                <select class="form-control select2" name="category_id"
+                                                    aria-label="Default select example" v-model="category.category_id">
+                                                    <option selected>Open this select Category</option>
+                                                    <option v-for="category in categories" :value="category.id">
+                                                        {{ category.name }}
                                                     </option>
                                                 </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label" for="basic-default-company">Name</label>
-                                                <input v-model="group.name" type="text" class="form-control" id="title"
-                                                    name="name" placeholder="Enter Group Name">
+                                                <label class="form-label" for="name">Name</label>
+                                                <input v-model="category.name" type="text" class="form-control" id="name"
+                                                    name="name" placeholder="Enter Category Name">
                                             </div>
                                             <div class="mb-3">
-                    <label for="status" class="form-label">Status</label>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" v-model="group.status" value="A" type="checkbox" name="status" role="switch" id="flexSwitchCheckChecked" checked>
-                    <label class="form-check-label" for="flexSwitchCheckChecked">On/Off</label>
-                  </div>
-                  </div>
-                    <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
-                                        </form>
+                                        <label for="status" class="form-label">Status</label>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" v-model="category.status" value="A" type="checkbox" name="status" role="switch" id="flexSwitchCheckChecked" checked>
+                                        <label class="form-check-label" for="status">On/Off</label>
+                                    </div>
+                                    </div>
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
+                                    </form>
                                     </div>
                                 </div>
                             </div>
@@ -580,12 +580,12 @@ export default {
     components: { Sidebar, Footer },
     data() {
         return {
-            group: {
-                p_id: null,
+            category: {
+                category_id: null,
                 name: null,
                 status: null,
             },
-            groups: null,
+            categories: null,
             submitted: false
         }
     },
@@ -596,8 +596,8 @@ export default {
     methods: {
         create() {
             // console.warn(this.menu)
-            axios.post('http://127.0.0.1:8000/api/category', this.group).then(response => {
-                this.$router.push({ name: "group.index" })
+            axios.post('http://127.0.0.1:8000/api/category', this.category).then(response => {
+                this.$router.push({ name: "category.index" })
             }).catch(error => {
                 console.log(error)
             })
@@ -605,7 +605,7 @@ export default {
         getgroups() {
             // console.log(this.blogs)
             axios.get('http://127.0.0.1:8000/api/category').then(response => {
-                this.groups = response.data.data
+                this.categories = response.data.data
                 console.log(this.groups)
             }).catch(error => {
                 console.log(error)

@@ -530,7 +530,7 @@
                                                 </tr>
                                                 <tr>
                                                     <th>Parent</th>
-                                                    <th>{{ datas.p_id}}</th>
+                                                    <th>{{ datas.category_id}}</th>
                                                 </tr>
                                                 <tr>
                                                     <th>Name</th>
@@ -541,7 +541,7 @@
                                                     <th> <span><strong>Status</strong>: <span v-if="datas.status === 1">Active</span><span v-else>Deactive</span></span></th>
                                                 </tr>
                                             </table>
-                                            <router-link :to="{ name: 'group.index' }" class="btn btn-secondary float-right">Back</router-link>
+                                            <router-link :to="{ name: 'category.index' }" class="btn btn-secondary float-right">Back</router-link>
                                     </div>
                                 </div>
                             </div>

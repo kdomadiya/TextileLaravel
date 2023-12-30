@@ -519,11 +519,11 @@
                             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                                 <div class="card-header flex-column flex-md-row">
                                     <div class="head-label text-center">
-                                        <h5 class="card-title mb-0">Group</h5>
+                                        <h5 class="card-title mb-0">Category</h5>
                                     </div>
                                     <div class="dt-action-buttons text-end pt-3 pt-md-0">
                                         <div class="dt-buttons"> 
-                                            <router-link to='/group/create'  class="dt-button create-new btn btn-primary waves-effect waves-light">
+                                            <router-link to='/category/create'  class="dt-button create-new btn btn-primary waves-effect waves-light">
                                                 <span><i
                                                         class="ti ti-plus me-sm-1"></i> 
                                                         <span
@@ -571,7 +571,7 @@
                                                 aria-sort="ascending">ID</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                                 rowspan="1" colspan="1" style="width: 148px;"
-                                                aria-label="Email: activate to sort column ascending">Parent ID</th>
+                                                aria-label="Email: activate to sort column ascending">Category ID</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                                 rowspan="1" colspan="1" style="width: 130px;"
                                                 aria-label="Date: activate to sort column ascending">NAME</th>
@@ -586,7 +586,7 @@
                         <tr v-for="data in datas" ::key="data.id">
                             <td></td>
                             <td>{{ data.id }}</td>
-                            <td>{{ data.p_id }}</td>
+                            <td>{{ data.category_id }}</td>
                             <td>{{ data.name }}</td>
                             <td v-if="data.status === 1">Active</td><td v-else>Deactive</td>
                             <td>

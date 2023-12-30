@@ -12,15 +12,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('api/account','App\Http\Controllers\AccountController', ['names' => 'account']);
+Route::resource('/api/category','App\Http\Controllers\CategoryController', ['names' => 'categories']);
 
 Route::get('/{any}', function () {
     return view('layouts.app');
 })->where('any', '.*');
 
 Route::resource('api/group','App\Http\Controllers\GroupController', ['names' => 'group']);
+Route::resource('api/account','App\Http\Controllers\AccountController', ['names' => 'account']);
 // Route::resource('api/income-expense/role','App\Http\Controllers\IncomeExpenseController', ['names' => 'income.expense']);
-// Route::resource('/api/categories','App\Http\Controllers\CategoryController', ['names' => 'categories']);
 // Route::resource('/api/products','App\Http\Controllers\ProductController', ['names' => 'products']);
 // Route::resource('/api/stock','App\Http\Controllers\StockController', ['names' => 'stock']);
 // Route::resource('/api/order','App\Http\Controllers\OrderController', ['names' => 'order']);
