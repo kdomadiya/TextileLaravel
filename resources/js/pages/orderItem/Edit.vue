@@ -514,7 +514,7 @@
                 <div class="content-wrapper">
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Edit </span>Groups</h4>
+                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Edit </span>Order tem</h4>
                         <!-- Basic Layout -->
                         <div class="row">
                             <div class="col-xl">
@@ -526,27 +526,36 @@
                                     <div class="card-body">
                                         <form @submit.prevent="update">
                                             <div class="mb-3">
-                                                <label class="form-label" for="basic-default-fullname">Parents</label>
+                                                <label class="form-label" for="basic-default-fullname">Order</label>
                                                 <!-- <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe"> -->
-                                                <select class="form-control select2" name="p_id"
-                                                aria-label="Default select example" v-model="group.p_id">
-                                                <option>Open this select Country</option>
-                                                <option v-for="group in groups" :value="group.id">
-                                                    {{ group.name }}
-                                                </option>
-                                            </select>
+                                                <select class="form-control select2" name="order_id"
+                                                    aria-label="Default select example" v-model="order.order_id">
+                                                    <option selected>Open this select Order</option>
+                                                    <option v-for="order in orders" :value="order.id">
+                                                        {{ order.id }}
+                                                    </option>
+                                                </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label" for="basic-default-company">Name</label>
-                                                <input v-model="group.name" type="text" class="form-control" id="title"
-                                                    name="name" placeholder="Enter Group Name">
+                                                <label class="form-label" for="basic-default-fullname">Product</label>
+                                                <!-- <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe"> -->
+                                                <select class="form-control select2" name="product_id"
+                                                    aria-label="Default select example" v-model="order.product_id">
+                                                    <option selected>Open this select BlogCategory</option>
+                                                    <option v-for="product in products" :value="product.id">
+                                                        {{ product.name }}
+                                                    </option>
+                                                </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="status" class="form-label">Status</label>
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" v-model="group.status" value="1" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                                                <label class="form-check-label" for="flexSwitchCheckChecked" checked>On/Off</label>
+                                                <label class="form-label" for="quantity">Quantity</label>
+                                                <input v-model="order.quantity" type="text" class="form-control" id="quantity"
+                                                    name="quantity" placeholder="Enter Group Name">
                                             </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="quantity">Amount</label>
+                                                <input v-model="order.amount" type="text" class="form-control" id="amount"
+                                                    name="amount" placeholder="Enter Group Name">
                                             </div>
                                                 <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
                                         </form>
@@ -579,64 +588,55 @@ export default {
     components: { Sidebar, Footer },
   data() {
     return {
-        group:{
-          p_id: null,
-          name: null,
-          status: null,
-          _method:"PUT"
-          },
+        order:{
+            order_id: null,
+            product_id: null,
+            quantity: null,
+            amount: null,
+            _method:"PUT"
+            },
             submitted: false,
-            groups: null
+            orders: null,
+            products: null,
        }
     }, 
         mounted() {
         this.showGroup()
-        this.getGroupfetch()
+        this.getgroups()
+        this.getproduct()
     },
    methods:{
            showGroup(){
-                   axios.get(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`).then(response=>{
-                      const {p_id,name,status} = response.data.data
-                      this.group.p_id = p_id
-                      this.group.name = name
-                      this.group.status = status
+                   axios.get(`http://127.0.0.1:8000/api/order/item/${this.$route.params.id}`).then(response=>{
+                      const {order_id,product_id,quantity,amount} = response.data.data
+                      this.order.order_id = order_id
+                      this.order.product_id = product_id
+                      this.order.quantity = quantity
+                      this.order.amount = amount
                   }).catch(error=>{
                       console.log(error)
                   })
               },
                update(){
-                  axios.post(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`,this.group).then(response=>{
-                      this.$router.push({name:"group.index"})
+                  axios.post(`http://127.0.0.1:8000/api/order/item/${this.$route.params.id}`,this.order).then(response=>{
+                      this.$router.push({name:"orderitem.index"})
                   }).catch(error=>{
                       console.log(error)
                   })
               },
-                handleSubmit(e) {
-                this.submitted = true;
-                this.$v.$touch();
-                if (this.$v.$invalid) {
-                    Swal.fire({
-                      position: 'top-end',
-                      icon: 'error',
-                      title: 'Oops....<br> Something went wrong!',
-                      showConfirmButton: false,
-                      timer: 2000,
-                    })
-                  return;
-                  }
-                  Swal.fire({
-                      position: 'top-end',
-                      icon: 'success',
-                      title: 'Your work has been updated',
-                      showConfirmButton: false,
-                      timer: 1500,
-                    })
-                  this.update()
-            },
-            getGroupfetch() {
+              getgroups() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/group').then(response => {
-                this.groups = response.data.data
+            axios.get('http://127.0.0.1:8000/api/order').then(response => {
+                this.orders = response.data.data
+                console.log(this.groups)
+            }).catch(error => {
+                console.log(error)
+            })
+        },
+        getproduct() {
+            // console.log(this.blogs)
+            axios.get('http://127.0.0.1:8000/api/products').then(response => {
+                this.products = response.data.data
                 console.log(this.groups)
             }).catch(error => {
                 console.log(error)

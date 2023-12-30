@@ -526,27 +526,30 @@
                                     <div class="card-body">
                                         <form @submit.prevent="update">
                                             <div class="mb-3">
-                                                <label class="form-label" for="basic-default-fullname">Parents</label>
+                                                <label class="form-label" for="basic-default-fullname">Account</label>
                                                 <!-- <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe"> -->
                                                 <select class="form-control select2" name="p_id"
-                                                aria-label="Default select example" v-model="group.p_id">
-                                                <option>Open this select Country</option>
-                                                <option v-for="group in groups" :value="group.id">
-                                                    {{ group.name }}
-                                                </option>
-                                            </select>
+                                                    aria-label="Default select example" v-model="order.account_id">
+                                                    <option selected>Open this select Account</option>
+                                                    <option v-for="account in accounts" :value="account.id">
+                                                        {{ account.name }}
+                                                    </option>
+                                                </select>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label" for="basic-default-company">Name</label>
-                                                <input v-model="group.name" type="text" class="form-control" id="title"
+                                                <input v-model="order.name" type="text" class="form-control" id="name"
                                                     name="name" placeholder="Enter Group Name">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="status" class="form-label">Status</label>
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" v-model="group.status" value="1" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                                                <label class="form-check-label" for="flexSwitchCheckChecked" checked>On/Off</label>
+                                                <label class="form-label" for="date">Date</label>
+                                                <input v-model="order.date" type="date" class="form-control" id="date"
+                                                    name="date" placeholder="Enter Date">
                                             </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="total">Total</label>
+                                                <input v-model="order.total" type="text" class="form-control" id="total"
+                                                    name="total" placeholder="Enter Total">
                                             </div>
                                                 <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
                                         </form>
@@ -579,14 +582,15 @@ export default {
     components: { Sidebar, Footer },
   data() {
     return {
-        group:{
-          p_id: null,
+        order:{
+            account_id: null,
           name: null,
-          status: null,
+          date: null,
+          total: null,
           _method:"PUT"
           },
             submitted: false,
-            groups: null
+            accounts: null
        }
     }, 
         mounted() {
@@ -595,9 +599,9 @@ export default {
     },
    methods:{
            showGroup(){
-                   axios.get(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`).then(response=>{
-                      const {p_id,name,status} = response.data.data
-                      this.group.p_id = p_id
+                   axios.get(`http://127.0.0.1:8000/api/order/${this.$route.params.id}`).then(response=>{
+                      const {account_id,name,date,total} = response.data.data
+                      this.group.account_id = account_id
                       this.group.name = name
                       this.group.status = status
                   }).catch(error=>{
@@ -605,7 +609,7 @@ export default {
                   })
               },
                update(){
-                  axios.post(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`,this.group).then(response=>{
+                  axios.post(`http://127.0.0.1:8000/api/order/${this.$route.params.id}`,this.group).then(response=>{
                       this.$router.push({name:"group.index"})
                   }).catch(error=>{
                       console.log(error)
@@ -635,8 +639,8 @@ export default {
             },
             getGroupfetch() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/group').then(response => {
-                this.groups = response.data.data
+            axios.get('http://127.0.0.1:8000/api/account').then(response => {
+                this.accounts = response.data.data
                 console.log(this.groups)
             }).catch(error => {
                 console.log(error)

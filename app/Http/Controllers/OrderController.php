@@ -33,7 +33,7 @@ class OrderController extends Controller
         return view('order.create');
     }
 
-    public function store(OrderRepository $request)
+    public function store(OrderCreateRequest $request)
     {
         $data = $request->only($this->field);
         // $data['password'] = bcrypt($data['password']);

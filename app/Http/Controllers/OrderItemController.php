@@ -25,6 +25,7 @@ class OrderItemController extends Controller
         if (!$data) {
             return response()->json(['error' => 'Order Item not found'], Response::HTTP_NOT_FOUND);
         }
+        // dd($data);
         return response()->json(['data' => $data], Response::HTTP_OK);
     }
 
@@ -33,8 +34,9 @@ class OrderItemController extends Controller
         return view('order.create');
     }
 
-    public function store(OrderItemRepository $request)
+    public function store(OrderItemCreateRequest $request)
     {
+        // dd($request);
         $data = $request->only($this->field);
         // $data['password'] = bcrypt($data['password']);
         $orderItem = $this->orderItemRepository->create($data);

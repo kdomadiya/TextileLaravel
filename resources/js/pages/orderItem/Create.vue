@@ -514,7 +514,7 @@
                 <div class="content-wrapper">
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Create</span>Groups</h4>
+                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Create</span> Order Item</h4>
                         <!-- Basic Layout -->
                         <div class="row">
                             <div class="col-xl">
@@ -526,29 +526,45 @@
                                     <div class="card-body">
                                         <form @submit.prevent="create">
                                             <div class="mb-3">
-                                                <label class="form-label" for="basic-default-fullname">Parents</label>
+                                                <label class="form-label" for="basic-default-fullname">Order</label>
                                                 <!-- <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe"> -->
-                                                <select class="form-control select2" name="p_id"
-                                                    aria-label="Default select example" v-model="group.p_id">
-                                                    <option selected>Open this select BlogCategory</option>
-                                                    <option v-for="group in groups" :value="group.id">
-                                                        {{ group.name }}
+                                                <select class="form-control select2" name="order_id"
+                                                    aria-label="Default select example" v-model="order.order_id">
+                                                    <option selected>Open this select Order</option>
+                                                    <option v-for="order in orders" :value="order.id">
+                                                        {{ order.id }}
                                                     </option>
                                                 </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label" for="basic-default-company">Name</label>
-                                                <input v-model="group.name" type="text" class="form-control" id="title"
-                                                    name="name" placeholder="Enter Group Name">
+                                                <label class="form-label" for="basic-default-fullname">Product</label>
+                                                <!-- <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe"> -->
+                                                <select class="form-control select2" name="product_id"
+                                                    aria-label="Default select example" v-model="order.product_id">
+                                                    <option selected>Open this select BlogCategory</option>
+                                                    <option v-for="product in products" :value="product.id">
+                                                        {{ product.name }}
+                                                    </option>
+                                                </select>
                                             </div>
                                             <div class="mb-3">
-                    <label for="status" class="form-label">Status</label>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" v-model="group.status" value="A" type="checkbox" name="status" role="switch" id="flexSwitchCheckChecked" checked>
-                    <label class="form-check-label" for="flexSwitchCheckChecked">On/Off</label>
-                  </div>
-                  </div>
-                    <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
+                                                <label class="form-label" for="quantity">Quantity</label>
+                                                <input v-model="order.quantity" type="text" class="form-control" id="quantity"
+                                                    name="quantity" placeholder="Enter Group Name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="quantity">Amount</label>
+                                                <input v-model="order.amount" type="text" class="form-control" id="amount"
+                                                    name="amount" placeholder="Enter Group Name">
+                                            </div>
+                                            <!-- <div class="mb-3">
+                                            <label for="status" class="form-label">Status</label>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" v-model="group.status" value="A" type="checkbox" name="status" role="switch" id="flexSwitchCheckChecked" checked>
+                                            <label class="form-check-label" for="flexSwitchCheckChecked">On/Off</label>
+                                        </div>
+                                        </div> -->
+                                            <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
                                         </form>
                                     </div>
                                 </div>
@@ -580,32 +596,44 @@ export default {
     components: { Sidebar, Footer },
     data() {
         return {
-            group: {
-                p_id: null,
-                name: null,
-                status: null,
+            order:{
+                order_id: null,
+                product_id: null,
+                quantity: null,
+                amount: null
             },
-            groups: null,
+            orders: null,
+            products: null,
             submitted: false
         }
     },
     mounted(){
         this.create(),
-            this.getgroups()
+            this.getgroups(),
+            this.getproduct()
     },
     methods: {
         create() {
             // console.warn(this.menu)
-            axios.post('http://127.0.0.1:8000/api/group', this.group).then(response => {
-                this.$router.push({ name: "group.index" })
+            axios.post('http://127.0.0.1:8000/api/order/item', this.order).then(response => {
+                this.$router.push({ name: "orderitem.index" })
             }).catch(error => {
                 console.log(error)
             })
         },
         getgroups() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/group').then(response => {
-                this.groups = response.data.data
+            axios.get('http://127.0.0.1:8000/api/order').then(response => {
+                this.orders = response.data.data
+                console.log(this.groups)
+            }).catch(error => {
+                console.log(error)
+            })
+        },
+        getproduct() {
+            // console.log(this.blogs)
+            axios.get('http://127.0.0.1:8000/api/products').then(response => {
+                this.products = response.data.data
                 console.log(this.groups)
             }).catch(error => {
                 console.log(error)
