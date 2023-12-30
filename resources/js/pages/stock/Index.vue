@@ -519,11 +519,11 @@
                             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                                 <div class="card-header flex-column flex-md-row">
                                     <div class="head-label text-center">
-                                        <h5 class="card-title mb-0">Group</h5>
+                                        <h5 class="card-title mb-0">Stock In / Out</h5>
                                     </div>
                                     <div class="dt-action-buttons text-end pt-3 pt-md-0">
                                         <div class="dt-buttons"> 
-                                            <router-link to='/group/create'  class="dt-button create-new btn btn-primary waves-effect waves-light">
+                                            <router-link to='/stock/create'  class="dt-button create-new btn btn-primary waves-effect waves-light">
                                                 <span><i
                                                         class="ti ti-plus me-sm-1"></i> 
                                                         <span
@@ -571,13 +571,19 @@
                                                 aria-sort="ascending">ID</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                                 rowspan="1" colspan="1" style="width: 148px;"
-                                                aria-label="Email: activate to sort column ascending">Parent ID</th>
+                                                aria-label="Email: activate to sort column ascending">Product ID</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                                 rowspan="1" colspan="1" style="width: 130px;"
-                                                aria-label="Date: activate to sort column ascending">NAME</th>
+                                                aria-label="Date: activate to sort column ascending">Amount</th>
+                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                                rowspan="1" colspan="1" style="width: 130px;"
+                                                aria-label="Date: activate to sort column ascending">Date</th>
+                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                                rowspan="1" colspan="1" style="width: 130px;"
+                                                aria-label="Date: activate to sort column ascending">Particular</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                                 rowspan="1" colspan="1" style="width: 174px;"
-                                                aria-label="Salary: activate to sort column ascending">STATUS</th>
+                                                aria-label="Salary: activate to sort column ascending">Type</th>
                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 178px;"
                                                 aria-label="Actions">Actions</th>
                                         </tr>
@@ -586,12 +592,14 @@
                         <tr v-for="data in datas" ::key="data.id">
                             <td></td>
                             <td>{{ data.id }}</td>
-                            <td>{{ data.p_id }}</td>
-                            <td>{{ data.name }}</td>
-                            <td v-if="data.status === 1">Active</td><td v-else>Deactive</td>
+                            <td>{{ data.product_id }}</td>
+                            <td>{{ data.amount }}</td>
+                            <td>{{ data.date }}</td>
+                            <td>{{ data.particular }}</td>
+                            <td v-if="data.type === 1">Active</td><td v-else>Deactive</td>
                             <td>
-                                <router-link :to='{name:"group.edit",params:{id:data.id}}' class="btn btn-success"><i class="fa-regular fa-pen-to-square"></i></router-link>
-                                <router-link :to='{name:"group.show",params:{id:data.id}}' class="btn btn-primary"><i class="fa-regular fa-eye"></i></router-link>
+                                <router-link :to='{name:"stock.edit",params:{id:data.id}}' class="btn btn-success"><i class="fa-regular fa-pen-to-square"></i></router-link>
+                                <router-link :to='{name:"stock.show",params:{id:data.id}}' class="btn btn-primary"><i class="fa-regular fa-eye"></i></router-link>
                                 <button type="button" @click="deletebanner(data.id)" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
                             </td>
                         </tr>
@@ -656,8 +664,7 @@ export default {
     },
     methods: {
         async getgroup() {
-            axios.get('http://127.0.0.1:8000/api/group').then(response => {
-                // console.log('hrllo');
+            axios.get('http://127.0.0.1:8000/api/stock').then(response => {
                 this.datas = response.data.data
                 console.log(this.datas);
             }).catch(error => {
@@ -666,7 +673,7 @@ export default {
             })
         },
         deletebanner(id) {
-            axios.delete(`http://127.0.0.1:8000/api/group/${id}`).then(response => {
+            axios.delete(`http://127.0.0.1:8000/api/stock/${id}`).then(response => {
                     this.getgroup()
                 }).catch(error => {
                     console.log(error)

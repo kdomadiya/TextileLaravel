@@ -526,22 +526,34 @@
                                             <table>
                                                 <tr>
                                                     <th>Id</th>
-                                                    <th>{{  datas.id }}</th>
+                                                    <th>{{ datas.id }}</th>
                                                 </tr>
                                                 <tr>
-                                                    <th>Parent</th>
-                                                    <th>{{ datas.p_id}}</th>
+                                                    <th>Product</th>
+                                                    <th>{{ datas.product_id }}</th>
                                                 </tr>
                                                 <tr>
-                                                    <th>Name</th>
-                                                    <th>{{ datas.name}}</th>
+                                                    <th>Amount</th>
+                                                    <th>{{ datas.amount }}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>{{ datas.date }}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Particular</th>
+                                                    <th>{{ datas.particular }}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Type </th>
+                                                    <th>{{ datas.type }}</th>
                                                 </tr>
                                                 <tr>
                                                     <th>Status</th>
                                                     <th> <span><strong>Status</strong>: <span v-if="datas.status === 1">Active</span><span v-else>Deactive</span></span></th>
                                                 </tr>
                                             </table>
-                                            <router-link :to="{ name: 'group.index' }" class="btn btn-secondary float-right">Back</router-link>
+                                            <router-link :to="{ name: 'stock.index' }" class="btn btn-secondary float-right">Back</router-link>
                                     </div>
                                 </div>
                             </div>
@@ -579,7 +591,7 @@ export default {
     },
     methods: {
         getgroup() {
-            axios.get(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`).then(response => {
+            axios.get(`http://127.0.0.1:8000/api/stock/${this.$route.params.id}`).then(response => {
                 this.datas = response.data.data
                 console.log(this.datas);
             }).catch(error => {

@@ -526,26 +526,36 @@
                                     <div class="card-body">
                                         <form @submit.prevent="update">
                                             <div class="mb-3">
-                                                <label class="form-label" for="basic-default-fullname">Parents</label>
+                                                <label class="form-label" for="basic-default-fullname">Product</label>
                                                 <!-- <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe"> -->
-                                                <select class="form-control select2" name="p_id"
-                                                aria-label="Default select example" v-model="group.p_id">
-                                                <option>Open this select Country</option>
-                                                <option v-for="group in groups" :value="group.id">
-                                                    {{ group.name }}
-                                                </option>
-                                            </select>
+                                                <select class="form-control select2" name="product_id"
+                                                    aria-label="Default select example" v-model="stock.product_id">
+                                                    <option selected>Open this select BlogCategory</option>
+                                                    <option v-for="product in products" :value="product.id">
+                                                        {{ product.name }}
+                                                    </option>
+                                                </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label class="form-label" for="basic-default-company">Name</label>
-                                                <input v-model="group.name" type="text" class="form-control" id="title"
-                                                    name="name" placeholder="Enter Group Name">
+                                                <label class="form-label" for="amount">Amount</label>
+                                                <input v-model="stock.amount" type="text" class="form-control" id="amount"
+                                                    name="amount" placeholder="Enter Group Name">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="status" class="form-label">Status</label>
+                                                <label class="form-label" for="amount">Date</label>
+                                                <input v-model="stock.date" type="text" class="form-control" id="date"
+                                                    name="date" placeholder="Enter Date">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="amount">Particular</label>
+                                                <input v-model="stock.particular" type="text" class="form-control" id="particular"
+                                                    name="particular" placeholder="Enter Particular">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="status" class="form-label">Type</label>
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input" v-model="group.status" value="1" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                                                <label class="form-check-label" for="flexSwitchCheckChecked" checked>On/Off</label>
+                                                <input class="form-check-input" v-model="stock.type" value="A" type="checkbox" name="status" role="switch" id="type" checked>
+                                                <label class="form-check-label" for="type">On/Off</label>
                                             </div>
                                             </div>
                                                 <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
@@ -579,10 +589,12 @@ export default {
     components: { Sidebar, Footer },
   data() {
     return {
-        group:{
-          p_id: null,
-          name: null,
-          status: null,
+        stock:{
+          product_id: null,
+          amount: null,
+          date: null,
+          particular: null,
+          type: null,
           _method:"PUT"
           },
             submitted: false,
@@ -595,18 +607,20 @@ export default {
     },
    methods:{
            showGroup(){
-                   axios.get(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`).then(response=>{
-                      const {p_id,name,status} = response.data.data
-                      this.group.p_id = p_id
-                      this.group.name = name
-                      this.group.status = status
+                   axios.get(`http://127.0.0.1:8000/api/stock/${this.$route.params.id}`).then(response=>{
+                      const {product_id,amount,date,particular,type} = response.data.data
+                      this.stock.product_id = product_id
+                      this.stock.amount = amount
+                      this.stock.date = date
+                      this.stock.particular = particular
+                      this.stock.type = type
                   }).catch(error=>{
                       console.log(error)
                   })
               },
                update(){
-                  axios.post(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`,this.group).then(response=>{
-                      this.$router.push({name:"group.index"})
+                  axios.post(`http://127.0.0.1:8000/api/stock/${this.$route.params.id}`,this.stock).then(response=>{
+                      this.$router.push({name:"stock.index"})
                   }).catch(error=>{
                       console.log(error)
                   })
@@ -635,7 +649,7 @@ export default {
             },
             getGroupfetch() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/group').then(response => {
+            axios.get('http://127.0.0.1:8000/api/product').then(response => {
                 this.groups = response.data.data
                 console.log(this.groups)
             }).catch(error => {
