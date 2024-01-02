@@ -529,19 +529,27 @@
                                                     <th>{{  datas.id }}</th>
                                                 </tr>
                                                 <tr>
-                                                    <th>Parent</th>
-                                                    <th>{{ datas.p_id}}</th>
+                                                    <th>Account</th>
+                                                    <th>{{ datas.account_id}}</th>
                                                 </tr>
                                                 <tr>
                                                     <th>Name</th>
                                                     <th>{{ datas.name}}</th>
                                                 </tr>
                                                 <tr>
-                                                    <th>Status</th>
-                                                    <th> <span><strong>Status</strong>: <span v-if="datas.status === 1">Active</span><span v-else>Deactive</span></span></th>
+                                                    <th>Url</th>
+                                                    <th>{{ datas.url}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>APi Key</th>
+                                                    <th>{{ datas.api_key}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Api Secret</th>
+                                                    <th>{{ datas.api_secret}}</th>
                                                 </tr>
                                             </table>
-                                            <router-link :to="{ name: 'group.index' }" class="btn btn-secondary float-right">Back</router-link>
+                                            <router-link :to="{ name: 'store.index' }" class="btn btn-secondary float-right">Back</router-link>
                                     </div>
                                 </div>
                             </div>
@@ -579,7 +587,7 @@ export default {
     },
     methods: {
         getgroup() {
-            axios.get(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`).then(response => {
+            axios.get(`http://127.0.0.1:8000/api/store/${this.$route.params.id}`).then(response => {
                 this.datas = response.data.data
                 console.log(this.datas);
             }).catch(error => {

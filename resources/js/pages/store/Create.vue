@@ -514,7 +514,7 @@
                 <div class="content-wrapper">
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Create</span>Groups</h4>
+                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Create</span> Store</h4>
                         <!-- Basic Layout -->
                         <div class="row">
                             <div class="col-xl">
@@ -528,27 +528,35 @@
                                             <div class="mb-3">
                                                 <label class="form-label" for="basic-default-fullname">Parents</label>
                                                 <!-- <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe"> -->
-                                                <select class="form-control select2" name="p_id"
-                                                    aria-label="Default select example" v-model="group.p_id">
-                                                    <option selected>Open this select BlogCategory</option>
-                                                    <option v-for="group in groups" :value="group.id">
-                                                        {{ group.name }}
+                                                <select class="form-control select2" name="account_id"
+                                                    aria-label="Default select example" v-model="account.account_id">
+                                                    <option selected>Open this select Account</option>
+                                                    <option v-for="account in accounts" :value="account.id">
+                                                        {{ account.name }}
                                                     </option>
                                                 </select>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label" for="basic-default-company">Name</label>
-                                                <input v-model="group.name" type="text" class="form-control" id="title"
+                                                <input v-model="account.name" type="text" class="form-control" id="title"
                                                     name="name" placeholder="Enter Group Name">
                                             </div>
                                             <div class="mb-3">
-                    <label for="status" class="form-label">Status</label>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" v-model="group.status" value="A" type="checkbox" name="status" role="switch" id="flexSwitchCheckChecked" checked>
-                    <label class="form-check-label" for="flexSwitchCheckChecked">On/Off</label>
-                  </div>
-                  </div>
-                    <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
+                                                <label class="form-label" for="url">Url</label>
+                                                <input v-model="account.url" type="text" class="form-control" id="url"
+                                                    name="url" placeholder="Enter Group Name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="api_key">Api Key</label>
+                                                <input v-model="account.api_key" type="text" class="form-control" id="api_key"
+                                                    name="api_key" placeholder="Enter Group Name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="api_secret">Api Secret</label>
+                                                <input v-model="account.api_secret" type="text" class="form-control" id="api_secret"
+                                                    name="api_secret" placeholder="Enter Group Name">
+                                            </div>
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
                                         </form>
                                     </div>
                                 </div>
@@ -580,12 +588,14 @@ export default {
     components: { Sidebar, Footer },
     data() {
         return {
-            group: {
-                p_id: null,
+            account: {
+                account_id: null,
                 name: null,
-                status: null,
+                url: null,
+                api_key: null,
+                api_secret: null,
             },
-            groups: null,
+            accounts: null,
             submitted: false
         }
     },
@@ -596,16 +606,16 @@ export default {
     methods: {
         create() {
             // console.warn(this.menu)
-            axios.post('http://127.0.0.1:8000/api/group', this.group).then(response => {
-                this.$router.push({ name: "group.index" })
+            axios.post('http://127.0.0.1:8000/api/store', this.account).then(response => {
+                this.$router.push({ name: "store.index" })
             }).catch(error => {
                 console.log(error)
             })
         },
         getgroups() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/group').then(response => {
-                this.groups = response.data.data
+            axios.get('http://127.0.0.1:8000/api/account').then(response => {
+                this.accounts = response.data.data
                 console.log(this.groups)
             }).catch(error => {
                 console.log(error)

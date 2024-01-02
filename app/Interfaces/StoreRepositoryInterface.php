@@ -4,7 +4,7 @@ namespace App\Interfaces;
 
 use App\Interfaces\BaseRepositoryInterface;
 
-interface UserRepositoryInterface extends BaseRepositoryInterface
+interface StoreRepositoryInterface extends BaseRepositoryInterface
 {
     // public function profile();
     // public function profileUpdate($data);

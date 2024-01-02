@@ -514,7 +514,7 @@
                 <div class="content-wrapper">
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Edit </span>Groups</h4>
+                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Edit </span>Store</h4>
                         <!-- Basic Layout -->
                         <div class="row">
                             <div class="col-xl">
@@ -528,27 +528,35 @@
                                             <div class="mb-3">
                                                 <label class="form-label" for="basic-default-fullname">Parents</label>
                                                 <!-- <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe"> -->
-                                                <select class="form-control select2" name="p_id"
-                                                aria-label="Default select example" v-model="group.p_id">
-                                                <option>Open this select Country</option>
-                                                <option v-for="group in groups" :value="group.id">
-                                                    {{ group.name }}
-                                                </option>
-                                            </select>
+                                                <select class="form-control select2" name="account_id"
+                                                    aria-label="Default select example" v-model="store.account_id">
+                                                    <option selected>Open this select Account</option>
+                                                    <option v-for="account in accounts" :value="account.id">
+                                                        {{ account.name }}
+                                                    </option>
+                                                </select>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label" for="basic-default-company">Name</label>
-                                                <input v-model="group.name" type="text" class="form-control" id="title"
+                                                <input v-model="store.name" type="text" class="form-control" id="title"
                                                     name="name" placeholder="Enter Group Name">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="status" class="form-label">Status</label>
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" v-model="group.status" value="1" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                                                <label class="form-check-label" for="flexSwitchCheckChecked" checked>On/Off</label>
+                                                <label class="form-label" for="url">Url</label>
+                                                <input v-model="store.url" type="text" class="form-control" id="url"
+                                                    name="url" placeholder="Enter Group Name">
                                             </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="api_key">Api Key</label>
+                                                <input v-model="store.api_key" type="text" class="form-control" id="api_key"
+                                                    name="api_key" placeholder="Enter Group Name">
                                             </div>
-                                                <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="api_secret">Api Secret</label>
+                                                <input v-model="store.api_secret" type="text" class="form-control" id="api_secret"
+                                                    name="api_secret" placeholder="Enter Group Name">
+                                            </div>
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
                                         </form>
                                     </div>
                                 </div>
@@ -579,12 +587,15 @@ export default {
     components: { Sidebar, Footer },
   data() {
     return {
-        group:{
-          p_id: null,
-          name: null,
-          status: null,
+        store:{
+            acacount_id:null,
+            name: null,
+            url: null,
+            api_key: null,
+            api_secret: null,
           _method:"PUT"
           },
+          accounts:null,
             submitted: false,
             groups: null
        }
@@ -595,48 +606,50 @@ export default {
     },
    methods:{
            showGroup(){
-                   axios.get(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`).then(response=>{
-                      const {p_id,name,status} = response.data.data
-                      this.group.p_id = p_id
-                      this.group.name = name
-                      this.group.status = status
+                   axios.get(`http://127.0.0.1:8000/api/store/${this.$route.params.id}`).then(response=>{
+                      const {account_id,name,url,api_key,api_secret} = response.data.data
+                      this.store.account_id = account_id
+                      this.store.name = name
+                      this.store.url = url
+                      this.store.api_key = api_key
+                      this.store.api_secret = api_secret
                   }).catch(error=>{
                       console.log(error)
                   })
               },
                update(){
-                  axios.post(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`,this.group).then(response=>{
-                      this.$router.push({name:"group.index"})
+                  axios.post(`http://127.0.0.1:8000/api/store/${this.$route.params.id}`,this.store).then(response=>{
+                      this.$router.push({name:"store.index"})
                   }).catch(error=>{
                       console.log(error)
                   })
               },
-                handleSubmit(e) {
-                this.submitted = true;
-                this.$v.$touch();
-                if (this.$v.$invalid) {
-                    Swal.fire({
-                      position: 'top-end',
-                      icon: 'error',
-                      title: 'Oops....<br> Something went wrong!',
-                      showConfirmButton: false,
-                      timer: 2000,
-                    })
-                  return;
-                  }
-                  Swal.fire({
-                      position: 'top-end',
-                      icon: 'success',
-                      title: 'Your work has been updated',
-                      showConfirmButton: false,
-                      timer: 1500,
-                    })
-                  this.update()
-            },
+            //     handleSubmit(e) {
+            //     this.submitted = true;
+            //     this.$v.$touch();
+            //     if (this.$v.$invalid) {
+            //         Swal.fire({
+            //           position: 'top-end',
+            //           icon: 'error',
+            //           title: 'Oops....<br> Something went wrong!',
+            //           showConfirmButton: false,
+            //           timer: 2000,
+            //         })
+            //       return;
+            //       }
+            //       Swal.fire({
+            //           position: 'top-end',
+            //           icon: 'success',
+            //           title: 'Your work has been updated',
+            //           showConfirmButton: false,
+            //           timer: 1500,
+            //         })
+            //       this.update()
+            // },
             getGroupfetch() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/group').then(response => {
-                this.groups = response.data.data
+            axios.get('http://127.0.0.1:8000/api/account').then(response => {
+                this.accounts = response.data.data
                 console.log(this.groups)
             }).catch(error => {
                 console.log(error)

@@ -20,9 +20,9 @@ Route::resource('api/order/item','App\Http\Controllers\OrderItemController', ['n
 Route::resource('api/order','App\Http\Controllers\OrderController', ['names' => 'order']);
 Route::resource('/api/products','App\Http\Controllers\ProductController', ['names' => 'products']);
 Route::resource('/api/stock','App\Http\Controllers\StockController', ['names' => 'stock']);
+Route::resource('/api/store','App\Http\Controllers\StoreController', ['names' => 'store']);
 Route::resource('/api/user','App\Http\Controllers\UserController', ['names' => 'user']);
 Route::resource('/api/user/role','App\Http\Controllers\UserRoleController', ['names' => 'user.role']);
-Route::resource('/api/store','App\Http\Controllers\UserController', ['names' => 'store']);
 Route::resource('/api/store/order','App\Http\Controllers\StoreOrderController', ['names' => 'store.order']);
 
 

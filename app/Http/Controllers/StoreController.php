@@ -36,12 +36,13 @@ class StoreController extends Controller
     public function store(StoreCreateRequest $request)
     {
         $data = $request->only($this->field);
+        // dd($data);
         // $data['password'] = bcrypt($data['password']);
         $store = $this->storeRepository->create($data);
         if (!$store) {
             return response()->json(['error' => 'Store not found'], Response::HTTP_NOT_FOUND);
         }
-        return response()->json(['data' => $storeOrder], Response::HTTP_CREATED);
+        return response()->json(['data' => $store], Response::HTTP_CREATED);
     }
     /**
      * Display the specified resource.
