@@ -529,26 +529,31 @@
                                                 <label class="form-label" for="basic-default-fullname">Parents</label>
                                                 <!-- <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe"> -->
                                                 <select class="form-control select2" name="p_id"
-                                                aria-label="Default select example" v-model="group.p_id">
-                                                <option>Open this select Country</option>
-                                                <option v-for="group in groups" :value="group.id">
-                                                    {{ group.name }}
-                                                </option>
-                                            </select>
+                                                    aria-label="Default select example" v-model="userrole.parent_id">
+                                                    <option selected :value="null">Open this select User Role</option>
+                                                    <option v-for="userrole in userroles" :value="userrole.id">
+                                                        {{ userrole.name }}
+                                                    </option>
+                                                </select>
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label" for="basic-default-company">Name</label>
-                                                <input v-model="group.name" type="text" class="form-control" id="title"
+                                                <input v-model="userrole.name" type="text" class="form-control" id="title"
                                                     name="name" placeholder="Enter Group Name">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="status" class="form-label">Status</label>
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" v-model="group.status" value="1" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                                                <label class="form-check-label" for="flexSwitchCheckChecked" checked>On/Off</label>
+                                                <label class="form-label" for="basic-default-company">Permission</label>
+                                                <input v-model="userrole.permissions" type="text" class="form-control" id="title"
+                                                    name="name" placeholder="Enter Group Name">
                                             </div>
-                                            </div>
-                                                <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
+                                                <div class="mb-3">
+                                                    <label for="status" class="form-label">Status</label>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" v-model="userrole.status" value="A" type="checkbox" name="status" role="switch" id="flexSwitchCheckChecked" checked>
+                                                    <label class="form-check-label" for="flexSwitchCheckChecked">On/Off</label>
+                                                </div>
+                                                </div>
+                                                    <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
                                         </form>
                                     </div>
                                 </div>
@@ -579,14 +584,15 @@ export default {
     components: { Sidebar, Footer },
   data() {
     return {
-        group:{
-          p_id: null,
-          name: null,
-          status: null,
-          _method:"PUT"
-          },
+        userrole: {
+                parent_id: null,
+                name: null,
+                permissions: null,
+                stats: null,
+                _method:"PUT"
+            },
             submitted: false,
-            groups: null
+            userroles: null
        }
     }, 
         mounted() {
@@ -595,48 +601,49 @@ export default {
     },
    methods:{
            showGroup(){
-                   axios.get(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`).then(response=>{
-                      const {p_id,name,status} = response.data.data
-                      this.group.p_id = p_id
-                      this.group.name = name
-                      this.group.status = status
+                   axios.get(`http://127.0.0.1:8000/api/users/role/${this.$route.params.id}`).then(response=>{
+                      const {parent_id,name,permissions,status} = response.data.data
+                      this.userrole.parent_id = parent_id
+                      this.userrole.permissions = permissions
+                      this.userrole.name = name
+                      this.userrole.status = status
                   }).catch(error=>{
                       console.log(error)
                   })
               },
                update(){
-                  axios.post(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`,this.group).then(response=>{
-                      this.$router.push({name:"group.index"})
+                  axios.post(`http://127.0.0.1:8000/api/users/role/${this.$route.params.id}`,this.userrole).then(response=>{
+                      this.$router.push({name:"userrole.index"})
                   }).catch(error=>{
                       console.log(error)
                   })
               },
-                handleSubmit(e) {
-                this.submitted = true;
-                this.$v.$touch();
-                if (this.$v.$invalid) {
-                    Swal.fire({
-                      position: 'top-end',
-                      icon: 'error',
-                      title: 'Oops....<br> Something went wrong!',
-                      showConfirmButton: false,
-                      timer: 2000,
-                    })
-                  return;
-                  }
-                  Swal.fire({
-                      position: 'top-end',
-                      icon: 'success',
-                      title: 'Your work has been updated',
-                      showConfirmButton: false,
-                      timer: 1500,
-                    })
-                  this.update()
-            },
+            //     handleSubmit(e) {
+            //     this.submitted = true;
+            //     this.$v.$touch();
+            //     if (this.$v.$invalid) {
+            //         Swal.fire({
+            //           position: 'top-end',
+            //           icon: 'error',
+            //           title: 'Oops....<br> Something went wrong!',
+            //           showConfirmButton: false,
+            //           timer: 2000,
+            //         })
+            //       return;
+            //       }
+            //       Swal.fire({
+            //           position: 'top-end',
+            //           icon: 'success',
+            //           title: 'Your work has been updated',
+            //           showConfirmButton: false,
+            //           timer: 1500,
+            //         })
+            //       this.update()
+            // },
             getGroupfetch() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/group').then(response => {
-                this.groups = response.data.data
+            axios.get('http://127.0.0.1:8000/api/users/role').then(response => {
+                this.userroles = response.data.data
                 console.log(this.groups)
             }).catch(error => {
                 console.log(error)

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Requests\UserRoleCreateRequest;
-use App\Http\Requests\UserRoleUpdateRequest;
+use App\Http\Requests\UpdateUserRoleRequest;
 use App\Repository\UserRoleRepository;
 use App\Models\UserRole;
 use App\Interfaces\UserRoleRepositoryInterface;
@@ -36,11 +36,11 @@ class UserRoleController extends Controller
     {
         $data = $request->only($this->field);
         // $data['password'] = bcrypt($data['password']);
-        $userRole = $this->userRepository->create($data);
+        $userRole = $this->userRoleRepository->create($data);
         if (!$userRole) {
             return response()->json(['error' => 'User Role not found'], Response::HTTP_NOT_FOUND);
         }
-        return response()->json(['data' => $user], Response::HTTP_CREATED);
+        return response()->json(['data' => $userRole], Response::HTTP_CREATED);
     }
     /**
      * Display the specified resource.
@@ -64,11 +64,11 @@ class UserRoleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\CompanyUpdateRequest  $request
-     * @param  \App\Models\Company  $country
+     * @param  \App\Http\Requests\UpdateUserRoleRequest  $request
+     * @param  \App\Models\UserRole  $userRole
      * @return \Illuminate\Http\Response
      */
-    public function update(CompanyUpdateRequest $request, $id)
+    public function update(UpdateUserRoleRequest $request, $id)
     {
         $userRole = $this->userRoleRepository->getById($id);
         if (!$userRole) {

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Requests\UserCreateRequest;
-use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Repository\UserRepository;
 use App\Models\User;
 use App\Interfaces\UserRepositoryInterface;
@@ -69,7 +69,7 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UserUpdateRequest $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
         $user = $this->userRepository->getById($id);
         if (!$user) {

@@ -526,29 +526,43 @@
                                     <div class="card-body">
                                         <form @submit.prevent="update">
                                             <div class="mb-3">
-                                                <label class="form-label" for="basic-default-fullname">Parents</label>
-                                                <!-- <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe"> -->
-                                                <select class="form-control select2" name="p_id"
-                                                aria-label="Default select example" v-model="group.p_id">
-                                                <option>Open this select Country</option>
-                                                <option v-for="group in groups" :value="group.id">
-                                                    {{ group.name }}
-                                                </option>
-                                            </select>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label" for="basic-default-company">Name</label>
-                                                <input v-model="group.name" type="text" class="form-control" id="title"
+                                                <label class="form-label" for="name">Name</label>
+                                                <input v-model="user.name" type="text" class="form-control" id="name"
                                                     name="name" placeholder="Enter Group Name">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="status" class="form-label">Status</label>
-                                            <div class="form-check form-switch">
-                                                <input class="form-check-input" v-model="group.status" value="1" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                                                <label class="form-check-label" for="flexSwitchCheckChecked" checked>On/Off</label>
+                                                <label class="form-label" for="email">Email</label>
+                                                <input v-model="user.email" type="email" class="form-control" id="email"
+                                                    name="email" placeholder="Enter Email">
                                             </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="username">UserName</label>
+                                                <input v-model="user.username" type="text" class="form-control" id="username"
+                                                    name="username" placeholder="Enter Group Name">
                                             </div>
-                                                <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="phone">Phone</label>
+                                                <input v-model="user.phone" type="phone" class="form-control" id="phone"
+                                                    name="phone" placeholder="Enter Group Name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="password">Password</label>
+                                                <input v-model="user.password" type="password" class="form-control" id="password"
+                                                    name="password" placeholder="Enter Password">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="role">Role</label>
+                                                <input v-model="user.role" type="text" class="form-control" id="role"
+                                                    name="role" placeholder="Enter Group Name">
+                                            </div>
+                                            <div class="mb-3">
+                                        <label for="status" class="form-label">Status</label>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" v-model="user.status" value="A" type="checkbox" name="status" role="switch" id="flexSwitchCheckChecked" checked>
+                                        <label class="form-check-label" for="flexSwitchCheckChecked">On/Off</label>
+                                    </div>
+                                    </div>
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
                                         </form>
                                     </div>
                                 </div>
@@ -579,12 +593,16 @@ export default {
     components: { Sidebar, Footer },
   data() {
     return {
-        group:{
-          p_id: null,
-          name: null,
-          status: null,
-          _method:"PUT"
-          },
+        user: {
+                name: null,
+                email: null,
+                username: null,
+                phone: null,
+                password: null,
+                role: null,
+                status: null,
+                _method:"PUT"
+            },
             submitted: false,
             groups: null
        }
@@ -595,49 +613,29 @@ export default {
     },
    methods:{
            showGroup(){
-                   axios.get(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`).then(response=>{
-                      const {p_id,name,status} = response.data.data
-                      this.group.p_id = p_id
-                      this.group.name = name
-                      this.group.status = status
+                   axios.get(`http://127.0.0.1:8000/api/user/${this.$route.params.id}`).then(response=>{
+                      const {name,email,username,phone,password,role,status} = response.data.data
+                      this.user.email = email
+                      this.user.name = name
+                      this.user.username = username
+                      this.user.phone = phone
+                      this.user.password = password
+                      this.user.role = role
+                      this.user.status = status
                   }).catch(error=>{
                       console.log(error)
                   })
               },
                update(){
-                  axios.post(`http://127.0.0.1:8000/api/group/${this.$route.params.id}`,this.group).then(response=>{
-                      this.$router.push({name:"group.index"})
+                  axios.post(`http://127.0.0.1:8000/api/user/${this.$route.params.id}`,this.user).then(response=>{
+                      this.$router.push({name:"user.index"})
                   }).catch(error=>{
                       console.log(error)
                   })
               },
-                handleSubmit(e) {
-                this.submitted = true;
-                this.$v.$touch();
-                if (this.$v.$invalid) {
-                    Swal.fire({
-                      position: 'top-end',
-                      icon: 'error',
-                      title: 'Oops....<br> Something went wrong!',
-                      showConfirmButton: false,
-                      timer: 2000,
-                    })
-                  return;
-                  }
-                  Swal.fire({
-                      position: 'top-end',
-                      icon: 'success',
-                      title: 'Your work has been updated',
-                      showConfirmButton: false,
-                      timer: 1500,
-                    })
-                  this.update()
-            },
             getGroupfetch() {
-            // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/group').then(response => {
-                this.groups = response.data.data
-                console.log(this.groups)
+            axios.get('http://127.0.0.1:8000/api/user').then(response => {
+                this.users = response.data.data
             }).catch(error => {
                 console.log(error)
             })

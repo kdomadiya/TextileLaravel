@@ -526,29 +526,43 @@
                                     <div class="card-body">
                                         <form @submit.prevent="create">
                                             <div class="mb-3">
-                                                <label class="form-label" for="basic-default-fullname">Parents</label>
-                                                <!-- <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe"> -->
-                                                <select class="form-control select2" name="p_id"
-                                                    aria-label="Default select example" v-model="group.p_id">
-                                                    <option selected>Open this select BlogCategory</option>
-                                                    <option v-for="group in groups" :value="group.id">
-                                                        {{ group.name }}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label" for="basic-default-company">Name</label>
-                                                <input v-model="group.name" type="text" class="form-control" id="title"
+                                                <label class="form-label" for="name">Name</label>
+                                                <input v-model="user.name" type="text" class="form-control" id="name"
                                                     name="name" placeholder="Enter Group Name">
                                             </div>
                                             <div class="mb-3">
-                    <label for="status" class="form-label">Status</label>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" v-model="group.status" value="A" type="checkbox" name="status" role="switch" id="flexSwitchCheckChecked" checked>
-                    <label class="form-check-label" for="flexSwitchCheckChecked">On/Off</label>
-                  </div>
-                  </div>
-                    <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
+                                                <label class="form-label" for="email">Email</label>
+                                                <input v-model="user.email" type="email" class="form-control" id="email"
+                                                    name="email" placeholder="Enter Email">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="username">UserName</label>
+                                                <input v-model="user.username" type="text" class="form-control" id="username"
+                                                    name="username" placeholder="Enter Group Name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="phone">Phone</label>
+                                                <input v-model="user.phone" type="phone" class="form-control" id="phone"
+                                                    name="phone" placeholder="Enter Group Name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="password">Password</label>
+                                                <input v-model="user.password" type="password" class="form-control" id="password"
+                                                    name="password" placeholder="Enter Password">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label" for="role">Role</label>
+                                                <input v-model="user.role" type="text" class="form-control" id="role"
+                                                    name="role" placeholder="Enter Group Name">
+                                            </div>
+                                            <div class="mb-3">
+                                        <label for="status" class="form-label">Status</label>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" v-model="user.status" value="A" type="checkbox" name="status" role="switch" id="flexSwitchCheckChecked" checked>
+                                        <label class="form-check-label" for="flexSwitchCheckChecked">On/Off</label>
+                                    </div>
+                                    </div>
+                                        <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
                                         </form>
                                     </div>
                                 </div>
@@ -580,9 +594,13 @@ export default {
     components: { Sidebar, Footer },
     data() {
         return {
-            group: {
-                p_id: null,
+            user: {
                 name: null,
+                email: null,
+                username: null,
+                phone: null,
+                password: null,
+                role: null,
                 status: null,
             },
             groups: null,
@@ -590,27 +608,17 @@ export default {
         }
     },
     mounted(){
-        this.create(),
-            this.getgroups()
+        this.create()
     },
     methods: {
         create() {
             // console.warn(this.menu)
-            axios.post('http://127.0.0.1:8000/api/group', this.group).then(response => {
-                this.$router.push({ name: "group.index" })
+            axios.post('http://127.0.0.1:8000/api/user', this.user).then(response => {
+                this.$router.push({ name: "user.index" })
             }).catch(error => {
                 console.log(error)
             })
-        },
-        getgroups() {
-            // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/group').then(response => {
-                this.groups = response.data.data
-                console.log(this.groups)
-            }).catch(error => {
-                console.log(error)
-            })
-        },
+        }
     }
 }
 </script>
