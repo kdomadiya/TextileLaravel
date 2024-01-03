@@ -514,7 +514,7 @@
                 <div class="content-wrapper">
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Edit </span>Groups</h4>
+                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Edit </span>User Role</h4>
                         <!-- Basic Layout -->
                         <div class="row">
                             <div class="col-xl">
