@@ -125,6 +125,35 @@
               </router-link>
             <!-- <router-link to="/account">Account</router-link> -->
           </li>
+          <li class="menu-item open" style="">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
+        <div data-i18n="Reports">Reports</div>
+      </a>
+
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <router-link to="/report/sales" class="menu-link">
+            <div data-i18n="Collapsed menu">Sale</div>
+          </router-link>
+        </li>
+         <li class="menu-item">
+          <router-link to="/report/purchase" class="menu-link">
+            <div data-i18n="Collapsed menu">Purchase</div>
+          </router-link>
+        </li>
+         <li class="menu-item">
+          <router-link to="/report/inventory" class="menu-link">
+            <div data-i18n="Collapsed menu">Inventory</div>
+          </router-link>
+        </li>
+         <li class="menu-item">
+          <router-link to="/report/cashflow" class="menu-link">
+            <div data-i18n="Collapsed menu">Cashflow</div>
+          </router-link>
+        </li>
+      </ul>
+        </li>
           </ul>
         </aside>
         

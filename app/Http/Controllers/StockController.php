@@ -36,6 +36,13 @@ class StockController extends Controller
     public function store(StockCreateRequest $request)
     {
         $data = $request->only($this->field);
+        // dd($data['type']);
+        if($data['type'] != null){
+            $data['type'] = 1;
+        }else{
+            $data['type'] = 0;
+        }
+        // dd($data);
         // $data['password'] = bcrypt($data['password']);
         $stock = $this->stockRepository->create($data);
         if (!$stock) {

@@ -63,6 +63,11 @@ import UserRoleCreate from "./pages/userrole/Create.vue";
 import UserRoleShow from "./pages/userrole/Show.vue";
 import UserRoleEdit from "./pages/userrole/Edit.vue";
 
+import ReportCashflow from "./pages/reports/Cashflow.vue";
+import ReportInventory from "./pages/reports/Inventory.vue";
+import ReportPurchase from "./pages/reports/Purchase.vue";
+import ReportSale from "./pages/reports/Sale.vue";
+
 import { useUserStore } from "./stores/auth";
 
 const routes = [
@@ -118,9 +123,12 @@ const routes = [
     {path: '/user-role/create', component:UserRoleCreate, name: 'userrole.create',meta:{requiresAuth: true}},
     {path: '/user-role/show/:id', component:UserRoleShow, name: 'userrole.show',meta:{requiresAuth: true}},
     {path: '/user-role/edit/:id', component:UserRoleEdit, name: 'userrole.edit',meta:{requiresAuth: true}},
+    {path: '/report/cashflow', component:ReportCashflow, name: 'report.cashflow',meta:{requiresAuth: true}},
+    {path: '/report/inventory', component:ReportInventory, name: 'report.inventory',meta:{requiresAuth: true}},
+    {path: '/report/purchase', component:ReportPurchase, name: 'report.purchase',meta:{requiresAuth: true}},
+    {path: '/report/sales', component:ReportSale, name: 'report.sale',meta:{requiresAuth: true}},
     // {path: '/about', component:About}
 ];
-
 
 
 const router = createRouter({
@@ -132,10 +140,8 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth){
     const store = useUserStore();
-
     const token = store.token;
     const tokenz = localStorage.getItem('token');
-    console.log(token,tokenz)
       if(tokenz){
         next();
       }else{

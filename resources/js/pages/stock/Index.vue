@@ -596,7 +596,7 @@
                             <td>{{ data.amount }}</td>
                             <td>{{ data.date }}</td>
                             <td>{{ data.particular }}</td>
-                            <td v-if="data.type === 1">Active</td><td v-else>Deactive</td>
+                            <td v-if="data.type === 1">Sell</td><td v-else>Buy</td>
                             <td>
                                 <router-link :to='{name:"stock.edit",params:{id:data.id}}' class="btn btn-success"><i class="fa-regular fa-pen-to-square"></i></router-link>
                                 <router-link :to='{name:"stock.show",params:{id:data.id}}' class="btn btn-primary"><i class="fa-regular fa-eye"></i></router-link>

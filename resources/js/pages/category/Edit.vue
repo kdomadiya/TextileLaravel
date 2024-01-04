@@ -589,7 +589,7 @@ export default {
             groups: null
        }
     }, 
-        mounted() {
+    mounted() {
         this.showGroup()
         this.getGroupfetch()
     },
