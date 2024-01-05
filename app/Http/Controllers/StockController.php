@@ -12,7 +12,7 @@ use App\Interfaces\StockRepositoryInterface;
 class StockController extends Controller
 {
     protected StockRepository $stockRepository;
-    private $field = ['id', 'product_id','amount','date','particular','type'];
+    private $field = ['id','qty', 'product_id','amount','date','particular','type'];
 
     public function __construct(StockRepository $stockRepository)
     {
@@ -78,6 +78,12 @@ class StockController extends Controller
      */
     public function update(StockUpdateRequest $request, $id)
     {
+        $data = $request->only($this->field);
+        if($data['type'] != null || $data['type'] != 0){
+            $data['type'] = 1;
+        }else{
+            $stock['type'] = 0;
+        }
         $stock = $this->stockRepository->getById($id);
         if (!$stock) {
             return response()->json(['error' => 'Stock not found'], Response::HTTP_NOT_FOUND);
@@ -91,7 +97,7 @@ class StockController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id) 
     {
         // $company = $request->only($this->field);
         $stock = $this->stockRepository->getById($id);
@@ -100,4 +106,15 @@ class StockController extends Controller
         }
         return response()->json(['data' => $this->stockRepository->delete($id)], Response::HTTP_NO_CONTENT);
     }
+    public function purchase(){
+        $totalPurchaseAmount = Stock::where('type', '0')->sum(\DB::raw('amount * qty'));
+        // dd($totalPurchaseAmount);
+        return response()->json($totalPurchaseAmount, Response::HTTP_OK);
+    }
+         public function sell(){
+        $totalSellAmount = Stock::where('type', '1')->sum(\DB::raw('amount * qty'));
+        // dd($totalPurchaseAmount);
+        return response()->json($totalSellAmount, Response::HTTP_OK);
+    }
+   
 }

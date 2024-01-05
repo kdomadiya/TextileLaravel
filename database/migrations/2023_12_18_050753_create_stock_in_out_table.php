@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('product_id')->nullable();
             $table->foreign('product_id')->references('id')->on('products');
             $table->unsignedBigInteger('amount');
+            $table->unsignedBigInteger('qty');
             $table->date('date')->nullable();
             $table->string('particular');
             $table->boolean('type')->default('1');

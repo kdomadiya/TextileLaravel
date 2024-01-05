@@ -514,7 +514,7 @@
                 <div class="content-wrapper">
                     <!-- Content -->
                     <div class="container-xxl flex-grow-1 container-p-y">
-                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Create</span>Groups</h4>
+                        <h4 class="py-3 mb-4"><span class="text-muted fw-light">Create</span>Stock</h4>
                         <!-- Basic Layout -->
                         <div class="row">
                             <div class="col-xl">
@@ -530,7 +530,7 @@
                                                 <!-- <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe"> -->
                                                 <select class="form-control select2" name="product_id"
                                                     aria-label="Default select example" v-model="stock.product_id">
-                                                    <option selected>Open this select BlogCategory</option>
+                                                    <option selected value="">Open this select BlogCategory</option>
                                                     <option v-for="product in products" :value="product.id">
                                                         {{ product.name }}
                                                     </option>
@@ -540,6 +540,11 @@
                                                 <label class="form-label" for="amount">Amount</label>
                                                 <input v-model="stock.amount" type="text" class="form-control" id="amount"
                                                     name="amount" placeholder="Enter Group Name">
+                                            </div>
+                                              <div class="mb-3">
+                                                <label class="form-label" for="amount">Qty</label>
+                                                <input v-model="stock.qty" type="text" class="form-control" id="qty"
+                                                    name="qty" placeholder="Enter Group Name">
                                             </div>
                                             <div class="mb-3">
                                                 <label class="form-label" for="amount">Date</label>
@@ -555,7 +560,7 @@
                                                 <label for="status" class="form-label">Type</label>
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input" v-model="stock.type" value="A" type="checkbox" name="status" role="switch" id="type" checked>
-                                                <label class="form-check-label" for="type">On/Off</label>
+                                                <label class="form-check-label" for="type">Buy/Sell</label>
                                             </div>
                                             </div>
                                              <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
@@ -593,6 +598,7 @@ export default {
             stock: {
                 product_id: null,
                 amount: null,
+                qty : null,
                 date: null,
                 particular: null,
                 type: null,

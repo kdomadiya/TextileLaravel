@@ -689,9 +689,28 @@
           <!-- Content -->
           <div class="container-xxl flex-grow-1 container-p-y">
             <div class="row">
+            <!-- <select>
+              <option value="">Today</option>
+              <option value="">Yesterday</option>
+              <option value="">15 days</option>
+              <option value="">1 Month</option>
+            </select> -->
+             <form @submit.prevent="recordUpdate">
+            <div class="row mb-4">
+            <div class="col-sm-4">
+              <input v-model="data.start_date" type="date" class="form-control" id="start_date" name="start_date" placeholder="">
+            </div>
+             <div class="col-sm-4">
+              <input v-model="data.end_date" type="date" class="form-control" id="end_date" name="start_date" placeholder="">
+            </div>
+             <div class="col-sm-4">
+               <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
+            </div>
+            </div>
+             </form>
               <!-- Revenue Generated -->
               <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-                <div class="card">
+                <div class="card"> 
                   <div class="card-body pb-0">
                     <div class="card-icon">
                       <span class="badge bg-label-success rounded-pill p-2">
@@ -853,7 +872,7 @@
                         <i class="ti ti-credit-card ti-sm"></i>
                       </span>
                     </div>
-                    <h5 class="card-title mb-0 mt-2">{{ stocks }}</h5>
+                    <h5 class="card-title mb-0 mt-2">{{ purchase }}</h5>
                     <small>Purchase</small>
                   </div>
                   <div id="revenueGenerated" style="min-height: 130px">
@@ -879,7 +898,7 @@
                         <i class="ti ti-credit-card ti-sm"></i>
                       </span>
                     </div>
-                    <h5 class="card-title mb-0 mt-2">{{ sales }}</h5>
+                    <h5 class="card-title mb-0 mt-2">{{ sell }}</h5>
                     <small>Sales</small>
                   </div>
                   <div id="revenueGenerated" style="min-height: 130px">
@@ -905,7 +924,7 @@
                         <i class="ti ti-credit-card ti-sm"></i>
                       </span>
                     </div>
-                    <h5 class="card-title mb-0 mt-2">{{ groups }}</h5>
+                    <h5 class="card-title mb-0 mt-2">{{ diff }}</h5>
                     <small>Purchase And Sales Bill</small>
                   </div>
                   <div id="revenueGenerated" style="min-height: 130px">
@@ -952,20 +971,20 @@ import Header from "./Header.vue";
 import Sidebar from "./Sidebar.vue";
 import Footer from "./Footer.vue";
 // import VueApexCharts from 'vue-apexcharts'
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale
-} from 'chart.js'
-import { Bar } from 'vue-chartjs'
+// import {
+//   Chart as ChartJS,
+//   Title,
+//   Tooltip,
+//   Legend,
+//   BarElement,
+//   CategoryScale,
+//   LinearScale
+// } from 'chart.js'
+// import { Bar } from 'vue-chartjs'
 
 
 export default {
-  components: { Sidebar, Footer ,Bar},
+  components: { Sidebar, Footer},
   data() {
     return {
       imageUrl1: "imageUrl1",
@@ -982,13 +1001,10 @@ export default {
       imageUrl12: "assets/svg/flags/au.svg",
       imageUrl13: "assets/svg/flags/fr.svg",
       imageUrl14: "assets/svg/flags/cn.svg",
-      data: {
-        labels: ['January', 'February', 'March'],
-        datasets: [{ data: [40, 20, 12] }]
-      },
-      options: {
-        responsive: true
-      },
+     data : {
+      start_date:null,
+      end_date :null
+     },
       accounts: null,
       products: null,
       current_stock: null,
@@ -996,7 +1012,10 @@ export default {
       users: null,
       stores: null,
       stocks: null,
-      sales: null
+      purchase: null,
+      sell:null,
+      diff:null,
+      
       // groups: null
     };
   },
@@ -1010,51 +1029,60 @@ export default {
         this.getStocksfetch()
         this.getSalesfetch()
         this.getPurchaseStockfetch()
+        this.getSalesDiff(),
+        this.recordUpdate()
     },
      methods:{
-            getGroupfetch() {
+      // recordUpdate(){
+      //   axios.post('http://127.0.0.1:8000/api/range', this.data).then(response => {
+      //           this.$router.push({ name: "stock.index" })
+      //       }).catch(error => {
+      //           console.log(error)
+      //       })
+      // },
+      getGroupfetch() {
             axios.get('http://127.0.0.1:8000/api/account').then(response => {
                 this.accounts = response.data.data.length 
             }).catch(error => {
                 console.log(error)
             })
-        },
-          getProductfetch() {
+      },
+      getProductfetch() {
             axios.get('http://127.0.0.1:8000/api/products').then(response => {
                 this.products = response.data.data.length
             }).catch(error => {
                 console.log(error)
             })
-        },
-         getStockfetch() {
+      },
+      getStockfetch() {
             axios.get('http://127.0.0.1:8000/api/stock').then(response => {
                 this.current_stock = response.data.data.length
             }).catch(error => {
                 console.log(error)
             })
-        },
-         getOrderfetch() {
+      },
+      getOrderfetch() {
             axios.get('http://127.0.0.1:8000/api/order').then(response => {
                 this.orders = response.data.data.length
             }).catch(error => {
                 console.log(error)
             })
-        },
-         getUserfetch() {
+      },
+      getUserfetch() {
             axios.get('http://127.0.0.1:8000/api/user').then(response => {
                 this.users = response.data.data.length
             }).catch(error => {
                 console.log(error)
             })
-        },
-         getStorefetch() {
+      },
+      getStorefetch() {
             axios.get('http://127.0.0.1:8000/api/store').then(response => {
                 this.stores = response.data.data.length
             }).catch(error => {
                 console.log(error)
             })
-        },
-         getStocksfetch() {
+      },
+      getStocksfetch() {
             axios.get('http://127.0.0.1:8000/api/stock').then(response => {
                 this.stocks = response.data.data
                   var list=[];
@@ -1067,29 +1095,27 @@ export default {
             }).catch(error => {
                 console.log(error)
             })
-        },
-         getSalesfetch() {
-           axios.get('http://127.0.0.1:8000/api/stock').then(response => {
-                this.sales = response.data.data
-                  var list=[];
-              this.sales.map(function(value) {
-                console.log(value.type)
-                if(value.type == 1){
-                  list.push(value);
-                }
-                    });
-                this.sales = list.length;
+      },
+      getSalesfetch() {
+           axios.get('http://127.0.0.1:8000/api/purchase').then(response => {
+                this.purchase = response.data
+                console.log(this.sales)
+                this.getSalesDiff()
+            }).catch(error => {
+                console.log(error)
+            })
+      },
+      getPurchaseStockfetch() {
+            axios.get('http://127.0.0.1:8000/api/sell').then(response => {
+                this.sell = response.data
+                this.getSalesDiff()
             }).catch(error => {
                 console.log(error)
             })
         },
-         getPurchaseStockfetch() {
-            axios.get('http://127.0.0.1:8000/api/product').then(response => {
-                this.products = response.data.data.length
-            }).catch(error => {
-                console.log(error)
-            })
-        },
-    }
+      getSalesDiff(){
+          this.diff = this.purchase -this.sell;
+          }
+      }
 };
 </script>

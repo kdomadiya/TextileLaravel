@@ -13,6 +13,7 @@ class Stock extends Model
         'id',
         'product_id',
         'amount',
+        'qty',
         'date',
         'particular',
         'type',
