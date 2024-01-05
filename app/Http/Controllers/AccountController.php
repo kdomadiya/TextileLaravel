@@ -21,11 +21,12 @@ class AccountController extends Controller
 
     public function index(Request $request)
     {
-        // dd("hello");
-        $data = $this->accountRepository->get($request->limit, $request->page, $request->search, $request->order_by, $request->order, $request->columns);
+        // dd($request);
+        $data = $this->accountRepository->get($request->limit, $request->page, $request->search, $request->order_by, $request->order, $request->columns,$request->start_date,$request->end_date);
         if (!$data) {
             return response()->json(['error' => 'Records not found'], Response::HTTP_NOT_FOUND);
         }
+        // dd($data);
         // dd($data);
         return response()->json(['data' => $data], Response::HTTP_OK);
     }

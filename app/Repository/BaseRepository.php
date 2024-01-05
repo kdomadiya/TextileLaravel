@@ -11,6 +11,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use Carbon\Carbon;
 
 class BaseRepository implements BaseRepositoryInterface
 {
@@ -21,6 +22,8 @@ class BaseRepository implements BaseRepositoryInterface
     public $with;
     public $successStatus = 200;
     public $minutes = 60;
+    public $start_date;
+    public $end_date;
 
     protected $model;
 
@@ -32,6 +35,7 @@ class BaseRepository implements BaseRepositoryInterface
     public function getAll()
     {
         try {
+
             return $this->model::all();
         } catch (Exception $exception) {
             Log::error("An error occurred: " . class_basename($this->model) . " Get All: " . $exception->getMessage());
@@ -45,14 +49,24 @@ class BaseRepository implements BaseRepositoryInterface
      * @param Company $model
      * @return Collection
      */
-    public function get($limit, $page, $search = '', $order_by = 'id', $order = 'asc', $columns)
+    public function get($limit, $page, $search = '', $order_by = 'id', $order = 'asc', $columns,$start_date,$end_date)
     {
+                // Parse the string into a Carbon instance
+                $startDate = Carbon::parse($start_date);
+                $endDate = Carbon::parse($end_date);
+                // Format the date as per your requirement
+                $StartDate = $startDate->format('Y-m-d');
+                $EndDate = $endDate->format('Y-m-d');
+                // dd($StartDate);
         try {
             $query = $this->model::query();
             ($columns) ? $query->select(explode(',', $columns)) : '';
             ($search) ? $query->where('name', 'like', '%' . $search . '%') : '';
+            // ($startDate != null) ? $query->whereBetween('created_at',[$StartDate, $endDate]) : '';
+            ($startDate != null) ? $query->whereBetween('created_at',['2024-01-05', '2024-01-05']) : '';
             ($order_by) ? $query->orderBy($order_by, $order) : $query->orderBy('id', 'asc');
-            ($limit) ? $data = $query->paginate($limit) : $data = $query->get();
+            ($limit) ? $data = $query->paginate($limit) : $data = $query->toSql();
+            // dd($data);
         } catch (QueryException $exception) {
             Log::error("An error occurred: " . class_basename($this->model) . " Get/Show: " . $exception->getMessage());
             return null;

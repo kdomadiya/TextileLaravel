@@ -21,9 +21,9 @@ Route::post('/login', [AuthController::class, 'login']);
 
 
 
+Route::resource('account','App\Http\Controllers\AccountController', ['names' => 'account']);
 Route::middleware(['auth:sanctum'])->group(function () {
 Route::resource('group','App\Http\Controllers\GroupController', ['names' => 'group']);
-Route::resource('account','App\Http\Controllers\AccountController', ['names' => 'account']);
 Route::resource('income-expense/role','App\Http\Controllers\IncomeExpenseController', ['names' => 'income.expense']);
 Route::resource('category','App\Http\Controllers\CategoryController', ['names' => 'categories']);
 Route::resource('order/item','App\Http\Controllers\OrderItemController', ['names' => 'order.items']);

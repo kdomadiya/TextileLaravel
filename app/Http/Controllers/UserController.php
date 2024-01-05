@@ -21,7 +21,7 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $data = $this->userRepository->get($request->limit, $request->page, $request->search, $request->order_by, $request->order, $request->columns);
+        $data = $this->userRepository->get($request->limit, $request->page, $request->search, $request->order_by, $request->order, $request->columns,$request->start_date,$request->end_date);
         if (!$data) {
             return response()->json(['error' => 'User not found'], Response::HTTP_NOT_FOUND);
         }

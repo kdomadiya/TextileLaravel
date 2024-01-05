@@ -21,7 +21,7 @@ class GroupController extends Controller
 
     public function index(Request $request)
     {
-        $data = $this->groupRepository->get($request->limit, $request->page, $request->search, $request->order_by, $request->order, $request->columns);
+        $data = $this->groupRepository->get($request->limit, $request->page, $request->search, $request->order_by, $request->order, $request->columns,$request->start_date,$request->end_date);
         // dd($data);
         if (!$data) {
             return response()->json(['error' => 'Records not found'], Response::HTTP_NOT_FOUND);

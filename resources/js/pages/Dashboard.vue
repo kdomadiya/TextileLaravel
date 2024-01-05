@@ -403,7 +403,9 @@
                           </div>
                         </div>
                       </li>
-                      <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read" >
+                      <li
+                        class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read"
+                      >
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar">
@@ -689,28 +691,47 @@
           <!-- Content -->
           <div class="container-xxl flex-grow-1 container-p-y">
             <div class="row">
-            <!-- <select>
+              <!-- <select>
               <option value="">Today</option>
               <option value="">Yesterday</option>
               <option value="">15 days</option>
               <option value="">1 Month</option>
             </select> -->
-             <form @submit.prevent="recordUpdate">
-            <div class="row mb-4">
-            <div class="col-sm-4">
-              <input v-model="data.start_date" type="date" class="form-control" id="start_date" name="start_date" placeholder="">
-            </div>
-             <div class="col-sm-4">
-              <input v-model="data.end_date" type="date" class="form-control" id="end_date" name="start_date" placeholder="">
-            </div>
-             <div class="col-sm-4">
-               <button type="submit" class="btn btn-primary waves-effect waves-light">Send</button>
-            </div>
-            </div>
-             </form>
+              <form @submit.prevent="dateRange">
+                <div class="row mb-4">
+                  <div class="col-sm-4">
+                    <input
+                      v-model="data.start_date"
+                      type="date"
+                      class="form-control"
+                      id="start_date"
+                      name="start_date"
+                      placeholder=""
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <input
+                      v-model="data.end_date"
+                      type="date"
+                      class="form-control"
+                      id="end_date"
+                      name="start_date"
+                      placeholder=""
+                    />
+                  </div>
+                  <div class="col-sm-4">
+                    <button
+                      type="submit"
+                      class="btn btn-primary waves-effect waves-light"
+                    >
+                      Send
+                    </button>
+                  </div>
+                </div>
+              </form>
               <!-- Revenue Generated -->
               <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-                <div class="card"> 
+                <div class="card">
                   <div class="card-body pb-0">
                     <div class="card-icon">
                       <span class="badge bg-label-success rounded-pill p-2">
@@ -724,7 +745,8 @@
                     <div
                       id="apexchartskwxkzls1"
                       class="apexcharts-canvas apexchartskwxkzls1 apexcharts-theme-light"
-                      style="width: 330px; height: 130px">
+                      style="width: 330px; height: 130px"
+                    >
                       <div class="apexcharts-legend" style="max-height: 65px"></div>
                     </div>
                   </div>
@@ -750,7 +772,8 @@
                     <div
                       id="apexchartskwxkzls1"
                       class="apexcharts-canvas apexchartskwxkzls1 apexcharts-theme-light"
-                      style="width: 330px; height: 130px">
+                      style="width: 330px; height: 130px"
+                    >
                       <div class="apexcharts-legend" style="max-height: 65px"></div>
                     </div>
                   </div>
@@ -776,12 +799,12 @@
                     <div
                       id="apexchartskwxkzls1"
                       class="apexcharts-canvas apexchartskwxkzls1 apexcharts-theme-light"
-                      style="width: 330px; height: 130px">
+                      style="width: 330px; height: 130px"
+                    >
                       <div class="apexcharts-legend" style="max-height: 65px"></div>
                     </div>
                   </div>
-                  <div class="resize-triggers">
-                  </div>
+                  <div class="resize-triggers"></div>
                 </div>
               </div>
               <!--/ Revenue Generated -->
@@ -801,7 +824,8 @@
                     <div
                       id="apexchartskwxkzls1"
                       class="apexcharts-canvas apexchartskwxkzls1 apexcharts-theme-light"
-                      style="width: 330px; height: 130px">
+                      style="width: 330px; height: 130px"
+                    >
                       <div class="apexcharts-legend" style="max-height: 65px"></div>
                     </div>
                   </div>
@@ -827,7 +851,8 @@
                     <div
                       id="apexchartskwxkzls1"
                       class="apexcharts-canvas apexchartskwxkzls1 apexcharts-theme-light"
-                      style="width: 330px; height: 130px">
+                      style="width: 330px; height: 130px"
+                    >
                       <div class="apexcharts-legend" style="max-height: 65px"></div>
                     </div>
                   </div>
@@ -853,7 +878,8 @@
                     <div
                       id="apexchartskwxkzls1"
                       class="apexcharts-canvas apexchartskwxkzls1 apexcharts-theme-light"
-                      style="width: 330px; height: 130px">
+                      style="width: 330px; height: 130px"
+                    >
                       <div class="apexcharts-legend" style="max-height: 65px"></div>
                     </div>
                   </div>
@@ -879,7 +905,8 @@
                     <div
                       id="apexchartskwxkzls1"
                       class="apexcharts-canvas apexchartskwxkzls1 apexcharts-theme-light"
-                      style="width: 330px; height: 130px">
+                      style="width: 330px; height: 130px"
+                    >
                       <div class="apexcharts-legend" style="max-height: 65px"></div>
                     </div>
                   </div>
@@ -905,7 +932,8 @@
                     <div
                       id="apexchartskwxkzls1"
                       class="apexcharts-canvas apexchartskwxkzls1 apexcharts-theme-light"
-                      style="width: 330px; height: 130px">
+                      style="width: 330px; height: 130px"
+                    >
                       <div class="apexcharts-legend" style="max-height: 65px"></div>
                     </div>
                   </div>
@@ -931,7 +959,8 @@
                     <div
                       id="apexchartskwxkzls1"
                       class="apexcharts-canvas apexchartskwxkzls1 apexcharts-theme-light"
-                      style="width: 330px; height: 130px">
+                      style="width: 330px; height: 130px"
+                    >
                       <div class="apexcharts-legend" style="max-height: 65px"></div>
                     </div>
                   </div>
@@ -941,7 +970,6 @@
                 </div>
               </div>
               <!--/ Revenue Generated -->
-
             </div>
           </div>
           <router-view></router-view>
@@ -982,9 +1010,8 @@ import Footer from "./Footer.vue";
 // } from 'chart.js'
 // import { Bar } from 'vue-chartjs'
 
-
 export default {
-  components: { Sidebar, Footer},
+  components: { Sidebar, Footer },
   data() {
     return {
       imageUrl1: "imageUrl1",
@@ -1001,10 +1028,10 @@ export default {
       imageUrl12: "assets/svg/flags/au.svg",
       imageUrl13: "assets/svg/flags/fr.svg",
       imageUrl14: "assets/svg/flags/cn.svg",
-     data : {
-      start_date:null,
-      end_date :null
-     },
+      data: {
+        start_date: null,
+        end_date: null,
+      },
       accounts: null,
       products: null,
       current_stock: null,
@@ -1013,109 +1040,135 @@ export default {
       stores: null,
       stocks: null,
       purchase: null,
-      sell:null,
-      diff:null,
-      
+      sell: null,
+      diff: null,
+
       // groups: null
     };
   },
   mounted() {
-        this.getGroupfetch()
-        this.getProductfetch()
-        this.getStockfetch()
-        this.getOrderfetch()
-        this.getUserfetch()
-        this.getStorefetch()
-        this.getStocksfetch()
-        this.getSalesfetch()
-        this.getPurchaseStockfetch()
-        this.getSalesDiff(),
-        this.recordUpdate()
+    this.getGroupfetch();
+    this.getProductfetch();
+    this.getStockfetch();
+    this.getOrderfetch();
+    this.getUserfetch();
+    this.getStorefetch();
+    this.getStocksfetch();
+    this.getSalesfetch();
+    this.getPurchaseStockfetch();
+    this.getSalesDiff();
+    this.dateRange();
+  },
+  methods: {
+    dateRange() {
+      this.getGroupfetch();
     },
-     methods:{
-      // recordUpdate(){
-      //   axios.post('http://127.0.0.1:8000/api/range', this.data).then(response => {
-      //           this.$router.push({ name: "stock.index" })
-      //       }).catch(error => {
-      //           console.log(error)
-      //       })
-      // },
-      getGroupfetch() {
-            axios.get('http://127.0.0.1:8000/api/account').then(response => {
-                this.accounts = response.data.data.length 
-            }).catch(error => {
-                console.log(error)
-            })
-      },
-      getProductfetch() {
-            axios.get('http://127.0.0.1:8000/api/products').then(response => {
-                this.products = response.data.data.length
-            }).catch(error => {
-                console.log(error)
-            })
-      },
-      getStockfetch() {
-            axios.get('http://127.0.0.1:8000/api/stock').then(response => {
-                this.current_stock = response.data.data.length
-            }).catch(error => {
-                console.log(error)
-            })
-      },
-      getOrderfetch() {
-            axios.get('http://127.0.0.1:8000/api/order').then(response => {
-                this.orders = response.data.data.length
-            }).catch(error => {
-                console.log(error)
-            })
-      },
-      getUserfetch() {
-            axios.get('http://127.0.0.1:8000/api/user').then(response => {
-                this.users = response.data.data.length
-            }).catch(error => {
-                console.log(error)
-            })
-      },
-      getStorefetch() {
-            axios.get('http://127.0.0.1:8000/api/store').then(response => {
-                this.stores = response.data.data.length
-            }).catch(error => {
-                console.log(error)
-            })
-      },
-      getStocksfetch() {
-            axios.get('http://127.0.0.1:8000/api/stock').then(response => {
-                this.stocks = response.data.data
-                  var list=[];
-              this.stocks.map(function(value) {
-                if(value.type == 0){
-                  list.push(value);
-                }
-                    });
-                this.stocks = list.length;
-            }).catch(error => {
-                console.log(error)
-            })
-      },
-      getSalesfetch() {
-           axios.get('http://127.0.0.1:8000/api/purchase').then(response => {
-                this.purchase = response.data
-                console.log(this.sales)
-                this.getSalesDiff()
-            }).catch(error => {
-                console.log(error)
-            })
-      },
-      getPurchaseStockfetch() {
-            axios.get('http://127.0.0.1:8000/api/sell').then(response => {
-                this.sell = response.data
-                this.getSalesDiff()
-            }).catch(error => {
-                console.log(error)
-            })
-        },
-      getSalesDiff(){
-          this.diff = this.purchase -this.sell;
-          }
-      }
+
+    getGroupfetch() {
+      axios
+        .get(
+          `http://127.0.0.1:8000/api/account?start_date=${this.data.start_date}&end_date=${this.data.end_date}`
+        )
+        .then((response) => {
+          this.accounts = response.data.data.length;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getProductfetch() {
+      axios
+        .get("http://127.0.0.1:8000/api/products")
+        .then((response) => {
+          this.products = response.data.data.length;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getStockfetch() {
+      axios
+        .get("http://127.0.0.1:8000/api/stock")
+        .then((response) => {
+          this.current_stock = response.data.data.length;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getOrderfetch() {
+      axios
+        .get("http://127.0.0.1:8000/api/order")
+        .then((response) => {
+          this.orders = response.data.data.length;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getUserfetch() {
+      axios
+        .get("http://127.0.0.1:8000/api/user")
+        .then((response) => {
+          this.users = response.data.data.length;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getStorefetch() {
+      axios
+        .get("http://127.0.0.1:8000/api/store")
+        .then((response) => {
+          this.stores = response.data.data.length;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getStocksfetch() {
+      axios
+        .get("http://127.0.0.1:8000/api/stock")
+        .then((response) => {
+          this.stocks = response.data.data;
+          var list = [];
+          this.stocks.map(function (value) {
+            if (value.type == 0) {
+              list.push(value);
+            }
+          });
+          this.stocks = list.length;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getSalesfetch() {
+      axios
+        .get("http://127.0.0.1:8000/api/purchase")
+        .then((response) => {
+          this.purchase = response.data;
+          console.log(this.sales);
+          this.getSalesDiff();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getPurchaseStockfetch() {
+      axios
+        .get("http://127.0.0.1:8000/api/sell")
+        .then((response) => {
+          this.sell = response.data;
+          this.getSalesDiff();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getSalesDiff() {
+      this.diff = this.purchase - this.sell;
+    },
+  },
 };
 </script>
