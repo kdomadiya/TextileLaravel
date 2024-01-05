@@ -40,6 +40,13 @@
 
           <div class="menu-inner-shadow"></div>
           <ul>
+          <li class="menu-item">
+            <router-link class="menu-link menu-toggle" to="/dashboard">
+              <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
+                <div data-i18n="Dashboard">Dashboard</div>
+              </router-link>
+            <!-- <router-link to="/account">Account</router-link> -->
+          </li>
           <!-- Dashboards -->
           <li class="menu-item">
             <router-link class="menu-link menu-toggle" to="/group">
