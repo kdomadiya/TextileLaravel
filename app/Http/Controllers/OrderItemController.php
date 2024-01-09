@@ -12,7 +12,7 @@ use App\Interfaces\OrderItemRepositoryInterface;
 class OrderItemController extends Controller
 {
     protected OrderItemRepository $orderItemRepository;
-    private $field = ['id', 'order_id', 'product_id','quantity','amount'];
+    private $field = ['id', 'order_id', 'product_id','quantity','amount','price'];
 
     public function __construct(OrderItemRepository $orderItemRepository)
     {
@@ -36,7 +36,6 @@ class OrderItemController extends Controller
 
     public function store(OrderItemCreateRequest $request)
     {
-        // dd($request);
         $data = $request->only($this->field);
         // $data['password'] = bcrypt($data['password']);
         $orderItem = $this->orderItemRepository->create($data);

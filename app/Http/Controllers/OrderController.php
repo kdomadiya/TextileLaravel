@@ -12,7 +12,7 @@ use App\Interfaces\OrderRepositoryInterface;
 class OrderController extends Controller
 {
     protected OrderRepository $orderRepository;
-    private $field = ['id', 'account_id', 'date','total'];
+    private $field = ['id', 'account_id', 'date','total','tax','subtotal'];
 
     public function __construct(OrderRepository $orderRepository)
     {
@@ -71,6 +71,7 @@ class OrderController extends Controller
      */
     public function update(OrderUpdateRequest $request, $id)
     {
+        // dd($request);
         $order = $this->orderRepository->getById($id);
         if (!$order) {
             return response()->json(['error' => 'Order not found'], Response::HTTP_NOT_FOUND);

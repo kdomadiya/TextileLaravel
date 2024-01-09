@@ -68,6 +68,8 @@ import ReportInventory from "./pages/reports/Inventory.vue";
 import ReportPurchase from "./pages/reports/Purchase.vue";
 import ReportSale from "./pages/reports/Sale.vue";
 
+import About from "./pages/About.vue";
+
 import { useUserStore } from "./stores/auth";
 
 const routes = [
@@ -127,6 +129,7 @@ const routes = [
     {path: '/report/inventory', component:ReportInventory, name: 'report.inventory',meta:{requiresAuth: true}},
     {path: '/report/purchase', component:ReportPurchase, name: 'report.purchase',meta:{requiresAuth: true}},
     {path: '/report/sales', component:ReportSale, name: 'report.sale',meta:{requiresAuth: true}},
+    {path: '/about', component:About, name: 'about',meta:{requiresAuth: true}},
     // {path: '/about', component:About}
 ];
 

@@ -52,20 +52,20 @@ class BaseRepository implements BaseRepositoryInterface
     public function get($limit, $page, $search = '', $order_by = 'id', $order = 'asc', $columns,$start_date,$end_date)
     {
                 // Parse the string into a Carbon instance
-                $startDate = Carbon::parse($start_date);
-                $endDate = Carbon::parse($end_date);
+                // $startDate = Carbon::parse($start_date);
+                // $endDate = Carbon::parse($end_date);
                 // Format the date as per your requirement
-                $StartDate = $startDate->format('Y-m-d');
-                $EndDate = $endDate->format('Y-m-d');
+                // $StartDate = $startDate->format('Y-m-d');
+                // $EndDate = $endDate->format('Y-m-d');
                 // dd($StartDate);
         try {
             $query = $this->model::query();
             ($columns) ? $query->select(explode(',', $columns)) : '';
             ($search) ? $query->where('name', 'like', '%' . $search . '%') : '';
             // ($startDate != null) ? $query->whereBetween('created_at',[$StartDate, $endDate]) : '';
-            ($startDate != null) ? $query->whereBetween('created_at',['2024-01-05', '2024-01-05']) : '';
+            // ($startDate != null) ? $query->whereBetween('created_at',['2024-01-05', '2024-01-05']) : '';
             ($order_by) ? $query->orderBy($order_by, $order) : $query->orderBy('id', 'asc');
-            ($limit) ? $data = $query->paginate($limit) : $data = $query->toSql();
+            ($limit) ? $data = $query->paginate($limit) : $data = $query->get();
             // dd($data);
         } catch (QueryException $exception) {
             Log::error("An error occurred: " . class_basename($this->model) . " Get/Show: " . $exception->getMessage());
