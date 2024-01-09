@@ -660,7 +660,7 @@ export default {
     },
     methods: {
         async getgroup() {
-            axios.get('http://127.0.0.1:8000/api/users/role').then(response => {
+            axios.get('/api/users/role').then(response => {
                 this.datas = response.data.data
                 console.log(this.datas);
             }).catch(error => {
@@ -669,7 +669,7 @@ export default {
             })
         },
         deletebanner(id) {
-            axios.delete(`http://127.0.0.1:8000/api/users/role/${id}`).then(response => {
+            axios.delete(`/api/users/role/${id}`).then(response => {
                     this.getgroup()
                 }).catch(error => {
                     console.log(error)

@@ -613,7 +613,7 @@ export default {
     },
    methods:{
            showGroup(){
-                   axios.get(`http://127.0.0.1:8000/api/user/${this.$route.params.id}`).then(response=>{
+                   axios.get(`/api/user/${this.$route.params.id}`).then(response=>{
                       const {name,email,username,phone,password,role,status} = response.data.data
                       this.user.email = email
                       this.user.name = name
@@ -627,14 +627,14 @@ export default {
                   })
               },
                update(){
-                  axios.post(`http://127.0.0.1:8000/api/user/${this.$route.params.id}`,this.user).then(response=>{
+                  axios.post(`/api/user/${this.$route.params.id}`,this.user).then(response=>{
                       this.$router.push({name:"user.index"})
                   }).catch(error=>{
                       console.log(error)
                   })
               },
             getGroupfetch() {
-            axios.get('http://127.0.0.1:8000/api/user').then(response => {
+            axios.get('/api/user').then(response => {
                 this.users = response.data.data
             }).catch(error => {
                 console.log(error)

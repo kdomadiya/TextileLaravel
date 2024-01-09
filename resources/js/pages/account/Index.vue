@@ -683,7 +683,7 @@ export default {
     },
     methods: {
         getaccount() {
-            axios.get('http://127.0.0.1:8000/api/account').then(response => {
+            axios.get('/api/account').then(response => {
                 this.datas = response.data.data
             }).catch(error => {
                 console.log(error)
@@ -691,7 +691,7 @@ export default {
             })
         },
         deleteAccount(id) {
-            axios.delete(`http://127.0.0.1:8000/api/account/${id}`).then(response => {
+            axios.delete(`/api/account/${id}`).then(response => {
                     this.getaccount()
                 }).catch(error => {
                     console.log(error)

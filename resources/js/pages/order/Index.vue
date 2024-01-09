@@ -655,7 +655,7 @@ export default {
     },
     methods: {
         async getorder() {
-            axios.get('http://127.0.0.1:8000/api/order').then(response => {
+            axios.get('/api/order').then(response => {
                 // console.log('hrllo');
                 this.datas = response.data.data
                 console.log(this.datas);
@@ -665,7 +665,7 @@ export default {
             })
         },
         deletebanner(id) {
-            axios.delete(`http://127.0.0.1:8000/api/order/${id}`).then(response => {
+            axios.delete(`/api/order/${id}`).then(response => {
                     this.getorder()
                 }).catch(error => {
                     console.log(error)

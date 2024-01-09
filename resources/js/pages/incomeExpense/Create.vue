@@ -607,7 +607,7 @@ export default {
     },
     methods: {
         create() {
-            axios.post('http://127.0.0.1:8000/api/income-expense/role', this.income).then(response => {
+            axios.post('/api/income-expense/role', this.income).then(response => {
                 this.$router.push({ name: "incomeExpense.index" })
             }).catch(error => {
                 console.log(error)
@@ -615,7 +615,7 @@ export default {
         },
         getIncomeExpense() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/account').then(response => {
+            axios.get('/api/account').then(response => {
                 this.accounts = response.data.data
                 // console.log(this.groups)
             }).catch(error => {

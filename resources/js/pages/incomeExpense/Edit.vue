@@ -607,7 +607,7 @@ export default {
     },
    methods:{
            showGroup(){
-                   axios.get(`http://127.0.0.1:8000/api/income-expense/role/${this.$route.params.id}`).then(response=>{
+                   axios.get(`/api/income-expense/role/${this.$route.params.id}`).then(response=>{
                       
                       const {account_id,amount,date,particular,type} = response.data.data
                       this.income.account_id = account_id
@@ -620,7 +620,7 @@ export default {
                   })
               },
                update(){
-                  axios.post(`http://127.0.0.1:8000/api/income-expense/role/${this.$route.params.id}`,this.income).then(response=>{
+                  axios.post(`/api/income-expense/role/${this.$route.params.id}`,this.income).then(response=>{
                       this.$router.push({name:"incomeExpense.index"})
                   }).catch(error=>{
                       console.log(error)
@@ -650,7 +650,7 @@ export default {
             // },
             getGroupfetch() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/account').then(response => {
+            axios.get('/api/account').then(response => {
                 this.accounts = response.data.data
             }).catch(error => {
                 console.log(error)

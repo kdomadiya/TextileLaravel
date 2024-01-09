@@ -20,8 +20,8 @@ import axios from 'axios'
  * registering components with the application instance so they are ready
  * to use in your application's views. An example is included for you.
  */
-// Vue.component('apexchart', VueApexCharts)
 createApp(App).use(router,VueAxios, axios).use(createPinia()).mount('#app');
 const token =  localStorage.getItem('token');
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-axios.defaults.baseURL = 'http://localhost:8000/';
+console.log(import.meta.env.VITE_SOME_KEY);
+axios.defaults.baseURL = import.meta.env.VITE_SOME_KEY;

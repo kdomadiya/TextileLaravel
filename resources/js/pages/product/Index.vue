@@ -673,7 +673,7 @@ export default {
     },
     methods: {
         async getgroup() {
-            axios.get('http://127.0.0.1:8000/api/products').then(response => {
+            axios.get('/api/products').then(response => {
                 // console.log('hrllo');
                 this.datas = response.data.data
                 console.log(this.datas);
@@ -683,7 +683,7 @@ export default {
             })
         },
         deletebanner(id) {
-            axios.delete(`http://127.0.0.1:8000/api/products/${id}`).then(response => {
+            axios.delete(`/api/products/${id}`).then(response => {
                     this.getgroup()
                 }).catch(error => {
                     console.log(error)

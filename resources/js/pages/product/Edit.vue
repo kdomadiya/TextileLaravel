@@ -617,7 +617,7 @@ export default {
     },
    methods:{
            showGroup(){
-                   axios.get(`http://127.0.0.1:8000/api/products/${this.$route.params.id}`).then(response=>{
+                   axios.get(`/api/products/${this.$route.params.id}`).then(response=>{
                       const {category_id,name,amount,opening_stock,description,batch_number,expiry_date} = response.data.data
                       this.product.category_id = category_id
                       this.product.name = name
@@ -631,7 +631,7 @@ export default {
                   })
               },
                update(){
-                  axios.post(`http://127.0.0.1:8000/api/products/${this.$route.params.id}`,this.product).then(response=>{
+                  axios.post(`/api/products/${this.$route.params.id}`,this.product).then(response=>{
                       this.$router.push({name:"product.index"})
                   }).catch(error=>{
                       console.log(error)
@@ -661,7 +661,7 @@ export default {
             // },
             getGroupfetch() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/category').then(response => {
+            axios.get('/api/category').then(response => {
                 this.categories = response.data.data
             }).catch(error => {
                 console.log(error)

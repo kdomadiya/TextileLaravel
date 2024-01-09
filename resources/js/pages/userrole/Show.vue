@@ -583,7 +583,7 @@ export default {
     },
     methods: {
         getgroup() {
-            axios.get(`http://127.0.0.1:8000/api/users/role/${this.$route.params.id}`).then(response => {
+            axios.get(`/api/users/role/${this.$route.params.id}`).then(response => {
                 this.datas = response.data.data
             }).catch(error => {
                 console.log(error)

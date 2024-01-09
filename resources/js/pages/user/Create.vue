@@ -613,7 +613,7 @@ export default {
     methods: {
         create() {
             // console.warn(this.menu)
-            axios.post('http://127.0.0.1:8000/api/user', this.user).then(response => {
+            axios.post('/api/user', this.user).then(response => {
                 this.$router.push({ name: "user.index" })
             }).catch(error => {
                 console.log(error)

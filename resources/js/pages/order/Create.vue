@@ -1185,7 +1185,7 @@ export default {
       this.order.date = `${year}-${month}-${day}`;
     },
     create: function(){
-        axios.post("http://127.0.0.1:8000/api/order", this.order)
+        axios.post("/api/order", this.order)
         .then((response) => {
             //   this.$router.push({ name: "order.index" });
             this.orderId = response.data.data.id
@@ -1196,7 +1196,7 @@ export default {
     },
      createItems(){
       this.orderItems.forEach(item => {
-          axios.post("http://127.0.0.1:8000/api/order/item", item)
+          axios.post("/api/order/item", item)
         .then((response) => {
             //   this.$router.push({ name: "order.index" });
             this.orderId = response.data.data.id
@@ -1213,7 +1213,7 @@ export default {
        this.order.subtotal = this.sum;
        this.order.total = this.total;
        
-      axios.put('http://127.0.0.1:8000/api/order/'+this.orderId,this.order).then(response=>{
+      axios.put('/api/order/'+this.orderId,this.order).then(response=>{
           }).catch(error=>{
             console.log(error)
         })
@@ -1221,7 +1221,7 @@ export default {
       calculateSum: function() {},
     getAccounts() {
       axios
-        .get("http://127.0.0.1:8000/api/account")
+        .get("/api/account")
         .then((response) => {
           this.accounts = response.data.data;
           console.log(this.accounts)
@@ -1233,7 +1233,7 @@ export default {
       
       getProducts() {
       axios
-        .get("http://127.0.0.1:8000/api/products")
+        .get("/api/products")
         .then((response) => {
           this.products = response.data.data;
           console.log(this.order.date)

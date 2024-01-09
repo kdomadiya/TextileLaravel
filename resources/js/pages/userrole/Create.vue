@@ -601,7 +601,7 @@ export default {
     },
     methods: {
         create() {
-            axios.post('http://127.0.0.1:8000/api/users/role', this.userrole).then(response => {
+            axios.post('/api/users/role', this.userrole).then(response => {
                 this.$router.push({ name: "userrole.index" })
             }).catch(error => {
                 console.log(error)
@@ -609,7 +609,7 @@ export default {
         },
         getgroups() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/users/role').then(response => {
+            axios.get('/api/users/role').then(response => {
                 this.userroles = response.data.data
             }).catch(error => {
                 console.log(error)

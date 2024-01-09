@@ -649,7 +649,7 @@ export default {
     },
    methods:{
            showGroup(){
-                   axios.get(`http://127.0.0.1:8000/api/account/${this.$route.params.id}`).then(response=>{
+                   axios.get(`/api/account/${this.$route.params.id}`).then(response=>{
                       const {id,group_id,name, alias,opening_balance,firstname,lastname,pancard,gst_number,mobile,email,address,status} = response.data.data
                       this.account.id = id
                       this.account.group_id = group_id
@@ -669,7 +669,7 @@ export default {
                   })
               },
                update(){
-                  axios.post(`http://127.0.0.1:8000/api/account/${this.$route.params.id}`,this.account).then(response=>{
+                  axios.post(`/api/account/${this.$route.params.id}`,this.account).then(response=>{
                       this.$router.push({name:"account.index"})
                   }).catch(error=>{
                       console.log(error)
@@ -683,7 +683,7 @@ export default {
             // },
             getGroupfetch() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/group').then(response => {
+            axios.get('/api/group').then(response => {
                 this.groups = response.data.data
                 console.log(this.groups)
             }).catch(error => {

@@ -601,7 +601,7 @@ export default {
     },
    methods:{
            showGroup(){
-                   axios.get(`http://127.0.0.1:8000/api/users/role/${this.$route.params.id}`).then(response=>{
+                   axios.get(`/api/users/role/${this.$route.params.id}`).then(response=>{
                       const {parent_id,name,permissions,status} = response.data.data
                       this.userrole.parent_id = parent_id
                       this.userrole.permissions = permissions
@@ -612,7 +612,7 @@ export default {
                   })
               },
                update(){
-                  axios.post(`http://127.0.0.1:8000/api/users/role/${this.$route.params.id}`,this.userrole).then(response=>{
+                  axios.post(`/api/users/role/${this.$route.params.id}`,this.userrole).then(response=>{
                       this.$router.push({name:"userrole.index"})
                   }).catch(error=>{
                       console.log(error)
@@ -642,7 +642,7 @@ export default {
             // },
             getGroupfetch() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/users/role').then(response => {
+            axios.get('/api/users/role').then(response => {
                 this.userroles = response.data.data
                 console.log(this.groups)
             }).catch(error => {
