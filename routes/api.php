@@ -35,6 +35,7 @@ Route::resource('stores/order','App\Http\Controllers\StoreOrderController', ['na
 Route::resource('user','App\Http\Controllers\UserController', ['names' => 'user']);
 Route::resource('users/role','App\Http\Controllers\UserRoleController', ['names' => 'users.role']);
 Route::get('purchase', [App\Http\Controllers\StockController::class, 'purchase'])->name('purchase');
+Route::get('report/inventory', [App\Http\Controllers\StockController::class, 'inventory'])->name('stock.inventory');
 Route::get('sell', [App\Http\Controllers\StockController::class, 'sell'])->name('sell');
 Route::post('range', [App\Http\Controllers\StockController::class, 'range'])->name('range');
 });

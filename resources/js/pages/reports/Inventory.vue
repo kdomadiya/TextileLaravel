@@ -565,16 +565,6 @@
                                         <h5 class="card-title mb-0">Inventory</h5>
                                     </div>
                                     <div class="dt-action-buttons text-end pt-3 pt-md-0">
-                                        <div class="dt-buttons"> 
-                                            <router-link to='/account/create'  class="dt-button create-new btn btn-primary waves-effect waves-light">
-                                                <span><i
-                                                        class="ti ti-plus me-sm-1"></i> 
-                                                        <span
-                                                        class="d-none d-sm-inline-block">Add New
-                                                        Record</span>
-                                                    </span>
-                                            </router-link>
-                                                    </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -608,38 +598,33 @@
                                                 aria-label="Email: activate to sort column ascending">Product</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                                 rowspan="1" colspan="1" style="width: 130px;"
-                                                aria-label="Date: activate to sort column ascending">Name</th>
+                                                aria-label="Date: activate to sort column ascending">Amount</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                                 rowspan="1" colspan="1" style="width: 174px;"
-                                                aria-label="Salary: activate to sort column ascending">Stock</th>
+                                                aria-label="Salary: activate to sort column ascending">Qty</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                                 rowspan="1" colspan="1" style="width: 174px;"
-                                                aria-label="Salary: activate to sort column ascending">Amount</th>
+                                                aria-label="Salary: activate to sort column ascending">Total</th>
+                                                      <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
+                                                rowspan="1" colspan="1" style="width: 174px;"
+                                                aria-label="Salary: activate to sort column ascending">Type</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                                 rowspan="1" colspan="1" style="width: 174px;"
                                                 aria-label="Salary: activate to sort column ascending">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="data in datas" ::key="data.id">
+                            <tr v-for="data in datas" ::key="data.id">
                             <td></td>
                             <td>{{ data.id }}</td>
-                            <td>{{ data.group_id }}</td>
-                            <td>{{ data.name }}</td>
-                            <td>{{ data.alias }}</td>
-                            <td>{{ data.opening_balance }}</td>
-                            <td>{{ data.firstname }}</td>
-                            <td>{{ data.lastname }}</td>
-                            <td>{{ data.pancard }}</td>
-                            <td>{{ data.gst_number }}</td>
-                            <td v-if="data.status === 1">Active</td><td v-else>Deactive</td>
-                            <td>
-                                <router-link :to='{name:"account.edit",params:{id:data.id}}' class="btn btn-success"><i class="fa-regular fa-pen-to-square"></i></router-link>
-                                <router-link :to='{name:"account.show",params:{id:data.id}}' class="btn btn-primary"><i class="fa-regular fa-eye"></i></router-link>
-                                <button type="button" @click="deleteAccount(data.id)" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
-                            </td>
+                            <td><router-link :to='{name:"inventory.stock",params:{id:data.id}}' class="btn btn-success">{{ data.product.name}}</router-link></td>
+                            <td>{{ data.product.amount }}</td>              
+                            <td>{{ data.qty }}</td>
+                            <td>{{ data.qty * data.product.amount }}</td>
+                            <td v-if="data.type === 1">Stock Out</td><td v-else>Stock In</td>
+                            <td></td>
                         </tr>
-                                    </tbody>
+                            </tbody>
                                 </table>
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6">
@@ -700,13 +685,14 @@ export default {
     },
     methods: {
         getaccount() {
-            axios.get('/api/account').then(response => {
-                this.datas = response.data.data
+            axios.get('/api/report/inventory').then(response => {
+            console.log(response.data)
+                this.datas = response.data
             }).catch(error => {
                 console.log(error)
                 this.datas = []
             })
-        },
+        },                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
         deleteAccount(id) {
             axios.delete(`/api/account/${id}`).then(response => {
                     this.getaccount()

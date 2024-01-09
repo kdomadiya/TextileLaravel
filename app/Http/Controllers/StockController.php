@@ -111,10 +111,13 @@ class StockController extends Controller
         // dd($totalPurchaseAmount);
         return response()->json($totalPurchaseAmount, Response::HTTP_OK);
     }
-         public function sell(){
+    public function sell(){
         $totalSellAmount = Stock::where('type', '1')->sum(\DB::raw('amount * qty'));
         // dd($totalPurchaseAmount);
         return response()->json($totalSellAmount, Response::HTTP_OK);
     }
-   
+   public function inventory(){
+    $inventory =  Stock::with('product')->get();
+    return response()->json($inventory, Response::HTTP_OK);
+   }
 }
