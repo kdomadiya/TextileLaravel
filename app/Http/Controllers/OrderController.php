@@ -8,6 +8,7 @@ use App\Http\Requests\OrderUpdateRequest;
 use App\Repository\OrderRepository;
 use App\Models\Order;
 use App\Interfaces\OrderRepositoryInterface;
+use PDF; 
 
 class OrderController extends Controller
 {
@@ -87,11 +88,23 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        // $company = $request->only($this->field);
         $order = $this->orderRepository->getById($id);
         if (!$order) {
             return response()->json(['error' => 'Order not found'], Response::HTTP_NOT_FOUND);
         }
         return response()->json(['data' => $this->orderRepository->delete($id)], Response::HTTP_NO_CONTENT);
+    }
+
+    public function download_invoice(Request $request){
+        // dd($request);
+        // return view('includes.invoice_template',compact('orders','order_i'));
+    //     $order=Order::find(139);
+    //     $oid = 1;
+	//    $invoice_date = date('jS F Y', strtotime($order->date)); 
+        $pdf = PDF::loadView('includes.invoice_template',array('orders'=>$request));
+        return $pdf->download('invoice.pdf');
+                // $pdf = PDF::loadview('finance.remainingfee');
+                // $pdf->setpaper('a4' , 'portrait');
+                // return $pdf->output();
     }
 }

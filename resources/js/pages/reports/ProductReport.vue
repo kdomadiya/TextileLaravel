@@ -513,50 +513,7 @@
             <!-- Content wrapper -->
             <div class="content-wrapper">
                 <div class="container-xxl flex-grow-1 container-p-y">
-                <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-            <div class="card">
-            <div class="card-body pb-0">
-            <div class="card-icon">
-            <span class="badge bg-label-success rounded-pill p-2">
-            <i class="ti ti-credit-card ti-sm"></i>
-            </span>
-            </div>
-            <h5 class="card-title mb-0 mt-2">1</h5>
-            <small>Total Account</small>
-            </div>
-            <div id="revenueGenerated" style="min-height: 130px;">
-            <div id="apexchartskwxkzls1" class="apexcharts-canvas apexchartskwxkzls1 apexcharts-theme-light" style="width: 330px; height: 130px;">
-            <div class="apexcharts-legend" style="max-height: 65px;">
-            </div>
-            </div>
-            </div>
-            <div class="resize-triggers">
-            </div>
-            </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-            <div class="card">
-            <div class="card-body pb-0">
-            <div class="card-icon">
-            <span class="badge bg-label-success rounded-pill p-2">
-            <i class="ti ti-credit-card ti-sm"></i>
-            </span>
-            </div>
-            <h5 class="card-title mb-0 mt-2">1</h5>
-            <small>Total Account</small>
-            </div>
-            <div id="revenueGenerated" style="min-height: 130px;">
-            <div id="apexchartskwxkzls1" class="apexcharts-canvas apexchartskwxkzls1 apexcharts-theme-light" style="width: 330px; height: 130px;"><div class="apexcharts-legend" style="max-height: 65px;"></div></div></div><div class="resize-triggers"><!-- <Bar :data="data" :options="options" /> --></div></div></div>
-            <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-            <div class="card">
-            <div class="card-body pb-0">
-            <div class="card-icon">
-            <span class="badge bg-label-success rounded-pill p-2"><i class="ti ti-credit-card ti-sm"></i></span></div><h5 class="card-title mb-0 mt-2">1</h5><small>Total Account</small></div><div id="revenueGenerated" style="min-height: 130px;"><div id="apexchartskwxkzls1" class="apexcharts-canvas apexchartskwxkzls1 apexcharts-theme-light" style="width: 330px; height: 130px;"><div class="apexcharts-legend" style="max-height: 65px;"></div></div></div><div class="resize-triggers"><!-- <Bar :data="data" :options="options" /> --></div></div></div>
-            <div class="col-lg-3 col-md-6 col-sm-6 mb-4">
-            <div class="card"><div class="card-body pb-0">
-            <div class="card-icon"><span class="badge bg-label-success rounded-pill p-2"><i class="ti ti-credit-card ti-sm"></i></span></div><h5 class="card-title mb-0 mt-2">1</h5><small>Total Account</small></div><div id="revenueGenerated" style="min-height: 130px;"><div id="apexchartskwxkzls1" class="apexcharts-canvas apexchartskwxkzls1 apexcharts-theme-light" style="width: 330px; height: 130px;"><div class="apexcharts-legend" style="max-height: 65px;"></div></div></div><div class="resize-triggers"><!-- <Bar :data="data" :options="options" /> --></div></div></div>
-            </div>
+              
                     <div class="card">
                         <div class="card-datatable table-responsive pt-0">
                             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
@@ -601,10 +558,10 @@
                                                 aria-label="Date: activate to sort column ascending">Amount</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                                 rowspan="1" colspan="1" style="width: 174px;"
-                                                aria-label="Salary: activate to sort column ascending">Opening Stock</th>
+                                                aria-label="Salary: activate to sort column ascending">Qty</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                                 rowspan="1" colspan="1" style="width: 174px;"
-                                                aria-label="Salary: activate to sort column ascending">Description</th>
+                                                aria-label="Salary: activate to sort column ascending">Total</th>
                                                       <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                                 rowspan="1" colspan="1" style="width: 174px;"
                                                 aria-label="Salary: activate to sort column ascending">Type</th>
@@ -617,11 +574,11 @@
                             <tr v-for="data in datas" ::key="data.id">
                             <td></td>
                             <td>{{ data.id }}</td>
-                            <td><router-link :to='{name:"report.product",params:{id:data.id}}' class="btn btn-success">{{ data.name}}</router-link></td>
-                            <td>{{ data.amount }}</td>              
-                            <td>{{ data.opening_stock }}</td>
-                            <td>{{ data.description }}</td>
-                            <td>{{ data.qty * data.batch_number }}</td>
+                            <td>{{ data.product.name}}</td>
+                            <td>{{ data.product.amount }}</td>              
+                            <td>{{ data.qty }}</td>
+                            <td>{{ data.qty * data.product.amount }}</td>
+                            <td v-if="data.type === 1">Stock Out</td><td v-else>Stock In</td>
                             <td></td>
                         </tr>
                             </tbody>
@@ -680,18 +637,25 @@ export default {
         };
     },
     mounted() {
-        this.getProduct()
+        this.getaccount()
         // this.deleteAccount()
     },
     methods: {
-        getProduct() {
-            axios.get('/api/products').then(response => {
-                this.datas = response.data.data
-                console.log(this.datas)
+        getaccount() {
+            axios.get(`/api/report/inventory/${this.$route.params.id}`).then(response => {
+            console.log(response.data)
+                this.datas = response.data
             }).catch(error => {
                 console.log(error)
                 this.datas = []
             })
+        },                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+        deleteAccount(id) {
+            axios.delete(`/api/account/${id}`).then(response => {
+                    this.getaccount()
+                }).catch(error => {
+                    console.log(error)
+                })
         }
     }
 }

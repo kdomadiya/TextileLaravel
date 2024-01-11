@@ -18,9 +18,6 @@ use App\Http\Controllers\AuthController;
 
 Route::post('/login', [AuthController::class, 'login']);
 // Route::resource('/group','App\Http\Controllers\GroupController', ['names' => 'group']);
-
-
-
 Route::resource('account','App\Http\Controllers\AccountController', ['names' => 'account']);
 Route::middleware(['auth:sanctum'])->group(function () {
 Route::resource('group','App\Http\Controllers\GroupController', ['names' => 'group']);
@@ -35,7 +32,8 @@ Route::resource('stores/order','App\Http\Controllers\StoreOrderController', ['na
 Route::resource('user','App\Http\Controllers\UserController', ['names' => 'user']);
 Route::resource('users/role','App\Http\Controllers\UserRoleController', ['names' => 'users.role']);
 Route::get('purchase', [App\Http\Controllers\StockController::class, 'purchase'])->name('purchase');
-Route::get('report/inventory', [App\Http\Controllers\StockController::class, 'inventory'])->name('stock.inventory');
+Route::get('report/inventory/{id}', [App\Http\Controllers\StockController::class, 'inventory'])->name('stock.inventory');
 Route::get('sell', [App\Http\Controllers\StockController::class, 'sell'])->name('sell');
-Route::post('range', [App\Http\Controllers\StockController::class, 'range'])->name('range');
+Route::post('range', [App\Http\Controllers\StockController::class, 'range'])->name('range'); 
 });
+Route::post('/download_invoice', [App\Http\Controllers\OrderController::class,'download_invoice'])->name('download_invoice');

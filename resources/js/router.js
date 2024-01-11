@@ -68,6 +68,7 @@ import ReportInventory from "./pages/reports/Inventory.vue";
 import ReportPurchase from "./pages/reports/Purchase.vue";
 import ReportSale from "./pages/reports/Sale.vue";
 
+import ReportProduct from "./pages/reports/ProductReport.vue"
 import About from "./pages/About.vue";
 
 import { useUserStore } from "./stores/auth";
@@ -127,18 +128,17 @@ const routes = [
     {path: '/user-role/edit/:id', component:UserRoleEdit, name: 'userrole.edit',meta:{requiresAuth: true}},
     {path: '/report/cashflow', component:ReportCashflow, name: 'report.cashflow',meta:{requiresAuth: true}},
     {path: '/report/inventory', component:ReportInventory, name: 'report.inventory',meta:{requiresAuth: true}},
+    {path: '/report/product/:id', component:ReportProduct, name: 'report.product',meta:{requiresAuth: true}},
     {path: '/report/purchase', component:ReportPurchase, name: 'report.purchase',meta:{requiresAuth: true}},
     {path: '/report/sales', component:ReportSale, name: 'report.sale',meta:{requiresAuth: true}},
     {path: '/about', component:About, name: 'about',meta:{requiresAuth: true}},
     // {path: '/about', component:About}
 ];
 
-
 const router = createRouter({
     history: createWebHistory(),
     routes
 })
-
 
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth){
