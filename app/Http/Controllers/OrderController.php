@@ -96,15 +96,7 @@ class OrderController extends Controller
     }
 
     public function download_invoice(Request $request){
-        // dd($request);
-        // return view('includes.invoice_template',compact('orders','order_i'));
-    //     $order=Order::find(139);
-    //     $oid = 1;
-	//    $invoice_date = date('jS F Y', strtotime($order->date)); 
         $pdf = PDF::loadView('includes.invoice_template',array('orders'=>$request));
         return $pdf->download('invoice.pdf');
-                // $pdf = PDF::loadview('finance.remainingfee');
-                // $pdf->setpaper('a4' , 'portrait');
-                // return $pdf->output();
     }
 }

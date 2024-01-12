@@ -13,6 +13,8 @@ class Group extends Model
         'p_id',
         'name',
         'status',
+        'created_at',
+        'updated_at'
     ];
     public function group()
     {

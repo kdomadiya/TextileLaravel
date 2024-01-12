@@ -15,7 +15,9 @@ class Order extends Model
         'date',
         'total',
         'tax',
-        'subtotal'
+        'subtotal',
+        'created_at',
+        'updated_at'
     ];
     public function account()
     {

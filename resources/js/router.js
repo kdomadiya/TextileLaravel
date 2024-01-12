@@ -71,6 +71,9 @@ import ReportSale from "./pages/reports/Sale.vue";
 import ReportProduct from "./pages/reports/ProductReport.vue"
 import About from "./pages/About.vue";
 
+import Customer from "./pages/account/Customer.vue";
+import Vendor from "./pages/account/Vendor.vue";
+
 import { useUserStore } from "./stores/auth";
 
 const routes = [
@@ -83,6 +86,8 @@ const routes = [
     {path: '/group/show/:id', component:GroupShow, name: 'group.show',meta:{requiresAuth: true}},
     {path: '/group/edit/:id', component:GroupEdit, name: 'group.edit',meta:{requiresAuth: true}},
     {path: '/account', component:Account, name: 'account.index',meta:{requiresAuth: true}},
+    {path: '/customer', component:Customer, name: 'customer.index',meta:{requiresAuth: true}},
+    {path: '/vendor', component:Vendor, name: 'vendor.index',meta:{requiresAuth: true}},
     {path: '/account/create', component:AccountCreate, name: 'account.create',meta:{requiresAuth: true}},
     {path: '/account/show/:id', component:AccountShow, name: 'account.show',meta:{requiresAuth: true}},
     {path: '/account/edit/:id', component:AccountEdit, name: 'account.edit',meta:{requiresAuth: true}},

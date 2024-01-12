@@ -17,6 +17,8 @@ class Product extends Model
         'description',
         'batch_number',
         'expiry_date',
+        'created_at',
+        'updated_at'
     ];
     public function account()
     {

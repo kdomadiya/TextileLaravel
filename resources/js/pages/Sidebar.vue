@@ -45,36 +45,43 @@
               <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
                 <div data-i18n="Dashboard">Dashboard</div>
               </router-link>
-            <!-- <router-link to="/account">Account</router-link> -->
           </li>
-          <!-- Dashboards -->
           <li class="menu-item">
             <router-link class="menu-link menu-toggle" to="/group">
               <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
                 <div data-i18n="Group">Group</div>
               </router-link>
-            <!-- <router-link to="/account">Account</router-link> -->
           </li>
-          <li class="menu-item">
+          <li class="menu-item open">
             <router-link class="menu-link menu-toggle" to="/account">
               <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
                 <div data-i18n="Account">Account</div>
               </router-link>
-            <!-- <router-link to="/account">Account</router-link> -->
+      <ul class="menu-sub">
+        <li class="menu-item">
+           <router-link class="menu-link menu-toggle" to="/customer">
+                <div data-i18n="Customer">Customer</div>
+              </router-link>
+        </li>
+         <li class="menu-item">
+           <router-link class="menu-link menu-toggle" to="/vendor">
+                <div data-i18n="Vendor">Vendor</div>
+            </router-link>
+        </li>
+      </ul>
           </li>
           <li class="menu-item">
             <router-link class="menu-link menu-toggle" to="/category">
               <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
                 <div data-i18n="Layouts">Category</div>
               </router-link>
-            <!-- <router-link to="/account">Account</router-link> -->
           </li>
           <li class="menu-item">
             <router-link class="menu-link menu-toggle" to="/income-expense">
               <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
                 <div data-i18n="Layouts">Income Expense</div>
               </router-link>
-            <!-- <router-link to="/account">Account</router-link> -->
+         
           </li>
           <li class="menu-item">
             <router-link class="menu-link menu-toggle" to="/order">
@@ -95,8 +102,12 @@
               <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
                 <div data-i18n="Layouts">Product</div>
               </router-link>
-            <!-- <router-link to="/account">Account</router-link> -->
+           
           </li>
+
+
+
+
           <li class="menu-item">
             <router-link class="menu-link menu-toggle" to="/stock">
               <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>

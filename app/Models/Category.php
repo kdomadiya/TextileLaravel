@@ -13,6 +13,8 @@ class Category extends Model
         'category_id',
         'name',
         'status',
+        'created_at',
+        'updated_at'
     ];
     public function category()
     {

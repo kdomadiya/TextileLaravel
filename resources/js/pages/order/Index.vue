@@ -533,8 +533,10 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="dataTables_length" id="DataTables_Table_0_length"><label>Show
+                                     <div class="col-sm-12 col-md-4">
+                                        <div class="dataTables_length row" id="DataTables_Table_0_length">
+                                      <div class="col-md-6">
+                                        <label>Show
                                                 <select name="DataTables_Table_0_length"
                                                     aria-controls="DataTables_Table_0" class="form-select">
                                                     <option value="7">7</option>
@@ -543,7 +545,19 @@
                                                     <option value="50">50</option>
                                                     <option value="75">75</option>
                                                     <option value="100">100</option>
-                                                </select> entries</label></div>
+                                                </select> entries</label>
+                                           </div>
+                                           <div class="col-md-6">    
+                                           <label>Export
+                                                <select name="DataTables_Table_0_length" @change="onChange($event)"
+                                                    aria-controls="DataTables_Table_0" class="form-select">
+                                                    <option value="xlsx">Excel</option>
+                                                    <option value="csv">CSV</option>
+                                                    <option value="pdf">PDF</option>
+                                                </select>
+                                            </label>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div
                                         class="col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end">
@@ -659,6 +673,35 @@ export default {
                 // console.log('hrllo');
                 this.datas = response.data.data
                 console.log(this.datas);
+            }).catch(error => {
+                console.log(error)
+                this.datas = []
+            })
+        },
+        onChange(event) {
+                     axios.post('/api/export_file',{export:event.target.value,model:'App\\Models\\Order'},{responseType: 'arraybuffer'}).then(response => {
+            let blob;
+            if (event.target.value === 'xlsx') {
+                // Assuming response.data contains the binary data of the Excel file
+                        blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            } else if (event.target.value === 'csv') {
+                // Assuming response.data contains the binary data of the CSV file
+                blob = new Blob([response.data], { type: 'text/csv' });
+            } else if (event.target.value === 'pdf') {
+              blob =   new Blob([response.data], { type: 'application/pdf' })
+            }
+              // Create a link element
+            let link = document.createElement('a');
+            // Set the link's href to the blob URL
+            link.href = window.URL.createObjectURL(blob);
+            // Set the filename for the download
+            link.download = `exported_file.${event.target.value}`;
+            // Append the link to the document
+            document.body.appendChild(link);
+            // Simulate a click on the link to trigger the download
+            link.click();
+            // Remove the link from the document
+            document.body.removeChild(link);
             }).catch(error => {
                 console.log(error)
                 this.datas = []
