@@ -137,7 +137,6 @@ const routes = [
     {path: '/report/purchase', component:ReportPurchase, name: 'report.purchase',meta:{requiresAuth: true}},
     {path: '/report/sales', component:ReportSale, name: 'report.sale',meta:{requiresAuth: true}},
     {path: '/about', component:About, name: 'about',meta:{requiresAuth: true}},
-    // {path: '/about', component:About}
 ];
 
 const router = createRouter({

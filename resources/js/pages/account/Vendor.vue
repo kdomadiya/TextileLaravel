@@ -701,49 +701,8 @@ export default {
     },
     methods: {
         getaccount() {
-            axios.get('/api/account').then(response => {
-                this.datas = response.data.data
-            }).catch(error => {
-                console.log(error)
-                this.datas = []
-            })
+        
         },
-        onChange(event) {
-                     axios.post('/api/export_file',{export:event.target.value,model:'App\\Models\\Account'},{responseType: 'arraybuffer'}).then(response => {
-            let blob;
-            if (event.target.value === 'xlsx') {
-                // Assuming response.data contains the binary data of the Excel file
-                        blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-            } else if (event.target.value === 'csv') {
-                // Assuming response.data contains the binary data of the CSV file
-                blob = new Blob([response.data], { type: 'text/csv' });
-            } else if (event.target.value === 'pdf') {
-              blob =   new Blob([response.data], { type: 'application/pdf' })
-            }
-              // Create a link element
-            let link = document.createElement('a');
-            // Set the link's href to the blob URL
-            link.href = window.URL.createObjectURL(blob);
-            // Set the filename for the download
-            link.download = `exported_file.${event.target.value}`;
-            // Append the link to the document
-            document.body.appendChild(link);
-            // Simulate a click on the link to trigger the download
-            link.click();
-            // Remove the link from the document
-            document.body.removeChild(link);
-            }).catch(error => {
-                console.log(error)
-                this.datas = []
-            })
-        },
-        deleteAccount(id) {
-            axios.delete(`/api/account/${id}`).then(response => {
-                    this.getaccount()
-                }).catch(error => {
-                    console.log(error)
-                })
-        }
     }
 }
 </script>
