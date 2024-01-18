@@ -766,7 +766,6 @@
                             <input
                               type="text"
                               class="form-control"
-                              disabled=""
                               placeholder="3905"
                               value="3905"
                               id="invoiceId"
@@ -776,9 +775,7 @@
                         <dt class="col-sm-6 mb-2 mb-sm-0 text-md-end ps-0">
                           <span class="fw-normal">Date:</span>
                         </dt>
-                        <dd
-                          class="col-sm-6 d-flex justify-content-md-end pe-0 ps-0 ps-sm-2"
-                        >
+                        <dd class="col-sm-6 d-flex justify-content-md-end pe-0 ps-0 ps-sm-2" >
                           <input
                             type="date"
                             class="form-control w-px-150 date-picker flatpickr-input"
@@ -868,8 +865,7 @@
                                 <div class="row g-3">
                                   <div class="col-12">
                                     <label for="discountInput" class="form-label"
-                                      >Discount(%)</label
-                                    >
+                                      >Discount(%)</label>
                                     <input
                                       type="number"
                                       class="form-control"
@@ -885,8 +881,7 @@
                                     <select
                                       name="group-a[3][tax-1-input]"
                                       id="taxInput1"
-                                      class="form-select tax-select"
-                                    >
+                                      class="form-select tax-select">
                                       <option value="0%" selected="">0%</option>
                                       <option value="1%">1%</option>
                                       <option value="10%">10%</option>
@@ -895,14 +890,11 @@
                                     </select>
                                   </div>
                                   <div class="col-md-6">
-                                    <label for="taxInput2" class="form-label"
-                                      >Tax 2</label
-                                    >
+                                    <label for="taxInput2" class="form-label">Tax 2</label>
                                     <select
                                       name="group-a[3][tax-2-input]"
                                       id="taxInput2"
-                                      class="form-select tax-select"
-                                    >
+                                      class="form-select tax-select" >
                                       <option value="0%" selected="">0%</option>
                                       <option value="1%">1%</option>
                                       <option value="10%">10%</option>
@@ -914,8 +906,7 @@
                                 <div class="dropdown-divider my-3"></div>
                                 <button
                                   type="button"
-                                  class="btn btn-label-primary btn-apply-changes waves-effect"
-                                >
+                                  class="btn btn-label-primary btn-apply-changes waves-effect">
                                   Apply
                                 </button>
                               </div>
@@ -925,7 +916,6 @@
                       </div>
                     </div>
                      </div>
-
                     <!-- ------ -->
                     <div class="row pb-4">
                       <div class="col-12">
@@ -989,9 +979,9 @@
                           type="button"
                           class="btn btn-label-primary d-grid w-100 waves-effect"
                           data-repeater-create=""
-                          @click="Invoice"
+                          @click="qoutation"
                         >
-                         Invoice
+                         create
                         </button>
                   <button type="submit"  class="btn btn-label-secondary d-grid w-100 waves-effect">
                     Saves
@@ -1081,18 +1071,18 @@ export default {
      removeItem(index) {
       this.orderItems.splice(index, 1);
     },
-      Invoice() {
+      qoutation() {
        this.order.tax = this.tax;
        this.order.subtotal = this.sum;
        this.order.total = this.total;
        this.order['order'] = this.orderItems;
-       axios.post(`api/download_invoice`,this.order,{responseType: 'arraybuffer'}).then(response => {
-      console.log(response.data)
+       axios.post(`api/qoutation`,this.order,{responseType: 'arraybuffer'}).then(response => {
       let blob = new Blob([response.data], { type: 'application/pdf' })
       let link = document.createElement('a')
       link.href = window.URL.createObjectURL(blob)
       link.download = 'test.pdf'
       link.click()
+     this.$router.push({ name: "quotation.index" });
         })
         .catch((error) => {
           console.log(error);

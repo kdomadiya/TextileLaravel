@@ -519,11 +519,11 @@
                             <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                                 <div class="card-header flex-column flex-md-row">
                                     <div class="head-label text-center">
-                                        <h5 class="card-title mb-0">Customer</h5>
+                                        <h5 class="card-title mb-0">Quotation </h5>
                                     </div>
                                     <div class="dt-action-buttons text-end pt-3 pt-md-0">
                                         <div class="dt-buttons"> 
-                                            <router-link to='/account/create'  class="dt-button create-new btn btn-primary waves-effect waves-light">
+                                            <router-link to='/quotation/create'  class="dt-button create-new btn btn-primary waves-effect waves-light">
                                                 <span><i
                                                         class="ti ti-plus me-sm-1"></i> 
                                                         <span
@@ -535,7 +535,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-4">
+                                       <div class="col-sm-12 col-md-4">
                                         <div class="dataTables_length row" id="DataTables_Table_0_length">
                                       <div class="col-md-6">
                                         <label>Show
@@ -561,15 +561,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-4">
-                                    </div>
                                     <div
-                                        class="col-sm-12 col-md-4 d-flex justify-content-center justify-content-md-end">
+                                        class="col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end">
                                         <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                             <label>Search:<input type="search" class="form-control" placeholder=""
-                                                    aria-controls="DataTables_Table_0">
-                                            </label>
-                                        </div>
+                                                    aria-controls="DataTables_Table_0"></label></div>
                                     </div>
                                 </div>
                                 <table class="datatables-basic table dataTable no-footer dtr-column"
@@ -589,34 +585,10 @@
                                                 aria-sort="ascending">ID</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                                 rowspan="1" colspan="1" style="width: 148px;"
-                                                aria-label="Email: activate to sort column ascending">Group Id</th>
+                                                aria-label="Email: activate to sort column ascending">Account</th>
                                             <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
                                                 rowspan="1" colspan="1" style="width: 130px;"
-                                                aria-label="Date: activate to sort column ascending">Name</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                rowspan="1" colspan="1" style="width: 174px;"
-                                                aria-label="Salary: activate to sort column ascending">Alias</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                rowspan="1" colspan="1" style="width: 174px;"
-                                                aria-label="Salary: activate to sort column ascending">Opening Balance</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                rowspan="1" colspan="1" style="width: 174px;"
-                                                aria-label="Salary: activate to sort column ascending">First Name</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                rowspan="1" colspan="1" style="width: 174px;"
-                                                aria-label="Salary: activate to sort column ascending">Last Name</th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                rowspan="1" colspan="1" style="width: 174px;"
-                                                aria-label="Salary: activate to sort column ascending">Pan Card
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                rowspan="1" colspan="1" style="width: 174px;"
-                                                aria-label="Salary: activate to sort column ascending">GST Number
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0"
-                                                rowspan="1" colspan="1" style="width: 174px;"
-                                                aria-label="Salary: activate to sort column ascending">Status
-                                            </th>
+                                                aria-label="Date: activate to sort column ascending">Date</th>
                                                 <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 178px;"
                                                 aria-label="Actions">Actions</th>
                                         </tr>
@@ -625,19 +597,13 @@
                         <tr v-for="data in datas" ::key="data.id">
                             <td></td>
                             <td>{{ data.id }}</td>
-                            <td>{{ data.group_id }}</td>
-                            <td>{{ data.name }}</td>
-                            <td>{{ data.alias }}</td>
-                            <td>{{ data.opening_balance }}</td>
-                            <td>{{ data.firstname }}</td>
-                            <td>{{ data.lastname }}</td>
-                            <td>{{ data.pancard }}</td>
-                            <td>{{ data.gst_number }}</td>
-                            <td v-if="data.status === 1">Active</td><td v-else>Deactive</td>
+                            <td>{{ data.account.firstname }} {{ data.account.lastname }}</td>
+                            <td>{{ data.date }}</td>
+                            <!-- <td v-if="data.status === 1">Active</td><td v-else>Deactive</td> -->
                             <td>
-                                <router-link :to='{name:"account.edit",params:{id:data.id}}' class="btn btn-success"><i class="fa-regular fa-pen-to-square"></i></router-link>
-                                <router-link :to='{name:"account.show",params:{id:data.id}}' class="btn btn-primary"><i class="fa-regular fa-eye"></i></router-link>
-                                <button type="button" @click="deleteAccount(data.id)" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
+                                <router-link :to='{name:"product.edit",params:{id:data.id}}' class="btn btn-success"><i class="fa-regular fa-pen-to-square"></i></router-link>
+                                <button type="button" @click="showInvoice(data.id)" class="btn btn-danger"><i class="fa-solid fa-download"></i></button>
+                                <button type="button" @click="deletebanner(data.id)" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
                             </td>
                         </tr>
                                     </tbody>
@@ -696,20 +662,22 @@ export default {
         };
     },
     mounted() {
-        this.getaccount()
-        // this.deleteAccount()
+        this.getgroup()
+        // this.deletebanner()
     },
     methods: {
-        getaccount() {
-            axios.get('/api/account').then(response => {
+        async getgroup() {
+            axios.get('/api/qoutation').then(response => {
+              console.log(response);
                 this.datas = response.data.data
+                console.log(this.datas);
             }).catch(error => {
                 console.log(error)
                 this.datas = []
             })
         },
-        onChange(event) {
-                     axios.post('/api/export_file',{export:event.target.value,model:'App\\Models\\Account'},{responseType: 'arraybuffer'}).then(response => {
+         onChange(event) {
+            axios.post('/api/export_file',{export:event.target.value,model:'App\\Models\\Product'},{responseType: 'arraybuffer'}).then(response => {
             let blob;
             if (event.target.value === 'xlsx') {
                 // Assuming response.data contains the binary data of the Excel file
@@ -737,12 +705,25 @@ export default {
                 this.datas = []
             })
         },
-        deleteAccount(id) {
-            axios.delete(`/api/account/${id}`).then(response => {
-                    this.getaccount()
+        deletebanner(id){
+            axios.delete(`/api/products/${id}`).then(response => {
+                    this.getgroup()
                 }).catch(error => {
                     console.log(error)
                 })
+        },
+        showInvoice(id){
+                axios.get(`/api/qoutation/${id}`).then(response => {
+                console.log(response.data)
+                     let blob = new Blob([response.data], { type: 'application/pdf' })
+                    let link = document.createElement('a')
+                    link.href = window.URL.createObjectURL(blob)
+                    link.download = 'test.pdf'
+                    link.click()
+                    this.$router.push({ name: "quotation.index" });
+                }).catch(error => {
+                    console.log(error)
+                }) 
         }
     }
 }

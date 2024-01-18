@@ -102,12 +102,7 @@
               <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
                 <div data-i18n="Layouts">Product</div>
               </router-link>
-           
           </li>
-
-
-
-
           <li class="menu-item">
             <router-link class="menu-link menu-toggle" to="/stock">
               <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
@@ -143,12 +138,18 @@
               </router-link>
             <!-- <router-link to="/account">Account</router-link> -->
           </li>
+            <li class="menu-item">
+            <router-link class="menu-link menu-toggle" to="/quotation">
+              <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
+                <div data-i18n="Layouts">Quotation</div>
+              </router-link>
+            <!-- <router-link to="/quotation ">Quotation </router-link> -->
+          </li>
           <li class="menu-item open" style="">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
         <div data-i18n="Reports">Reports</div>
       </a>
-
       <ul class="menu-sub">
         <li class="menu-item">
           <router-link to="/report/sales" class="menu-link">

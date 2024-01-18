@@ -63,6 +63,11 @@ import UserRoleCreate from "./pages/userrole/Create.vue";
 import UserRoleShow from "./pages/userrole/Show.vue";
 import UserRoleEdit from "./pages/userrole/Edit.vue";
 
+import Quotation from "./pages/quotation/Index.vue";
+import QuotationCreate from "./pages/quotation/Create.vue";
+import QuotationShow from "./pages/quotation/Show.vue";
+import QuotationEdit from "./pages/quotation/Edit.vue";
+
 import ReportCashflow from "./pages/reports/Cashflow.vue";
 import ReportInventory from "./pages/reports/Inventory.vue";
 import ReportPurchase from "./pages/reports/Purchase.vue";
@@ -131,6 +136,10 @@ const routes = [
     {path: '/user-role/create', component:UserRoleCreate, name: 'userrole.create',meta:{requiresAuth: true}},
     {path: '/user-role/show/:id', component:UserRoleShow, name: 'userrole.show',meta:{requiresAuth: true}},
     {path: '/user-role/edit/:id', component:UserRoleEdit, name: 'userrole.edit',meta:{requiresAuth: true}},
+    {path: '/quotation', component:Quotation, name: 'quotation.index',meta:{requiresAuth: true}},
+    {path: '/quotation/create', component:QuotationCreate, name: 'quotation.create',meta:{requiresAuth: true}},
+    {path: '/quotation/show/:id', component:QuotationShow, name: 'quotation.show',meta:{requiresAuth: true}},
+    {path: '/quotation/edit/:id', component:QuotationEdit, name: 'quotation.edit',meta:{requiresAuth: true}},
     {path: '/report/cashflow', component:ReportCashflow, name: 'report.cashflow',meta:{requiresAuth: true}},
     {path: '/report/inventory', component:ReportInventory, name: 'report.inventory',meta:{requiresAuth: true}},
     {path: '/report/product/:id', component:ReportProduct, name: 'report.product',meta:{requiresAuth: true}},

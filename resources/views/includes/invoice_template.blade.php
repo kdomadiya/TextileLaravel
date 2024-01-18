@@ -61,7 +61,7 @@ use App\Models\Product;
         </tr>
         <tr>
             <td width="100%" style="text-align: center; font-size: 20px; font-weight: bold; padding: 0px;">
-              INVOICE
+              Quotation
             </td>
         </tr>
         <tr>
@@ -101,12 +101,10 @@ use App\Models\Product;
             </tr>
         </thead>
         <tbody>
-            
-            @foreach($orders->order as $key => $order)
-            <?php $product = Product::where('id',$order['product_id'])->first(); ?>
+            @foreach($orders['order'] as $key => $order)
             <tr>
                 <td style="padding: 0px 7px; line-height: 20px;">{{ $key + 1 }}</td>
-                <td style="padding: 0px 7px; line-height: 20px;">{{ $product->name }}</td>
+                <td style="padding: 0px 7px; line-height: 20px;">{{ $order['product_id'] }}</td>
                 <td style="padding: 0px 7px; line-height: 20px;">{{ $order['amount'] }}</td>
                 <td style="padding: 0px 7px; line-height: 20px;">{{ $order['quantity'] }}</td>
                 <td style="padding: 0px 7px; line-height: 20px;">{{ $order['price'] }}</td>
@@ -118,7 +116,7 @@ use App\Models\Product;
     <table width="100%" style="font-family: sans-serif; font-size: 14px;" >
         <tr>
             <td>
-                <table width="60%" align="left" style="font-family: sans-serif; font-size: 14px;" >
+                {{-- <table width="60%" align="left" style="font-family: sans-serif; font-size: 14px;" >
                     <tr>
                         <td style="padding: 0px; line-height: 20px;">&nbsp;</td>
                     </tr>
@@ -136,7 +134,7 @@ use App\Models\Product;
                         <td style="border: 1px #eee solid; padding: 0px 8px; line-height: 20px;"><strong>Total</strong></td>
                         <td style="border: 1px #eee solid; padding: 0px 8px; line-height: 20px;">{{ $orders->total}}</td>
                     </tr>
-                </table>
+                </table> --}}
             </td>
         </tr>
     </table>
