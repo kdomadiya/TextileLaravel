@@ -756,7 +756,7 @@
                     <div class="col-md-5">
                       <dl class="row mb-2">
                         <dt class="col-sm-6 mb-2 mb-sm-0 text-md-end ps-0">
-                          <span class="h4 text-capitalize mb-0 text-nowrap">Invoice</span>
+                          <span class="h4 text-capitalize mb-0 text-nowrap">Quotation</span>
                         </dt>
                         <dd
                           class="col-sm-6 d-flex justify-content-md-end pe-0 ps-0 ps-sm-2"

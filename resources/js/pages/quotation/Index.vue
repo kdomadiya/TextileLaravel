@@ -110,14 +110,14 @@
                                                 <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                                                     <i class="ti ti-calendar fs-4"></i>
                                                 </span>
-                                                <a href="app-calendar.html" class="stretched-link">Calendar</a>
+                                                <a href="" class="stretched-link">Calendar</a>
                                                 <small class="text-muted mb-0">Appointments</small>
                                             </div>
                                             <div class="dropdown-shortcuts-item col">
                                                 <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                                                     <i class="ti ti-file-invoice fs-4"></i>
                                                 </span>
-                                                <a href="app-invoice-list.html" class="stretched-link">Invoice App</a>
+                                                <a href="" class="stretched-link">Invoice App</a>
                                                 <small class="text-muted mb-0">Manage Accounts</small>
                                             </div>
                                         </div>
@@ -126,14 +126,14 @@
                                                 <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                                                     <i class="ti ti-users fs-4"></i>
                                                 </span>
-                                                <a href="app-user-list.html" class="stretched-link">User App</a>
+                                                <a href="" class="stretched-link">User App</a>
                                                 <small class="text-muted mb-0">Manage Users</small>
                                             </div>
                                             <div class="dropdown-shortcuts-item col">
                                                 <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                                                     <i class="ti ti-lock fs-4"></i>
                                                 </span>
-                                                <a href="app-access-roles.html" class="stretched-link">Role Management</a>
+                                                <a href="" class="stretched-link">Role Management</a>
                                                 <small class="text-muted mb-0">Permission</small>
                                             </div>
                                         </div>
@@ -142,14 +142,14 @@
                                                 <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                                                     <i class="ti ti-chart-bar fs-4"></i>
                                                 </span>
-                                                <a href="index.html" class="stretched-link">Dashboard</a>
+                                                <a href="" class="stretched-link">Dashboard</a>
                                                 <small class="text-muted mb-0">User Profile</small>
                                             </div>
                                             <div class="dropdown-shortcuts-item col">
                                                 <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                                                     <i class="ti ti-settings fs-4"></i>
                                                 </span>
-                                                <a href="pages-account-settings-account.html"
+                                                <a href=""
                                                     class="stretched-link">Setting</a>
                                                 <small class="text-muted mb-0">Account Settings</small>
                                             </div>
@@ -159,14 +159,14 @@
                                                 <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                                                     <i class="ti ti-help fs-4"></i>
                                                 </span>
-                                                <a href="pages-faq.html" class="stretched-link">FAQs</a>
+                                                <a href="" class="stretched-link">FAQs</a>
                                                 <small class="text-muted mb-0">FAQs &amp; Articles</small>
                                             </div>
                                             <div class="dropdown-shortcuts-item col">
                                                 <span class="dropdown-shortcuts-icon rounded-circle mb-2">
                                                     <i class="ti ti-square fs-4"></i>
                                                 </span>
-                                                <a href="modal-examples.html" class="stretched-link">Modals</a>
+                                                <a href="" class="stretched-link">Modals</a>
                                                 <small class="text-muted mb-0">Useful Popups</small>
                                             </div>
                                         </div>
@@ -435,7 +435,7 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li>
-                                        <a class="dropdown-item" href="pages-account-settings-account.html">
+                                        <a class="dropdown-item" href="">
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
@@ -453,19 +453,19 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="pages-profile-user.html">
+                                        <a class="dropdown-item" href="">
                                             <i class="ti ti-user-check me-2 ti-sm"></i>
                                             <span class="align-middle">My Profile</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="pages-account-settings-account.html">
+                                        <a class="dropdown-item" href="">
                                             <i class="ti ti-settings me-2 ti-sm"></i>
                                             <span class="align-middle">Settings</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="pages-account-settings-billing.html">
+                                        <a class="dropdown-item" href="">
                                             <span class="d-flex align-items-center align-middle">
                                                 <i class="flex-shrink-0 ti ti-credit-card me-2 ti-sm"></i>
                                                 <span class="flex-grow-1 align-middle">Billing</span>
@@ -478,13 +478,13 @@
                                     <div class="dropdown-divider"></div>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="pages-faq.html">
+                                    <a class="dropdown-item" href="">
                                         <i class="ti ti-help me-2 ti-sm"></i>
                                         <span class="align-middle">FAQ</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="pages-pricing.html">
+                                    <a class="dropdown-item" href="">
                                         <i class="ti ti-currency-dollar me-2 ti-sm"></i>
                                         <span class="align-middle">Pricing</span>
                                     </a>
@@ -493,7 +493,7 @@
                                     <div class="dropdown-divider"></div>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="auth-login-cover.html" target="_blank">
+                                    <a class="dropdown-item" href="" target="_blank">
                                         <i class="ti ti-logout me-2 ti-sm"></i>
                                         <span class="align-middle">Log Out</span>
                                     </a>
@@ -527,8 +527,7 @@
                                                 <span><i
                                                         class="ti ti-plus me-sm-1"></i> 
                                                         <span
-                                                        class="d-none d-sm-inline-block">Add New
-                                                        Record</span>
+                                                        class="d-none d-sm-inline-block">Add Quotation</span>
                                                     </span>
                                             </router-link>
                                                     </div>
