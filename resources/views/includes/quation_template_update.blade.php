@@ -71,14 +71,14 @@ use App\Models\Account;
     </table>
     <table width="100%" style="font-family: sans-serif;" cellpadding="10">
         <tr>
-            <?php $account = Account::where('id',$orders->account_id)->first(); ?>
             <td width="49%" style="border: 0.1mm solid #eee;">Name<br></td>
-            <td width="2%">&nbsp;</td>
+            <td width="2%">&nbsp;</td>                                       
             <td width="49%" style="border: 0.1mm solid #eee; text-align: right;">
-                <strong>{{ $account->firstname }} {{ $account->lastname }}</strong>
-                <strong>{{ $account->pancard }}</strong><br>
-                <strong>{{ $account->gst_number }}</strong><br>
-                <strong>{{ $account->mobile }}</strong>
+                {{-- @dd($orders['account']) --}}
+                <strong>{{ $orders['account']['firstname'] }} {{ $orders['account']['lastname'] }}</strong>
+                <strong>{{ $orders['account']['pancard'] }}</strong><br>
+                <strong>{{ $orders['account']['pancard'] }}</strong><br>
+                <strong>{{ $orders['account']['mobile'] }}</strong>
             </td>
         </tr>
     </table>
@@ -107,13 +107,12 @@ use App\Models\Account;
         </thead>
         <tbody>
             @foreach($orders['order'] as $key => $order)
-            <?php $product = Product::where('id',$order['product_id'])->first(); ?>
             <tr>
                 <td style="padding: 0px 7px; line-height: 20px;">{{ $key + 1 }}</td>
-                <td style="padding: 0px 7px; line-height: 20px;">{{ $product->name }}</td>
-                <td style="padding: 0px 7px; line-height: 20px;">{{ $order['amount'] }}</td>
+                <td style="padding: 0px 7px; line-height: 20px;">{{ $order['product']['name'] }}</td>
+                <td style="padding: 0px 7px; line-height: 20px;">{{ $order['unit_price'] }}</td>
                 <td style="padding: 0px 7px; line-height: 20px;">{{ $order['quantity'] }}</td>
-                <td style="padding: 0px 7px; line-height: 20px;">{{ $order['price'] }}</td>
+                <td style="padding: 0px 7px; line-height: 20px;">{{ $order['total'] }}</td>
             </tr>
             @endforeach
         </tbody>
@@ -130,22 +129,22 @@ use App\Models\Account;
                 <table width="40%" align="right" style="font-family: sans-serif; font-size: 14px;" >
                     <tr>
                         <td style="border: 1px #eee solid; padding: 0px 8px; line-height: 20px;"><strong>Subtotal</strong></td>
-                        <td style="border: 1px #eee solid; padding: 0px 8px; line-height: 20px;">{{ $orders->subtotal}}</td>
+                        <td style="border: 1px #eee solid; padding: 0px 8px; line-height: 20px;">{{ $orders['subtotal'] }}</td>
                     </tr>
                     <tr>
                         <td style="border: 1px #eee solid; padding: 0px 8px; line-height: 20px;"><strong>Tax</strong></td>
-                        <td style="border: 1px #eee solid; padding: 0px 8px; line-height: 20px;">{{ $orders->tax}}</td>
-                    </tr>
+                        <td style="border: 1px #eeesolid; padding: 0px 8px; line-height: 20px;">{{ $orders['tax'] }}</td>
+                    </tr> 
                     <tr>
                         <td style="border: 1px #eee solid; padding: 0px 8px; line-height: 20px;"><strong>Total</strong></td>
-                        <td style="border: 1px #eee solid; padding: 0px 8px; line-height: 20px;">{{ $orders->total}}</td>
+                        <td style="border: 1px #eee solid; padding: 0px 8px; line-height: 20px;">{{ $orders['total'] }}</td>
                     </tr>
                 </table>
             </td>
         </tr>
     </table>
     <br>
-            </td>
+    </td>
         </tr>
         <br>
     </table>

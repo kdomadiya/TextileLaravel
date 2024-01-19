@@ -178,3 +178,9 @@
         
 <!-- END: Main Menu-->
 </template>
+<script>
+export default {
+  name: "Sidebar",
+    components: {},
+};
+</script>

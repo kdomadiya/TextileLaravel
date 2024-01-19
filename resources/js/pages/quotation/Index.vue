@@ -600,7 +600,7 @@
                             <td>{{ data.date }}</td>
                             <!-- <td v-if="data.status === 1">Active</td><td v-else>Deactive</td> -->
                             <td>
-                                <router-link :to='{name:"product.edit",params:{id:data.id}}' class="btn btn-success"><i class="fa-regular fa-pen-to-square"></i></router-link>
+                                <router-link :to='{name:"quotation.edit",params:{id:data.id}}' class="btn btn-success"><i class="fa-regular fa-pen-to-square"></i></router-link>
                                 <button type="button" @click="showInvoice(data.id)" class="btn btn-danger"><i class="fa-solid fa-download"></i></button>
                                 <button type="button" @click="deletebanner(data.id)" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
                             </td>
@@ -712,8 +712,7 @@ export default {
                 })
         },
         showInvoice(id){
-                axios.get(`/api/qoutation/${id}`).then(response => {
-                console.log(response.data)
+                axios.get(`/api/qoutation/pdfShow/${id}`).then(response => {
                      let blob = new Blob([response.data], { type: 'application/pdf' })
                     let link = document.createElement('a')
                     link.href = window.URL.createObjectURL(blob)

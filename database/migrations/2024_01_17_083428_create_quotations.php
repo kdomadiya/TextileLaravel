@@ -17,6 +17,9 @@ return new class extends Migration
             $table->foreign('account_id')->references('id')->on('accounts');
             $table->date('date');
             $table->boolean('status')->default(1);
+            $table->unsignedBigInteger('subtotal');
+            $table->unsignedBigInteger('tax');
+            $table->unsignedBigInteger('total');
             $table->timestamps();
         });
     }
