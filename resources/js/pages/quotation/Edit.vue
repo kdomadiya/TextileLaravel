@@ -438,19 +438,24 @@ export default {
         });
     },
      createItems(){
-      this.orderItems.forEach(item => {
-          axios.post("/api/order/item", item)
-        .then((response) => {
-            //   this.$router.push({ name: "order.index" });
-            this.orderId = response.data.data.id
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-        });
-        this.updateOrder();
-     this.$router.push({ name: "order.index" });
-    },
+      // this.orderItems.forEach(item => {
+        //   axios.post("/api/order/item", item)
+        // .then((response) => {
+        //     //   this.$router.push({ name: "order.index" });
+        //     this.orderId = response.data.data.id
+        // })
+        // .catch((error) => {
+        //   console.log(error);
+        // });
+        // });
+      this.$router.push({
+              name: 'order.create',
+              params: {
+                orderId: 123,
+                otherParam: 'example'
+              }
+            });
+        },
     updateOrder(){
      this.order.tax = this.tax;
        this.order.subtotal = this.sum;

@@ -1034,6 +1034,7 @@ import Footer from "../Footer.vue";
 // import axios from 'axios';
 export default {
   components: { Sidebar, Footer },
+  props: ['propFromIndex'],
   data() {
     return {
         orderId:null,
@@ -1043,7 +1044,6 @@ export default {
         tax: 0,
         subtotal:0,
         total: 0,
-        // status: null,
       },
       orderItem:{
         product_id:null,
@@ -1116,24 +1116,23 @@ export default {
         });
     },
      createItems(){
-      this.orderItems.forEach(item => {
-          axios.post("/api/order/item", item)
-        .then((response) => {
-            //   this.$router.push({ name: "order.index" });
-            this.orderId = response.data.data.id
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-        });
+      // this.orderItems.forEach(item => {
+      //     axios.post("/api/order/item", item)
+      //   .then((response) => {
+      //       //   this.$router.push({ name: "order.index" });
+      //       this.orderId = response.data.data.id
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
+      //   });
         this.updateOrder();
-     this.$router.push({ name: "order.index" });
+     this.$router.push({ name: "order.create" ,params: { propFromIndex: 'value' } });
     },
     updateOrder(){
      this.order.tax = this.tax;
        this.order.subtotal = this.sum;
        this.order.total = this.total;
-       
       axios.put('/api/order/'+this.orderId,this.order).then(response=>{
           }).catch(error=>{
             console.log(error)

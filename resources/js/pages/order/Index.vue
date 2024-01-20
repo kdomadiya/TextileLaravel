@@ -669,6 +669,8 @@ export default {
     },
     methods: {
         async getorder() {
+            const orderId = this.$route.params.orderId;
+            const otherParam = this.$route.params.otherParam;
             axios.get('/api/order').then(response => {
                 // console.log('hrllo');
                 this.datas = response.data.data
