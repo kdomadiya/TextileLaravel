@@ -26,6 +26,8 @@ actions: {
     },
     async setSharedData(data) {
      this.sharedData = data;
+     console.log(data)
+     
     },
 },
 });

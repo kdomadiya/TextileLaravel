@@ -128,14 +128,14 @@
                       </select>
                             </div>
                             <div class="col-md-3 col-12 mb-md-0 mb-3">
-                              <p class="mb-2 repeater-title">Amount</p>
+                              <p class="mb-2 repeater-title">Price</p>
                               <input
                                 type="number"
                                 class="form-control invoice-item-price mb-3"
                                 placeholder="00"
                                 min="12"
                                 :id="'amount_' + index"
-                                v-model="item.unit_price" v-on:input="calculateSum"
+                                v-model="item.price" v-on:input="calculateSum"
                               />
                             </div>
                             <div class="col-md-2 col-12 mb-md-0 mb-3">
@@ -151,7 +151,7 @@
                               />
                             </div>
                             <div class="col-md-1 col-12 pe-0">
-                              <p class="mb-2 repeater-title">Price</p>
+                              <p class="mb-2 repeater-title">Amount</p>
                               <p class="mb-0">
                               <input
                                 type="text"
@@ -159,7 +159,7 @@
                                 placeholder="Price"
                                 :id="'price_' + index"
                                 :disabled="10"
-                                v-model="item.price"/></p>
+                                v-model="item.amount"/></p>
                             </div>
                           </div>
                           <div
@@ -299,7 +299,7 @@
                         >
                          Update
                         </button>
-                  <button  @click="createItems" type="submit"  class="btn btn-label-secondary d-grid w-100 waves-effect">
+                  <button  @click="createItems"  class="btn btn-label-secondary d-grid w-100 waves-effect">
                     Order
                   </button>
                 </div> 
@@ -341,7 +341,6 @@ import { useUserStore }  from '../../stores/auth';
 
 export default {
   components: { Sidebar, Footer,NavBar },
- 
   data() {
     return {
       orderId:null,
@@ -356,11 +355,13 @@ export default {
       },
       orderItem:{
         product_id:null,
-        order_id: this.orderId,
+        quotation_id: this.orderId,
         quantity:0,
-        unit_price:0
+        price:0,
+        amount:0
       },
       orderItems: [],
+      qoutationsdId : null,
       orderIds:null,
       currentDate: new Date(),
       accounts: null,
@@ -372,16 +373,14 @@ export default {
     };
   },
   setup() {
+    const qoutationId = ref(null);
     const sharedStore = useUserStore();
-    var quotationData = "";
-
-    const updateSharedData = (order) => {
-     quotationData = order;
-      sharedStore.setSharedData(quotationData);
-      console.log(order)
+    const updateSharedData = (data) => {
+      qoutationId.value = data;
+      sharedStore.setSharedData(data);
     };
   
-    return { sharedStore, quotationData, updateSharedData };
+    return { sharedStore, qoutationId, updateSharedData };
   },
   mounted() {
     this.getAccounts(),
@@ -399,7 +398,8 @@ export default {
       this.orderItems.push(newItem);
     },
     qoutationShow(){
-      axios.get(`/api/qoutation/${this.$route.params.id}`).then(response=>{
+             axios.get(`/api/qoutation/${this.$route.params.id}`).then(response=>{
+                    console.log(response)
                       const {account_id,date,tax,subtotal,total} = response.data.data[0]
                       this.order.account_id = account_id
                       this.order.account = response.data.data[0].account
@@ -408,6 +408,7 @@ export default {
                       this.order.subtotal = subtotal
                       this.order.total = total
                       this.orderItems = response.data.data['qoutation_items']
+                      console.log(this.orderItems)
                   }).catch(error=>{
                       console.log(error)
                   })
@@ -417,11 +418,10 @@ export default {
       this.calculateOverallTotal
     },
       qoutation(){
-       this.order['order'] = this.orderItems;
-       this.updateSharedData(this.order);
+      this.order['order'] = this.orderItems;
       axios.post(`/api/qoutation/${this.$route.params.id}`,this.order,{responseType: 'arraybuffer'}).then(response=>{
-        const modifiedData = this.order;
-        let blob = new Blob([response.data], { type: 'application/pdf' })
+      const modifiedData = this.order;
+      let blob = new Blob([response.data], { type: 'application/pdf' })
       let link = document.createElement('a')
       link.href = window.URL.createObjectURL(blob)
       link.download = 'test.pdf'
@@ -450,8 +450,8 @@ export default {
         });
     },
      createItems(){
-      
-      this.updateSharedData(this.order);
+      this.qoutationsdId = this.$route.params.id;
+      this.updateSharedData(this.qoutationsdId);
           this.$router.push({ name: "order.create" });
         },
     updateOrder(){
@@ -488,7 +488,7 @@ export default {
     },
      calculateTotal(item) {
       // Calculate total for each item
-      return item.quantity * item.unit_price;
+      return item.quantity * item.price;
     },
      totalTax(total) {
       return (total * 18)/100 ;
@@ -501,12 +501,12 @@ export default {
     calculateOverallTotal(){
       // Calculate overall total based on all items
       return this.orderItems.reduce((total, item) => {
-      
-        item.order_id =  this.orderId;
+        item.quotation_id =  this.qoutationsdId;
+        console.log(item.quotation_id)
         this.orderItem.product_id = item.product_id;
         this.orderItem.quantity = item.quantity;
-        this.orderItem.unit_price = item.unit_price;
-        item.price = item.quantity * item.unit_price;
+        this.orderItem.price = item.price;
+        item.amount = item.quantity * item.price;
         this.order.subtotal = total + this.calculateTotal(item);
         this.order.tax = this.totalTax(this.order.subtotal);
        this.order.total = this.totalTaxTotal(this.order.subtotal,this.order.tax);

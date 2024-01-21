@@ -1172,7 +1172,7 @@ export default {
         this.orderItem.product_id = item.product_id;
         this.orderItem.quantity = item.quantity;
         this.orderItem.amount = item.amount;
-        item.price = item.quantity * item.amount;
+        item.amount = item.quantity * item.price;
         this.sum = total + this.calculateTotal(item);
        this.tax = this.totalTax(this.sum);
        this.total = this.totalTaxTotal(this.sum,this.tax);

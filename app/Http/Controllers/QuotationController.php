@@ -41,7 +41,8 @@ class QuotationController extends Controller
             $quaotation_item->quotation_id = $quaotation->id;
             $quaotation_item->product_id = $quaotation_i['product_id'];
             $quaotation_item->quantity = $quaotation_i['quantity'];
-            $quaotation_item->unit_price = $quaotation_i['amount'];
+            $quaotation_item->price = $quaotation_i['price'];
+            $quaotation_item->amount = $quaotation_i['amount'];
             $quaotation_item->save();
         }
         $pdf = PDF::loadView('includes.invoice_template',array('orders'=>$request));
@@ -58,10 +59,10 @@ class QuotationController extends Controller
         // dd($id);
             $qoute_show = Quotation::where('id',$id)->with('account')->first();
             $qoutation_item = QuotationItem::where('quotation_id',$id)->with('product')->get();
+            // dd($qoute_show);
             $qoutation = [];
             $qoutation[] = $qoute_show;
             $qoutation['qoutation_items'] = $qoutation_item;
-            // dd( $qoutation);
             return response()->json(['data' => $qoutation], Response::HTTP_OK);
     }
     
@@ -94,17 +95,18 @@ class QuotationController extends Controller
        $quotation->subtotal = $request->subtotal;
        $quotation->status = 1;
        $quotation->save();
-    //    dd($request);
+       //    dd($request);
        // Delete existing QuotationItem records associated with this Quotation
        $quotation->items()->delete();
        // Insert new QuotationItem records based on the request data
        foreach ($request->order as $quotationItemData) {
-        // dd($quotationItemData,$request->order); 
+           // dd($quotationItemData,$request->order); 
            $quotationItem = new QuotationItem;
            $quotationItem->quotation_id = $quotation->id;
            $quotationItem->product_id = $quotationItemData['product_id'];
            $quotationItem->quantity = $quotationItemData['quantity'];
-           $quotationItem->unit_price = $quotationItemData['unit_price'];
+           $quotationItem->price = $quotationItemData['price'];
+           $quotationItem->amount = $quotationItemData['amount'];
            $quotationItem->save();
        }
     //    dd($request['account_id']);

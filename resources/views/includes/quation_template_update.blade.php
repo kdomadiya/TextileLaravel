@@ -110,9 +110,9 @@ use App\Models\Account;
             <tr>
                 <td style="padding: 0px 7px; line-height: 20px;">{{ $key + 1 }}</td>
                 <td style="padding: 0px 7px; line-height: 20px;">{{ $order['product']['name'] }}</td>
-                <td style="padding: 0px 7px; line-height: 20px;">{{ $order['unit_price'] }}</td>
+                <td style="padding: 0px 7px; line-height: 20px;">{{ $order['price'] }}</td>
                 <td style="padding: 0px 7px; line-height: 20px;">{{ $order['quantity'] }}</td>
-                <td style="padding: 0px 7px; line-height: 20px;">{{ $order['total'] }}</td>
+                <td style="padding: 0px 7px; line-height: 20px;">{{ $order['amount'] }}</td>
             </tr>
             @endforeach
         </tbody>

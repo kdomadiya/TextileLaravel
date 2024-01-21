@@ -925,7 +925,6 @@
                       </div>
                     </div>
                      </div>
-
                     <!-- ------ -->
                     <div class="row pb-4">
                       <div class="col-12">
@@ -980,6 +979,7 @@
                 </div>
               </div>
             </div>
+           <!-- {{ }} -->
             <!-- /Invoice Add-->
             <!-- Invoice Actions -->
             <div class="col-lg-3 col-12 invoice-actions">
@@ -1032,9 +1032,15 @@
 import Sidebar from "../Sidebar.vue";
 import Footer from "../Footer.vue";
 // import axios from 'axios';
+import { useUserStore }  from '../../stores/auth';
 export default {
   components: { Sidebar, Footer },
-  props: ['propFromIndex'],
+  setup() {
+    const sharedStore = useUserStore();
+    // Access the shared data in order.vue
+    const sharedData = sharedStore.getSharedData;
+    return { sharedStore, sharedData };
+  },
   data() {
     return {
         orderId:null,
@@ -1066,11 +1072,11 @@ export default {
      this.getAccounts(),
      this.getProducts(),
       this.loadCurrentDate(),
-      this.addItem()
-      this.totalTax()
-      this.totalTaxTotal()
-      this.updateOrder()
-     
+      this.addItem(),
+      this.totalTax(),
+      this.totalTaxTotal(),
+      this.updateOrder(),
+     this.qoutationShow()
   },
   methods: {
    addItem(){
@@ -1098,6 +1104,9 @@ export default {
           console.log(error);
         });
     },
+    showqouatation(){
+
+    },
      loadCurrentDate() {
       const now = new Date();
       const year = now.getFullYear();
@@ -1114,6 +1123,22 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    qoutationShow(){
+      console.log(this.sharedData); 
+      axios.get('/api/qoutation/'+this.sharedData).then(response=>{
+        console.log(response)
+                      const {account_id,date,tax,subtotal,total} = response.data.data[0]
+                      this.order.account_id = account_id
+                      this.order.account = response.data.data[0].account
+                      this.order.date = date
+                      this.order.tax = tax
+                      this.order.subtotal = subtotal
+                      this.order.total = total
+                      this.orderItems = response.data.data['qoutation_items']
+                  }).catch(error=>{
+                      console.log(error)
+                  })
     },
      createItems(){
       // this.orderItems.forEach(item => {
@@ -1144,7 +1169,6 @@ export default {
         .get("/api/account")
         .then((response) => {
           this.accounts = response.data.data;
-          console.log(this.accounts)
         })
         .catch((error) => {
           console.log(error);
