@@ -42,7 +42,6 @@
               <!-- /Logo -->
               <h4 class="mb-1 pt-2">Welcome to Vuexy! 👋</h4>
               <p class="mb-4">Please sign-in to your account and start the adventure</p>
-
               <form id="formAuthentication" class="mb-3" @submit.prevent="login">
                 <div class="mb-3">
                   <label for="email" class="form-label">Email or Username</label>
@@ -84,27 +83,22 @@
                   <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
                 </div>
               </form>
-
               <p class="text-center">
                 <span>New on our platform?</span>
                 <a href="auth-register-basic.html">
                   <span>Create an account</span>
                 </a>
               </p>
-
               <div class="divider my-4">
                 <div class="divider-text">or</div>
               </div>
-
               <div class="d-flex justify-content-center">
                 <a href="javascript:;" class="btn btn-icon btn-label-facebook me-3">
                   <i class="tf-icons fa-brands fa-facebook-f fs-5"></i>
                 </a>
-
                 <a href="javascript:;" class="btn btn-icon btn-label-google-plus me-3">
                   <i class="tf-icons fa-brands fa-google fs-5"></i>
                 </a>
-
                 <a href="javascript:;" class="btn btn-icon btn-label-twitter">
                   <i class="tf-icons fa-brands fa-twitter fs-5"></i>
                 </a>
@@ -126,10 +120,9 @@
         setup() {
             const email = ref('');
             const password = ref('');
-
             const authStore = useUserStore();
             const router = useRouter()
-             const route = useRoute()
+            const route = useRoute()
 
             const login = async () => {
                     await authStore.login({

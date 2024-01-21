@@ -4,9 +4,11 @@ export const useUserStore = defineStore("user", {
 
   state: () => ({
     token: null,
+    sharedData: null,
 }),
 getters:{
-      getToken : state => state.token
+      getToken : state => state.token,
+      getSharedData: (state) => state.sharedData,
 },
 actions: {
     setToken(token) {
@@ -21,6 +23,9 @@ actions: {
       }).catch(error => {
         throw new Error(response.data.message || 'Login failed');
       })
+    },
+    async setSharedData(data) {
+     this.sharedData = data;
     },
 },
 });

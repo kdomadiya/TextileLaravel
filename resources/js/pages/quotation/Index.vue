@@ -653,6 +653,7 @@
 import Sidebar from '../Sidebar.vue'
 import Footer from '../Footer.vue'
 
+
 export default {
     components: { Sidebar, Footer },
     data() {
@@ -662,7 +663,7 @@ export default {
     },
     mounted() {
         this.getgroup()
-        // this.deletebanner()
+        
     },
     methods: {
         async getgroup() {

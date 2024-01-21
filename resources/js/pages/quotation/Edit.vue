@@ -299,7 +299,7 @@
                         >
                          Update
                         </button>
-                  <button type="submit"  class="btn btn-label-secondary d-grid w-100 waves-effect">
+                  <button  @click="createItems" type="submit"  class="btn btn-label-secondary d-grid w-100 waves-effect">
                     Order
                   </button>
                 </div> 
@@ -333,11 +333,15 @@
   </div>
 </template>
 <script>
+import { ref } from 'vue';
 import Sidebar from "../Sidebar.vue";
 import Footer from "../Footer.vue";
 import NavBar from "../Nav.vue";
+import { useUserStore }  from '../../stores/auth';
+
 export default {
   components: { Sidebar, Footer,NavBar },
+ 
   data() {
     return {
       orderId:null,
@@ -367,6 +371,18 @@ export default {
       submitted: false,
     };
   },
+  setup() {
+    const sharedStore = useUserStore();
+    var quotationData = "";
+
+    const updateSharedData = (order) => {
+     quotationData = order;
+      sharedStore.setSharedData(quotationData);
+      console.log(order)
+    };
+  
+    return { sharedStore, quotationData, updateSharedData };
+  },
   mounted() {
     this.getAccounts(),
      this.getProducts(),
@@ -380,7 +396,6 @@ export default {
   methods: {
     addItem(){
       const newItem = { ...this.orderItems[this.orderItems.length - 1] };
-      console.log(newItem)
       this.orderItems.push(newItem);
     },
     qoutationShow(){
@@ -402,14 +417,11 @@ export default {
       this.calculateOverallTotal
     },
       qoutation(){
-        
-      //  this.order.tax = this.tax;
-      //  this.order.subtotal = this.sum;
-      //  this.order.total = this.total;
        this.order['order'] = this.orderItems;
-      //  axios.post(`api/qoutation`,this.order,{responseType: 'arraybuffer'}).then(response => {
+       this.updateSharedData(this.order);
       axios.post(`/api/qoutation/${this.$route.params.id}`,this.order,{responseType: 'arraybuffer'}).then(response=>{
-      let blob = new Blob([response.data], { type: 'application/pdf' })
+        const modifiedData = this.order;
+        let blob = new Blob([response.data], { type: 'application/pdf' })
       let link = document.createElement('a')
       link.href = window.URL.createObjectURL(blob)
       link.download = 'test.pdf'
@@ -438,23 +450,9 @@ export default {
         });
     },
      createItems(){
-      // this.orderItems.forEach(item => {
-        //   axios.post("/api/order/item", item)
-        // .then((response) => {
-        //     //   this.$router.push({ name: "order.index" });
-        //     this.orderId = response.data.data.id
-        // })
-        // .catch((error) => {
-        //   console.log(error);
-        // });
-        // });
-      this.$router.push({
-              name: 'order.create',
-              params: {
-                orderId: 123,
-                otherParam: 'example'
-              }
-            });
+      
+      this.updateSharedData(this.order);
+          this.$router.push({ name: "order.create" });
         },
     updateOrder(){
      this.order.tax = this.tax;
@@ -478,7 +476,6 @@ export default {
           console.log(error);
         });
     },
-      
       getProducts() {
       axios
         .get("/api/products")
