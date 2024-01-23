@@ -287,11 +287,11 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar">
-                              <img
+                              <!-- <img
                                 :src="imageUrl1"
                                 alt=""
                                 class="h-auto rounded-circle"
-                              />
+                              /> -->
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -349,11 +349,11 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar">
-                              <img
+                              <!-- <img
                                 :src="imageUrl2"
                                 alt=""
                                 class="h-auto rounded-circle"
-                              />
+                              /> -->
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -411,11 +411,11 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar">
-                              <img
+                              <!-- <img
                                 :src="imageUrl3"
                                 alt=""
                                 class="h-auto rounded-circle"
-                              />
+                              /> -->
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -475,11 +475,11 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar">
-                              <img
+                              <!-- <img
                                 :src="imageUrl4"
                                 alt=""
                                 class="h-auto rounded-circle"
-                              />
+                              /> -->
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -507,11 +507,11 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar">
-                              <img
+                              <!-- <img
                                 :src="imageUrl5"
                                 alt=""
                                 class="h-auto rounded-circle"
-                              />
+                              /> -->
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -601,7 +601,7 @@
                   data-bs-toggle="dropdown"
                 >
                   <div class="avatar avatar-online">
-                    <img :src="imageUrl1" alt="" class="h-auto rounded-circle" />
+                    <!-- <img :src="imageUrl1" alt="" class="h-auto rounded-circle" /> -->
                   </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -610,7 +610,7 @@
                       <div class="d-flex">
                         <div class="flex-shrink-0 me-3">
                           <div class="avatar avatar-online">
-                            <img :src="imageUrl1" alt="" class="h-auto rounded-circle" />
+                            <!-- <img :src="imageUrl1" alt="" class="h-auto rounded-circle" /> -->
                           </div>
                         </div>
                         <div class="flex-grow-1">
@@ -817,7 +817,7 @@
                                 placeholder="00"
                                 min="12"
                                 :id="'amount_' + index"
-                                v-model="item.amount" v-on:input="calculateSum"
+                                v-model="item.price" v-on:input="calculateSum"
                               />
                             </div>
                             <div class="col-md-2 col-12 mb-md-0 mb-3">
@@ -841,7 +841,7 @@
                                 placeholder="Price"
                                 :id="'price_' + index"
                                 :disabled="10"
-                                v-model="item.price"/></p>
+                                v-model="item.amount"/></p>
                             </div>
                           </div>
                           <div
@@ -1037,7 +1037,7 @@ export default {
       },
       orderItem:{
         product_id:null,
-        order_id: this.orderId,
+        quotation_id: this.orderId,
         quantity:0,
         amount:0
       },
@@ -1064,8 +1064,7 @@ export default {
   },
   methods: {
    addItem(){
-      // Clone the last item in the array to add a new item
-      const newItem = { ...this.orderItems[this.orderItems.length - 1] };
+    const newItem = { ...this.orderItems[this.orderItems.length - 1] };
       this.orderItems.push(newItem);
     },
      removeItem(index) {
@@ -1096,8 +1095,9 @@ export default {
       this.order.date = `${year}-${month}-${day}`;
     },
     create: function(){
-        axios.post("/api/order", this.order)
+        axios.post("api/qoutation", this.order)
         .then((response) => {
+          console.log(response)
             //   this.$router.push({ name: "order.index" });
             this.orderId = response.data.data.id
         })
@@ -1106,18 +1106,20 @@ export default {
         });
     },
      createItems(){
-      this.orderItems.forEach(item => {
-          axios.post("/api/order/item", item)
-        .then((response) => {
-            //   this.$router.push({ name: "order.index" });
-            this.orderId = response.data.data.id
+      this.order['order'] = this.orderId;
+      console.log(this.orderId)
+      axios.post(`/api/qoutation/${this.$route.params.id}`,this.order,{responseType: 'arraybuffer'}).then(response=>{
+      const modifiedData = this.order;
+      let blob = new Blob([response.data], { type: 'application/pdf' })
+      let link = document.createElement('a')
+      link.href = window.URL.createObjectURL(blob)
+      link.download = 'test.pdf'
+      link.click()
+     this.$router.push({ name: "quotation.index" });
         })
         .catch((error) => {
           console.log(error);
         });
-        });
-        this.updateOrder();
-     this.$router.push({ name: "order.index" });
     },
     updateOrder(){
      this.order.tax = this.tax;

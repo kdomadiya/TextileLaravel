@@ -394,8 +394,22 @@ export default {
   },
   methods: {
     addItem(){
-      const newItem = { ...this.orderItems[this.orderItems.length - 1] };
-      this.orderItems.push(newItem);
+      // const newItem = { ...this.orderItems[this.orderItems.length - 1] };
+      // this.orderItems.push(newItem);
+      const lastItem = this.orderItems[this.orderItems.length - 1];
+          // Create a shallow copy of the last item
+          const newItem = { ...lastItem };
+          // Make changes to the newItem if needed
+          // For example, setting id to null
+          newItem.id = null;
+          newItem.quotation_id = null;
+          newItem.amount = null;
+          newItem.price = null;
+          newItem.quantity = null;
+          // Push the newItem to the array
+          this.orderItems.push(newItem);
+          // Log the updated orderItems array
+          console.log(this.orderItems);
     },
     qoutationShow(){
              axios.get(`/api/qoutation/${this.$route.params.id}`).then(response=>{
@@ -442,7 +456,7 @@ export default {
     create: function(){
         axios.post("/api/order", this.order)
         .then((response) => {
-            //   this.$router.push({ name: "order.index" });
+              this.$router.push({ name: "order.index" });
             this.orderId = response.data.data.id
         })
         .catch((error) => {
@@ -452,17 +466,17 @@ export default {
      createItems(){
       this.qoutationsdId = this.$route.params.id;
       this.updateSharedData(this.qoutationsdId);
-          this.$router.push({ name: "order.create" });
+      this.$router.push({ name: "order.create" });
         },
-    updateOrder(){
-     this.order.tax = this.tax;
-       this.order.subtotal = this.sum;
-       this.order.total = this.total;
-      axios.put('/api/order/'+this.orderId,this.order).then(response=>{
-          }).catch(error=>{
-            console.log(error)
-        })
-    },
+        updateOrder(){
+        this.order.tax = this.tax;
+          this.order.subtotal = this.sum;
+          this.order.total = this.total;
+          axios.put('/api/order/'+this.orderId,this.order).then(response=>{
+              }).catch(error=>{
+                console.log(error)
+            })
+        },
       calculateSum: function() {
         this.calculateOverallTotal
       },

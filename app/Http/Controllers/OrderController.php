@@ -53,6 +53,8 @@ class OrderController extends Controller
     public function show($id)
     {
         $order = $this->orderRepository->getById($id);
+        // $order = Order::find($id);
+        $order['order_items'] = $order->orderItems;
         if (!$order) {
             return response()->json(['error' => 'Account not found'], Response::HTTP_NOT_FOUND);
         }

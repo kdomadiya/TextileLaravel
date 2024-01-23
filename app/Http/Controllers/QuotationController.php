@@ -109,7 +109,6 @@ class QuotationController extends Controller
            $quotationItem->amount = $quotationItemData['amount'];
            $quotationItem->save();
        }
-    //    dd($request['account_id']);
        $orders = [];
        $orders['account_id'] = $request['account_id'];
        $orders['date'] = $request->date;

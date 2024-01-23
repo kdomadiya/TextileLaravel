@@ -1080,9 +1080,20 @@ export default {
   },
   methods: {
    addItem(){
-      // Clone the last item in the array to add a new item
-      const newItem = { ...this.orderItems[this.orderItems.length - 1] };
-      this.orderItems.push(newItem);
+      const lastItem = this.orderItems[this.orderItems.length - 1];
+          // Create a shallow copy of the last item
+          const newItem = { ...lastItem };
+          // Make changes to the newItem if needed
+          // For example, setting id to null
+          newItem.id = null;
+          newItem.amount = null;
+          newItem.price = null;
+          newItem.product_id = null;
+          newItem.quantity = null;
+          // Push the newItem to the array
+          this.orderItems.push(newItem);
+          // Log the updated orderItems array
+          console.log(this.orderItems);
     },
      removeItem(index) {
       this.orderItems.splice(index, 1);
@@ -1119,15 +1130,14 @@ export default {
         .then((response) => {
             //   this.$router.push({ name: "order.index" });
             this.orderId = response.data.data.id
+            console.log(this.orderId)
         })
         .catch((error) => {
           console.log(error);
         });
     },
     qoutationShow(){
-      console.log(this.sharedData); 
       axios.get('/api/qoutation/'+this.sharedData).then(response=>{
-        console.log(response)
                       const {account_id,date,tax,subtotal,total} = response.data.data[0]
                       this.order.account_id = account_id
                       this.order.account = response.data.data[0].account
@@ -1136,25 +1146,31 @@ export default {
                       this.order.subtotal = subtotal
                       this.order.total = total
                       this.orderItems = response.data.data['qoutation_items']
+                      this.create()
                   }).catch(error=>{
                       console.log(error)
                   })
     },
      createItems(){
-      // this.orderItems.forEach(item => {
-      //     axios.post("/api/order/item", item)
-      //   .then((response) => {
-      //       //   this.$router.push({ name: "order.index" });
-      //       this.orderId = response.data.data.id
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
-      //   });
+      this.orderItems.forEach(item => {
+        delete item.id;
+        console.log(item)
         this.updateOrder();
-     this.$router.push({ name: "order.create" ,params: { propFromIndex: 'value' } });
+        axios.post("/api/order/item", item)
+        
+        .then((response) => {
+              this.$router.push({ name: "order.index" });
+            this.orderId = response.data.data.id
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+        });
+       
+    //  this.$router.push({ name: "order.create" ,params: { propFromIndex: 'value' } });
     },
     updateOrder(){
+      console.log(this.orderId)
      this.order.tax = this.tax;
        this.order.subtotal = this.sum;
        this.order.total = this.total;
@@ -1163,7 +1179,7 @@ export default {
             console.log(error)
         })
     },
-      calculateSum: function() {},
+    calculateSum: function() {},
     getAccounts() {
       axios
         .get("/api/account")
@@ -1179,8 +1195,7 @@ export default {
       axios
         .get("/api/products")
         .then((response) => {
-          this.products = response.data.data;
-          console.log(this.order.date)
+          this.products = response.data.data; 
         })
         .catch((error) => {
           console.log(error);

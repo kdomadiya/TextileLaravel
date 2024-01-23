@@ -672,27 +672,26 @@ export default {
             const orderId = this.$route.params.orderId;
             const otherParam = this.$route.params.otherParam;
             axios.get('/api/order').then(response => {
-                // console.log('hrllo');
                 this.datas = response.data.data
                 console.log(this.datas);
+            console.log(this.datas);
             }).catch(error => {
                 console.log(error)
                 this.datas = []
             })
         },
         onChange(event) {
-                     axios.post('/api/export_file',{export:event.target.value,model:'App\\Models\\Order'},{responseType: 'arraybuffer'}).then(response => {
+            axios.post('/api/export_file',{export:event.target.value,model:'App\\Models\\Order'},{responseType: 'arraybuffer'}).then(response => {
             let blob;
             if (event.target.value === 'xlsx') {
-                // Assuming response.data contains the binary data of the Excel file
-                        blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
             } else if (event.target.value === 'csv') {
-                // Assuming response.data contains the binary data of the CSV file
-                blob = new Blob([response.data], { type: 'text/csv' });
+            // Assuming response.data contains the binary data of the CSV file
+            blob = new Blob([response.data], { type: 'text/csv' });
             } else if (event.target.value === 'pdf') {
-              blob =   new Blob([response.data], { type: 'application/pdf' })
+            blob =   new Blob([response.data], { type: 'application/pdf' })
             }
-              // Create a link element
+            // Create a link element
             let link = document.createElement('a');
             // Set the link's href to the blob URL
             link.href = window.URL.createObjectURL(blob);
