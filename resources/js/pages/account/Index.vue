@@ -701,6 +701,7 @@ export default {
     },
     methods: {
         getaccount() {
+            console.log(axios.defaults.baseURL)
             axios.get('/api/account').then(response => {
                 this.datas = response.data.data
             }).catch(error => {

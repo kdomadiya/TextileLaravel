@@ -610,7 +610,7 @@ export default {
     },
    methods:{
            showGroup(){
-                   axios.get(`http://127.0.0.1:8000/api/stores/order/${this.$route.params.id}`).then(response=>{
+                   axios.get(`/api/stores/order/${this.$route.params.id}`).then(response=>{
                       const {store_id,order_id,data_synced,status} = response.data.data
                       this.store.store_id = store_id
                       this.store.order_id = order_id
@@ -621,7 +621,7 @@ export default {
                   })
               },
                update(){
-                  axios.post(`http://127.0.0.1:8000/api/stores/order/${this.$route.params.id}`,this.store).then(response=>{
+                  axios.post(`/api/stores/order/${this.$route.params.id}`,this.store).then(response=>{
                       this.$router.push({name:"storeorder.index"})
                   }).catch(error=>{
                       console.log(error)
@@ -651,7 +651,7 @@ export default {
             // },
         getstore() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/store').then(response => {
+            axios.get('/api/store').then(response => {
                 this.stores = response.data.data
                 console.log(this.groups)
             }).catch(error => {
@@ -660,7 +660,7 @@ export default {
         },
         getorders() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/order').then(response => {
+            axios.get('/api/order').then(response => {
                 this.orders = response.data.data
                 console.log(this.groups)
             }).catch(error => {

@@ -614,7 +614,7 @@ export default {
     methods: {
         create() {
             // console.warn(this.menu)
-            axios.post('http://127.0.0.1:8000/api/stock', this.stock).then(response => {
+            axios.post('/api/stock', this.stock).then(response => {
                 this.$router.push({ name: "stock.index" })
             }).catch(error => {
                 console.log(error)
@@ -622,7 +622,7 @@ export default {
         },
         getgroups() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/products').then(response => {
+            axios.get('/api/products').then(response => {
                 this.products = response.data.data
                 console.log(this.groups)
             }).catch(error => {

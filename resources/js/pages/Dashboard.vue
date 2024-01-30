@@ -1061,9 +1061,8 @@ export default {
     },
 
     getGroupfetch() {
-      axios
-        .get(
-          `http://127.0.0.1:8000/api/account?start_date=${this.data.start_date}&end_date=${this.data.end_date}`
+      axios.get(
+          `/api/account?start_date=${this.data.start_date}&end_date=${this.data.end_date}`
         )
         .then((response) => {
           this.accounts = response.data.data.length;
@@ -1073,8 +1072,7 @@ export default {
         });
     },
     getProductfetch() {
-      axios
-        .get("http://127.0.0.1:8000/api/products")
+      axios.get("/api/products")
         .then((response) => {
           this.products = response.data.data.length;
         })
@@ -1083,8 +1081,7 @@ export default {
         });
     },
     getStockfetch() {
-      axios
-        .get("http://127.0.0.1:8000/api/stock")
+      axios.get("/api/stock")
         .then((response) => {
           this.current_stock = response.data.data.length;
         })
@@ -1093,8 +1090,7 @@ export default {
         });
     },
     getOrderfetch() {
-      axios
-        .get("http://127.0.0.1:8000/api/order")
+      axios.get("/api/order")
         .then((response) => {
           this.orders = response.data.data.length;
         })
@@ -1103,8 +1099,7 @@ export default {
         });
     },
     getUserfetch() {
-      axios
-        .get("http://127.0.0.1:8000/api/user")
+      axios.get("/api/user")
         .then((response) => {
           this.users = response.data.data.length;
         })
@@ -1113,8 +1108,7 @@ export default {
         });
     },
     getStorefetch() {
-      axios
-        .get("http://127.0.0.1:8000/api/store")
+      axios.get("/api/store")
         .then((response) => {
           this.stores = response.data.data.length;
         })
@@ -1123,8 +1117,7 @@ export default {
         });
     },
     getStocksfetch() {
-      axios
-        .get("http://127.0.0.1:8000/api/stock")
+      axios.get("/api/stock")
         .then((response) => {
           this.stocks = response.data.data;
           var list = [];
@@ -1140,8 +1133,7 @@ export default {
         });
     },
     getSalesfetch() {
-      axios
-        .get("http://127.0.0.1:8000/api/purchase")
+      axios.get("/api/purchase")
         .then((response) => {
           this.purchase = response.data;
           console.log(this.sales);
@@ -1152,8 +1144,7 @@ export default {
         });
     },
     getPurchaseStockfetch() {
-      axios
-        .get("http://127.0.0.1:8000/api/sell")
+      axios.get("/api/sell")
         .then((response) => {
           this.sell = response.data;
           this.getSalesDiff();

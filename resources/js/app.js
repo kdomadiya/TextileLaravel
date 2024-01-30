@@ -23,5 +23,4 @@ import axios from 'axios'
 createApp(App).use(router,VueAxios, axios).use(createPinia()).mount('#app');
 const token =  localStorage.getItem('token');
 axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-console.log(import.meta.env.VITE_SOME_KEY);
-axios.defaults.baseURL = import.meta.env.VITE_SOME_KEY;
+axios.defaults.baseURL = import.meta.env.APP_URL;

@@ -83,26 +83,6 @@
                   <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
                 </div>
               </form>
-              <p class="text-center">
-                <span>New on our platform?</span>
-                <a href="auth-register-basic.html">
-                  <span>Create an account</span>
-                </a>
-              </p>
-              <div class="divider my-4">
-                <div class="divider-text">or</div>
-              </div>
-              <div class="d-flex justify-content-center">
-                <a href="javascript:;" class="btn btn-icon btn-label-facebook me-3">
-                  <i class="tf-icons fa-brands fa-facebook-f fs-5"></i>
-                </a>
-                <a href="javascript:;" class="btn btn-icon btn-label-google-plus me-3">
-                  <i class="tf-icons fa-brands fa-google fs-5"></i>
-                </a>
-                <a href="javascript:;" class="btn btn-icon btn-label-twitter">
-                  <i class="tf-icons fa-brands fa-twitter fs-5"></i>
-                </a>
-              </div>
             </div>
           </div>
           <!-- /Register -->
@@ -124,14 +104,29 @@
             const router = useRouter()
             const route = useRoute()
 
-            const login = async () => {
-                    await authStore.login({
-                        email: email.value,
-                        password: password.value,
-                    });
-                    // Redirect or perform any other action after successful login
-                    router.push("dashboard")
-            };
+            // const login = async () => {
+            //         await authStore.login({
+            //             email: email.value,
+            //             password: password.value,
+            //         });
+
+            //         router.push("dashboard")
+            // };
+         const login = async () => {
+                try {
+                  await authStore.login({
+                    email: email.value,
+                    password: password.value,
+                  });
+                  console.log(authStore.login)
+                  // Move the router push inside the try block
+                  router.push("dashboard");
+                } catch (error) {
+                  console.log(error)
+                  // Handle login error here, you can show a message to the user
+                  console.error('Login failed:', error.message);
+                }
+              };
             return {
                 email,
                 password,

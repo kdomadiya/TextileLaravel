@@ -610,7 +610,7 @@ export default {
     methods: {
         create() {
             // console.warn(this.menu)
-            axios.post('http://127.0.0.1:8000/api/store/order', this.store).then(response => {
+            axios.post('/api/store/order', this.store).then(response => {
                 this.$router.push({ name: "storeorder.index" })
             }).catch(error => {
                 console.log(error)
@@ -618,7 +618,7 @@ export default {
         },
         getgroups() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/store').then(response => {
+            axios.get('/api/store').then(response => {
                 this.stores = response.data.data
                 console.log(this.groups)
             }).catch(error => {
@@ -627,7 +627,7 @@ export default {
         },
         getorders() {
             // console.log(this.blogs)
-            axios.get('http://127.0.0.1:8000/api/order').then(response => {
+            axios.get('/api/order').then(response => {
                 this.orders = response.data.data
                 console.log(this.groups)
             }).catch(error => {
