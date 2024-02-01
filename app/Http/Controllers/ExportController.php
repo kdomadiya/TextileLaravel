@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\Product;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AccountsExport;
+use App\Imports\ImportFile;
 use Illuminate\Support\Facades\Storage;
 use PDF; 
 
@@ -68,15 +69,30 @@ class ExportController extends Controller
     ]);
    }
    public function generatePdf($modelClass){
-    // Fetch data from the database based on the model
-     $modelData = $modelClass::all();
-        $data = $modelData->toArray();
-        $modelInstance = new $modelClass;
-        $collect = $modelInstance->getFillable();
-       
-    // Load the view with data
-    $pdf = PDF::loadView('pdf.export', ['data' => $data,'collect' => $collect]);
-    // Return the PDF as a download
-    return $pdf->download('exported_data.pdf');
-}
+                // Fetch data from the database based on the model
+                $modelData = $modelClass::all();
+                    $data = $modelData->toArray();
+                    $modelInstance = new $modelClass;
+                    $collect = $modelInstance->getFillable();
+                    // Load the view with data
+                    $pdf = PDF::loadView('pdf.export', ['data' => $data,'collect' => $collect]);
+                    // Return the PDF as a download
+                    return $pdf->download('exported_data.pdf');
+                   }
+        public function import(Request $request){
+            $modelClass = $request->model;
+            $modelInstance = new $modelClass;
+            $columnMappings =  $modelInstance->getFillable();
+            if ($request->hasFile('file')) {
+                // dd($columnMappings);
+                $file = $request->file('file');
+                // Handle the file upload logic, for example, move it to storage.
+                $path = $file->storeAs('uploads', $file->getClientOriginalName());
+                
+                Excel::import(new ImportFile($modelClass, $columnMappings), $path);
+                return response()->json(['message' => 'File uploaded and processed successfully']);
+            }
+    
+            return response()->json(['error' => 'No file provided'], 400);
+        }
 }

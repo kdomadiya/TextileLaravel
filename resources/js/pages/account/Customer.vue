@@ -535,9 +535,9 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-4">
+                                       <div class="col-sm-12 col-md-8">
                                         <div class="dataTables_length row" id="DataTables_Table_0_length">
-                                      <div class="col-md-6">
+                                      <div class="col-md-3">
                                         <label>Show
                                                 <select name="DataTables_Table_0_length"
                                                     aria-controls="DataTables_Table_0" class="form-select">
@@ -549,27 +549,29 @@
                                                     <option value="100">100</option>
                                                 </select> entries</label>
                                            </div>
-                                           <div class="col-md-6">    
-                                           <label>Export
+                                           <div class="col-md-3 ">    
+                                           <label >Export
                                                 <select name="DataTables_Table_0_length" @change="onChange($event)"
                                                     aria-controls="DataTables_Table_0" class="form-select">
+                                                    <option value="" selected>Select Export</option>
                                                     <option value="xlsx">Excel</option>
                                                     <option value="csv">CSV</option>
                                                     <option value="pdf">PDF</option>
                                                 </select>
                                             </label>
                                             </div>
+                                            <div class="col-md-6 ">
+                                        <label class="d-flex">Import
+                                            <input type="file" class="ms-2 form-control" @change="handleFileChange"  >
+                                                </label>
+                                           </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-4">
                                     </div>
                                     <div
                                         class="col-sm-12 col-md-4 d-flex justify-content-center justify-content-md-end">
                                         <div id="DataTables_Table_0_filter" class="dataTables_filter">
                                             <label>Search:<input type="search" class="form-control" placeholder=""
-                                                    aria-controls="DataTables_Table_0">
-                                            </label>
-                                        </div>
+                                                    aria-controls="DataTables_Table_0"></label></div>
                                     </div>
                                 </div>
                                 <table class="datatables-basic table dataTable no-footer dtr-column"
@@ -737,6 +739,35 @@ export default {
                 this.datas = []
             })
         },
+        handleFileChange(event) {
+            console.log(event)
+      this.selectedFile = event.target.files[0];
+      this.uploadFile()
+    },
+    uploadFile() {
+      const formData = new FormData();
+      formData.append("file", this.selectedFile);
+      formData.append("model", 'App\\Models\\Account');
+       // Make sure to change the model dynamically if needed
+      const model = 'App\\Models\\Product';
+      try {
+        axios.post('/api/import_file',formData,{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }).then(response => {
+          // Handle the response here, e.g., show a success message
+          this.getaccount()
+        }).catch(error => {
+          // Handle errors, e.g., show an error message
+          console.error('Error uploading file:', error);
+        });
+        // Optionally: Display success message or redirect to another page.
+        console.log("File uploaded successfully!");
+      } catch (error) {
+        console.error("Error uploading file:", error);
+      }
+    },
         deleteAccount(id) {
             axios.delete(`/api/account/${id}`).then(response => {
                     this.getaccount()
